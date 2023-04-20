@@ -4,10 +4,11 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from "../../actions";
 
-
 const SignInPage = () => {
   const dispatch: any = useDispatch();
-
+  const { user } = useSelector((state: any) => state.authInitialState);
+  console.log(user);
+  
   return (
     <div className="flex flex-col justify-center items-center h-screen bg-blue-200 ">
       <div className="bg-white shadow-md rounded px-20 py-20 ">
@@ -26,7 +27,7 @@ const SignInPage = () => {
           })}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
-              dispatch(signIn(values.email, values.password ,"device-1"))
+              dispatch(signIn("jane@demo.com", "jane!123$" ,"device-1"))
               setSubmitting(false);
             }, 400);
           }}
