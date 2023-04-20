@@ -1,6 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 @import './assets/style/colors.scss';
 @import './assets/style/homePage.scss';
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,17 +14,10 @@ body, html {
   font-style: normal;
   background: $backgroundColor;
   font-family: 'Poppins', sans-serif;
-
-  zoom: 0.8;
-  zoom: 80%;
-  -moz-transform: scale(0.8, 0.8);
 }
 
 @media(max-width: 600px) { 
   body {
-    zoom: 0.8;
-    zoom: 80%;
-    -moz-transform: scale(0.8, 0.8);
   }
         
 }

@@ -1,11 +1,16 @@
 import React from "react";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useDispatch, useSelector } from 'react-redux';
+import { signIn } from "../../actions";
+
 
 const SignInPage = () => {
+  const dispatch: any = useDispatch();
+
   return (
-    <div className="flex items-center justify-center h-screen bg-primary">
-      <div className="bg-white shadow-md rounded px-20 py-20 my-">
+    <div className="flex flex-col justify-center items-center h-screen bg-blue-200 ">
+      <div className="bg-white shadow-md rounded px-20 py-20 ">
         <h1 className="text-3xl font-bold">Sign In</h1>
         <p className="py-4 text-gray-500">Login your account</p>
         <Formik
@@ -21,12 +26,12 @@ const SignInPage = () => {
           })}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
+              dispatch(signIn(values.email, values.password ,"device-1"))
               setSubmitting(false);
             }, 400);
           }}
         >
-          <Form className="flex flex-col justify-center ">
+          <Form className="flex flex-col justify-center">
             <label htmlFor="email" className="block font-bold mb-2 mt-6">
               Email Address
             </label>
@@ -47,6 +52,10 @@ const SignInPage = () => {
               Submit
             </button>
           </Form>
+
+
+
+          
         </Formik>
       </div>
     </div>
