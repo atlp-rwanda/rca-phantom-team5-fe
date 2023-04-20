@@ -15,16 +15,11 @@ body, html {
   background: $backgroundColor;
   font-family: 'Poppins', sans-serif;
 
-  zoom: 0.8;
-  zoom: 80%;
-  -moz-transform: scale(0.8, 0.8);
 }
 
 @media(max-width: 600px) { 
   body {
-    zoom: 0.8;
-    zoom: 80%;
-    -moz-transform: scale(0.8, 0.8);
+    overflow-x: hidden;
   }
         
 }
