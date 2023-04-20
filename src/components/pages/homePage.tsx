@@ -34,8 +34,11 @@ class App extends Component<any, any> {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <p>
+          <p> 
             { loading === true ? data.message : null }
+          </p>
+          <p className="text-3xl font-bold underline">
+            Tailwind working
           </p>
           <a
             target="_blank"
