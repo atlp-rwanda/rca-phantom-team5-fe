@@ -27,7 +27,7 @@ const SignInPage = () => {
           }}
         >
           <Form className="flex flex-col justify-center ">
-            <label htmlFor="email" className="block font-bold my-2">
+            <label htmlFor="email" className="block font-bold mb-2 mt-6">
               Email Address
             </label>
             <Field name="email" type="email" className="appearance-none border  border-gray-300 rounded w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Please Enter Your Email"/>
@@ -35,7 +35,7 @@ const SignInPage = () => {
                 { msg => <div className="text-red-500 my-1">{msg}</div> }
             </ErrorMessage>
 
-            <label htmlFor="password" className="block font-bold my-2">
+            <label htmlFor="password" className="block font-bold mb-2 mt-6">
               Password
             </label>
             <Field name="password" type="passowrd" className="appearance-none border border-gray-300 rounded w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Please Enter Your Password"/>
