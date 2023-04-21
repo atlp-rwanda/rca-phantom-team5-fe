@@ -4,6 +4,7 @@ import HomeScreen from 'screens/HomeScreen';
 import NotFoundScreen from 'screens/NotFoundScreen';
 import SignInScreen from 'screens/SignInScreen';
 import SignUpScreen from 'screens/SignUpScreen';
+import Dashboard from 'screens/Dashboaord';
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
         <Routes>
           <Route path='/' element={<HomeScreen />} />
           <Route path='/sign-up' element={<SignUpScreen />} />
-          <Route path='/sign-in' element={<SignInScreen />} />
+          <Route path='/login' element={<SignInScreen />} />
+          <Route path='/dashboard' element={<Dashboard />} />
           <Route path='*' element={<NotFoundScreen />} />
         </Routes>
       </Layout>
