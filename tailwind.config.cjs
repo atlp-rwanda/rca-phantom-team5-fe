@@ -11,6 +11,10 @@ module.exports = {
         11: '11',
         12: '12',
       },
+      colors: {
+        primary: '#233862',
+        orange: "#FFA500",
+      },
     },
   },
   variants: {
