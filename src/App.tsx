@@ -4,6 +4,7 @@ import HomeScreen from 'screens/HomeScreen';
 import NotFoundScreen from 'screens/NotFoundScreen';
 import SignInScreen from 'screens/SignInScreen';
 import SignUpScreen from 'screens/SignUpScreen';
+import Sidebar from 'layouts/Sidebar';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path='/sign-up' element={<SignUpScreen />} />
           <Route path='/sign-in' element={<SignInScreen />} />
           <Route path='*' element={<NotFoundScreen />} />
+          <Route path='/dashbord' element={<Sidebar/>} />
         </Routes>
       </Layout>
     </Router>
