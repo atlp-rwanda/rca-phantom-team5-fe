@@ -1,6 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AnyAction, Dispatch } from 'redux';
 import axios from 'axios';
 import baseUrl from 'utils/url';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { RootState } from '../store';
+import authReducer, { logoutSuccess, logoutFailure } from '../slice/authSlice';
+
+
 
 export const login = createAsyncThunk(
   'auth/login',
@@ -14,3 +20,20 @@ export const login = createAsyncThunk(
     }
   }
 );
+
+export const logout = createAsyncThunk('auth/logout', async (thunkAPI) => {
+  try {
+    const token = localStorage.getItem('userToken');
+    const data = await axios.delete(`${baseUrl}/auth/logout`, { headers: { Authorization: `Bearer ${token}` } });
+      thunkAPI.dispatch(logoutSuccess());
+  } catch (error: any) {
+    console.error(error);
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+ 
+
+
+
+
+

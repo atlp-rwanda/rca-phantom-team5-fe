@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Logout from '../components/Logout';
+import Logout from '../screens/LogoutScreen';
 const Sidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
