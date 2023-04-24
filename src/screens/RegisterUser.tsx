@@ -17,9 +17,9 @@ export default function RegisterUserScreen() {
   };
 
   return (
-    <div className='flex h-screen flex-col items-center justify-center bg-primary '>
+    <div className='flex h-screen flex-col items-center justify-center bg-primary max-[768px]:h-full '>
       <div className='w-9/12 rounded bg-white px-20 py-10 shadow-md '>
-        <h1 className='text-center text-3xl font-bold'>Register A User</h1>
+        <h1 className='text-center text-3xl font-bold  max-[768px]:text-2xl'>Register A User</h1>
         <Formik
           initialValues={{ fname: '', lname: '', nid: '', email: '', role: '', driver_licence: [] }}
           validationSchema={Yup.object({
@@ -62,8 +62,8 @@ export default function RegisterUserScreen() {
             }, 400);
           }}
         >
-          <Form className='justify-center'>
-            <div className='grid grid-cols-2'>
+          <Form className='h-full'>
+            <div className='grid grid-cols-2 max-[768px]:flex max-[768px]:flex-col'>
               <div>
                 <label htmlFor='fname' className='mb-2 mt-6 block font-bold'>
                   First Name
@@ -71,7 +71,7 @@ export default function RegisterUserScreen() {
                 <Field
                   name='fname'
                   type='text'
-                  className='focus:shadow-outline w-10/12  appearance-none rounded border border-gray-300 py-4 px-6 leading-tight text-gray-700 focus:outline-none'
+                  className='focus:shadow-outline w-10/12 max-[768px]:w-full appearance-none rounded border border-gray-300 py-4 px-6 leading-tight text-gray-700 focus:outline-none'
                   placeholder='Please Enter Your First Name'
                 />
                 <ErrorMessage name='fname'>{(msg) => <div className='my-1 text-red-500'>{msg}</div>}</ErrorMessage>
@@ -83,7 +83,7 @@ export default function RegisterUserScreen() {
                 <Field
                   name='lname'
                   type='text'
-                  className='focus:shadow-outline w-10/12 appearance-none rounded border border-gray-300 py-4 px-6 leading-tight text-gray-700 focus:outline-none'
+                  className='focus:shadow-outline w-10/12  max-[768px]:w-full appearance-none rounded border border-gray-300 py-4 px-6 leading-tight text-gray-700 focus:outline-none'
                   placeholder='Please Enter Your Last Name'
                 />
                 <ErrorMessage name='lname'>{(msg) => <div className='my-1 text-red-500'>{msg}</div>}</ErrorMessage>
@@ -96,7 +96,7 @@ export default function RegisterUserScreen() {
                 <Field
                   name='nid'
                   type='text'
-                  className='focus:shadow-outline w-10/12  appearance-none rounded border border-gray-300 py-4 px-6 leading-tight text-gray-700 focus:outline-none'
+                  className='focus:shadow-outline w-10/12  appearance-none  max-[768px]:w-full rounded border border-gray-300 py-4 px-6 leading-tight text-gray-700 focus:outline-none'
                   placeholder='Please Enter Your National ID'
                 />
                 <ErrorMessage name='nid'>{(msg) => <div className='my-1 text-red-500'>{msg}</div>}</ErrorMessage>
@@ -109,7 +109,7 @@ export default function RegisterUserScreen() {
                 <Field
                   name='email'
                   type='email'
-                  className='focus:shadow-outline w-10/12  appearance-none rounded border border-gray-300 py-4 px-6 leading-tight text-gray-700 focus:outline-none'
+                  className='focus:shadow-outline w-10/12  max-[768px]:w-full  appearance-none rounded border border-gray-300 py-4 px-6 leading-tight text-gray-700 focus:outline-none'
                   placeholder='Please Enter Your Email'
                 />
                 <ErrorMessage name='email'>{(msg) => <div className='my-1 text-red-500'>{msg}</div>}</ErrorMessage>
@@ -124,7 +124,7 @@ export default function RegisterUserScreen() {
                   onChange={getInput}
                   name='role'
                   value={selected}
-                  className='focus:shadow-outline  w-10/12  rounded border border-gray-300 py-4 px-6 leading-tight text-gray-700 focus:outline-none'
+                  className='focus:shadow-outline  w-10/12  max-[768px]:w-full  rounded border border-gray-300 py-4 px-6 leading-tight text-gray-700 focus:outline-none'
                   placeholder='select the role'
                 >
                   <option value={selected}>{selected}</option>
@@ -135,7 +135,7 @@ export default function RegisterUserScreen() {
               </div>
 
               {selected === 'driver' ? (
-                <div className=''>
+                <div className='max-[768px]:flex max-[768px]:flex-col'>
                   <label htmlFor='lecence' className='mb-4 mt-6 block font-bold'>
                     Driver's Licence
                   </label>
@@ -163,10 +163,10 @@ export default function RegisterUserScreen() {
                 <div></div>
               )}
             </div>
-            <div className='item-center flex justify-center'>
+            <div className='item-center flex justify-center max-[768px]:justify-normal'>
               <button
                 type='submit'
-                className='focus:shadow-outline mt-4 w-5/12 rounded bg-primary py-4 px-4 font-bold text-white focus:outline-none'
+                className='focus:shadow-outline mt-4 w-5/12 max-[768px]:w-full rounded bg-primary py-4 px-4 font-bold text-white focus:outline-none'
               >
                 Create
               </button>
