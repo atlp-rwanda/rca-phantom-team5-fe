@@ -3,21 +3,27 @@ import { Field, Form, Formik,ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { RegisterUser } from 'redux/api/authApi';
+import { RegisterUser } from '../redux/api/authApi';
 
 
 
 export default function RegisterUserScreen(){
    const [errortext, setErrortext] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+   const [selected, setSelected] = useState("");
   const dispatch: any = useDispatch();
   const navigate = useNavigate();
+
+   const getInput = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+    setSelected(e.target.value);
+  };
+  
   return (
     <div className="flex flex-col justify-center items-center h-screen bg-primary ">
       <div className="bg-white shadow-md rounded px-20 py-10 w-9/12 ">
         <h1 className="text-3xl font-bold text-center">Register A User</h1>
         <Formik
-          initialValues={{fname:"", lname: "", nid: "", email:"", role:"", licence:[] }}
+          initialValues={{fname:"", lname: "", nid: "", email:"", role:"", driver_licence:[] }}
           validationSchema={Yup.object({
             fname: Yup.string().min(3, "Too Short!").max(15, "Too Long!").required("Required"),
             lname: Yup.string().min(3, "Too Short!").max(15, "Too Long!").required("Required"),
@@ -33,8 +39,8 @@ export default function RegisterUserScreen(){
                 lname:values.lname,
                 nid: values.nid, 
                 email:values.email,
-                role:values.role,
-                driver_licence:["A","B"]}));
+                role:selected,
+                driver_licence:values.driver_licence}));
               if (RegisterUser.fulfilled.match(resultAction)) {
                 setErrortext("");
                 setLoading(false);
@@ -97,35 +103,23 @@ export default function RegisterUserScreen(){
             <label htmlFor="role" className="block font-bold mb-2 mt-6">
               Select Role
             </label>
-            <Field as="select" name="role" className="border  border-gray-300  rounded w-10/12 py-4 px-6 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="select the role">
-                    <option value="driver" >Driver</option>
+            <Field as="select" name="role" onChange={getInput} 
+            value={selected}  className="border  border-gray-300  rounded w-10/12 py-4 px-6 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="select the role">
+                    <option value={selected}>{selected}</option>
+                    <option value="driver">Driver</option>
                     <option value="operator">Operator</option>
               </Field>
             <ErrorMessage name="role">
                 { msg => <div className="text-red-500 my-1">{msg}</div> }
             </ErrorMessage>
             </div>
-
-
-            <div>
-            <label htmlFor="lecence" className="block font-bold mb-4 mt-6">
-              Driver's Licence
-            </label>
-            
-           <label className="text-xl px-2">A<Field type="checkbox" name="checked" value="A" className="w-6 h-6 rounded ml-1"/></label>
-           <label className="text-xl px-2">B<Field type="checkbox" name="checked" value="B" className="w-6 h-6 rounded ml-1" /></label>
-           <label className="text-xl px-2">C<Field type="checkbox" name="checked" value="C" className="w-6 h-6 rounded ml-1"/></label>
-           <label className="text-xl px-2">D<Field type="checkbox" name="checked" value="D" className="w-6 h-6 rounded ml-1"/></label>
-           <label className="text-xl px-2">E<Field type="checkbox" name="checked" value="E" className="w-6 h-6 rounded ml-1"/></label>
-           <label className="text-xl px-2">F<Field type="checkbox" name="checked" value="F" className="w-6 h-6 rounded ml-1"/></label>
-            <ErrorMessage name="licence">
-                { msg => <div className="text-red-500 my-1">{msg}</div> }
-            </ErrorMessage>
-            </div>
           
-            </div>
+          
+         {(selected==="driver")?
+         <div className=""><label htmlFor="lecence" className="block font-bold mb-4 mt-6">Driver's Licence</label><label className="text-xl px-2">A<Field type="checkbox" name="driver_licence" value="A" className="w-6 h-6 rounded ml-1"/></label><label className="text-xl px-2">B<Field type="checkbox" name="driver_licence" value="B" className="w-6 h-6 rounded ml-1" /></label><label className="text-xl px-2">C<Field type="checkbox" name="driver_licence" value="C" className="w-6 h-6 rounded ml-1"/></label><label className="text-xl px-2">D<Field type="checkbox" name="driver_licence" value="D" className="w-6 h-6 rounded ml-1"/></label><label className="text-xl px-2">E<Field type="checkbox" name="driver_licence" value="E" className="w-6 h-6 rounded ml-1"/></label><label className="text-xl px-2">F<Field type="checkbox" name="driver_licence" value="F" className="w-6 h-6 rounded ml-1"/></label><ErrorMessage name="licence">{ msg => <div className="text-red-500 my-1">{msg}</div> }</ErrorMessage></div>
+         : <div></div>}
 
-       
+       </div>
              <div className="flex item-center justify-center">
              <button type="submit" className="bg-primary w-5/12 text-white font-bold py-4 px-4 mt-4 rounded focus:outline-none focus:shadow-outline">
               Create
@@ -141,6 +135,6 @@ export default function RegisterUserScreen(){
       </div>
     </div>
   );
-};
+}
 
 

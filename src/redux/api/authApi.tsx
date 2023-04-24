@@ -6,13 +6,16 @@ import baseUrl from 'utils/url';
 
 
 export const RegisterUser = createAsyncThunk(
-  'auth/login',
+  'auth/register-user',
   async (payload: {fname: string, lname: string,nid: string,email:string,role:string,driver_licence:string[]}, thunkAPI) => {
        console.log(payload)
+
     try {
-      // const { data } = await axios.post(`${baseUrl}/auth/register-user`, payload);
-      // console.log(data);
-      // return data;
+  
+    //   const { data } = await axios.post(`${baseUrl}/auth/register-user`, payload, {headers: {
+    // 'Authorization': `Bearer `} } );
+    //   console.log(data);
+    //   return data;
     } catch (error: any) {
       // return thunkAPI.rejectWithValue(error.response.data);
     }
