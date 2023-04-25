@@ -20,6 +20,7 @@ export const RegisterUser = createAsyncThunk(
         const { data } = await axios.post(`${baseUrl}/auth/register-user`, requestData);
         return data;
       }
+
       const { data } = await axios.post(`${baseUrl}/auth/register-user`, payload);
       return data;
     } catch (error: any) {
