@@ -5,6 +5,7 @@ import NotFoundScreen from 'screens/NotFoundScreen';
 import SignInScreen from 'screens/SignInScreen';
 import SignUpScreen from 'screens/SignUpScreen';
 import Dashboard from 'screens/Dashboaord';
+import RegisterUserScreen from 'screens/RegisterUser';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path='/sign-up' element={<SignUpScreen />} />
           <Route path='/login' element={<SignInScreen />} />
           <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/register-user' element={<RegisterUserScreen />} />
           <Route path='*' element={<NotFoundScreen />} />
         </Routes>
       </Layout>
