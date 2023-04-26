@@ -12,29 +12,6 @@ export default function PasswordReset() {
   const [errorText, setErrorText] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch: any = useDispatch();
-  /**  const params = new URLSearchParams(window.location.search);
-  const token = params.get('token');
-  const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
-
-  const submitHandler = async (e: any) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      console.log("Passwords don't match.");
-      return;
-    }
-    try {
-      const { data } = await axios.put(`http://localhost:3000/api/auth/reset-password/${token}`, {
-        password,
-      });
-      console.log(`${data} Password updated successfully`);
-      navigate('/login');
-      console.log(data.message);
-    } catch (error) {
-      console.log(getError(error));
-    }
-  };
-  */
   return (
     <div className='bg-primary'>
       <div className='flex min-h-screen flex-col justify-center  py-12 sm:px-6 lg:px-8 '>
