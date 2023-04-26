@@ -1,32 +1,15 @@
 import React, { useState } from 'react';
 import { Oval } from 'react-loader-spinner';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { sendEmail } from '../redux/api/passwordResetEmailApi';
 
 export default function RequestPasswordReset() {
-  /** const [email, setEmail] = useState();
-  const [loading, setLoading] = useState<boolean>(false);
-  const submitHandler = async (e: any) => {
-    e.preventDefault();
-    try {
-      const { data } = await axios.post('http://localhost:3000/api/auth/reset-password-email', {
-        email,
-      });
-      console.log(data.message);
-    } catch (error) {
-      console.log(getError(error));
-    }
-  };
-  */
   const [errorText, setErrorText] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch: any = useDispatch();
-  const navigate = useNavigate();
-
   return (
     <div className='bg-primary'>
       <div className='flex min-h-screen flex-col justify-center  py-12 sm:px-6 lg:px-8 '>
@@ -48,7 +31,6 @@ export default function RequestPasswordReset() {
                     setErrorText('');
                     setLoading(false);
                     setSubmitting(false);
-                    navigate('/login');
                   } else {
                     if (resultAction.payload) {
                       setErrorText(resultAction.payload.message);
