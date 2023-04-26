@@ -30,10 +30,10 @@ const authSlice = createSlice({
       localStorage.setItem('userToken', action.payload.data.access_token)
     })
     builder.addCase(login.rejected, (state, action) => {
-      state.loading = false
+      state.loading = false;
     })
   }
 })
 
-export default authSlice.reducer
+export default authSlice.reducer;
 
