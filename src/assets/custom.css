@@ -1,6 +1,6 @@
 li:hover::before,
 li:focus::before {
-  content: '\2022';
+  content: '\2023';
   display: inline-block;
   margin-right: 10px;
   font-size: 10px;

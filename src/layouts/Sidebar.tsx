@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Logout from '../screens/LogoutScreen';
 import { Dashboard, DirectionsBus, Settings, Timeline } from '@material-ui/icons';
-import '../../src/assets/custom.css';
+// import '../../src/assets/custom.css';
+import { Link } from 'react-router-dom';
 
 const Sidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,32 +48,42 @@ const Sidebar: React.FC = () => {
           </h1>
         </nav>
         <div>
-          <ul className='mx-4 mt-3 lg:mt-2'>
-            <li className='my-2 flex items-center py-2'>
-              <Dashboard className='mr-4 mt-1 h-6 w-6 text-white' />
-              <a href='' className=' group ml-2 text-white'>
-                Overview
-              </a>
-            </li>
-            <li className='my-2 flex items-center py-2'>
-              <div className='group flex items-center '>
-                <DirectionsBus className='h-6 w-6 text-white' />
-                <a href='' className='ml-2 text-white'>
-                  Buses
-                </a>
+          <ul className='mt-3 lg:mt-2'>
+            <li className='group my-2  flex items-center py-2'>
+              <div className='h-49  mr-4 w-2 bg-primary text-primary group-hover:bg-orange group-hover:text-orange'>
+                l
               </div>
+              <Dashboard className='h-6 w-6 text-white' />
+              <Link to='' className='ml-2 text-white group-hover:text-orange'>
+                Overview
+              </Link>
             </li>
-            <li className='my-2 flex items-center py-2'>
-              <Timeline className='h-6 w-6 text-white' />
-              <a href='' className='group ml-2 text-white'>
+            <li className='group my-2  flex items-center py-2'>
+              <div className='h-49  mr-4 w-2 bg-primary text-primary group-hover:bg-orange group-hover:text-orange'>
+                l
+              </div>
+              <DirectionsBus className='h-6 w-6 text-white' />
+              <Link to='' className='ml-2 text-white group-hover:text-orange'>
+                Buses
+              </Link>
+            </li>
+            <li className='group my-2  flex items-center py-2'>
+              <div className='h-49  mr-4 w-2 bg-primary text-primary group-hover:bg-orange group-hover:text-orange'>
+                l
+              </div>
+              <Timeline className='h-6 w-6 text-white group-hover:text-orange' />
+              <Link to='' className='ml-2 text-white group-hover:text-orange'>
                 Routes
-              </a>
+              </Link>
             </li>
-            <li className='my-2 flex items-center py-2'>
-              <Dashboard className='mr-4 h-6 w-6 text-white' />
-              <a href='' className='group ml-2 text-white'>
+            <li className='group my-2  flex items-center py-2'>
+              <div className='h-49  mr-4 w-2 bg-primary text-primary group-hover:bg-orange group-hover:text-orange'>
+                l
+              </div>
+              <Settings className='h-6 w-6 text-white group-hover:text-orange' />
+              <Link to='' className='ml-2 text-white group-hover:text-orange'>
                 Settings
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
