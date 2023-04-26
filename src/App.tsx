@@ -4,6 +4,7 @@ import Dashboard from 'screens/Dashboaord';
 import HomeScreen from 'screens/HomeScreen';
 import NotFoundScreen from 'screens/NotFoundScreen';
 import PasswordReset from 'screens/PasswordResetScreen';
+import RegisterUserScreen from 'screens/RegisterUser';
 import RequestPasswordReset from 'screens/RequestPasswordResetScreen';
 import SignInScreen from 'screens/SignInScreen';
 import SignUpScreen from 'screens/SignUpScreen';
@@ -19,6 +20,7 @@ function App() {
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/reset-password' element={<PasswordReset />} />
           <Route path='/request-password-reset' element={<RequestPasswordReset />} />
+          <Route path='/register-user' element={<RegisterUserScreen />} />
           <Route path='*' element={<NotFoundScreen />} />
         </Routes>
       </Layout>
