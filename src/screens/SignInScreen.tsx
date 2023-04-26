@@ -14,7 +14,7 @@ export default function SignInScreen() {
   const navigate = useNavigate();
 
   return (
-    <div className='flex h-screen flex-col items-center justify-center bg-primary '>
+    <div className='bg-primary flex h-screen flex-col items-center justify-center '>
       <div className='rounded bg-white p-16'>
         <h1 className='text-2xl font-bold'>Sign In</h1>
         <p className='border-gray-300 py-1 text-base'>Login your account</p>
@@ -24,7 +24,7 @@ export default function SignInScreen() {
             email: Yup.string().email('Invalid email address').required('Required'),
             password: Yup.string().min(6, 'Too Short!').max(50, 'Too Long!').required('Required'),
           })}
-          onSubmit={(values: { email: any; password: any }, { setSubmitting }: any) => {
+          onSubmit={(values, { setSubmitting }) => {
             setTimeout(async () => {
               setLoading(true);
               const resultAction = await dispatch(
