@@ -21,6 +21,7 @@ export const login = createAsyncThunk(
 export const logout = createAsyncThunk('auth/logout', async () => {
   try {
     const token = localStorage.getItem('userToken');
+    console.log(token);
     const data = await axios.delete(`${baseUrl}/auth/logout`, { headers: { Authorization: `Bearer ${token}` } });
   } catch (error: any) {
     console.error(error);

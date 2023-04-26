@@ -1,27 +1,29 @@
 import React from 'react';
-import { FaExchangeAlt } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
+import { IoSwapHorizontalSharp } from 'react-icons/io5';
 import { logout } from '../redux/api/authApi';
-
+import { useNavigate } from 'react-router';
 
 const Logout = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleLogout = async () => {
+  const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     await dispatch(logout() as any);
-    
-    // Redirect the user to the login screen or home page
+    navigate('/login');
   };
 
   return (
-    <div className="mt-6">
-      <div className="border-t ml-3 mb-6 w-3/4"></div>
-      <div className="flex items-center justify-start px-4 py-2 text-sm font-medium text-white">
-        <div className="ml-5 flex">
-          <div className="mr-1">
-            <FaExchangeAlt />
+    <div className='mt-6'>
+      <div className='ml-3 mb-6 w-3/4 border-t'></div>
+      <div></div>
+      <div className='flex items-center justify-start px-4 py-2 text-sm font-medium text-white'>
+        <div className='ml-5 flex'>
+          <div className='mr-1'>
+            <IoSwapHorizontalSharp />
           </div>
-          <button onClick={handleLogout} className="ml-1">
+          <button onClick={handleLogout} className='ml-1'>
             Log out
           </button>
         </div>

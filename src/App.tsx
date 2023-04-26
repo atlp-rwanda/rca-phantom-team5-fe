@@ -15,7 +15,7 @@ function App() {
           <Route path='/sign-up' element={<SignUpScreen />} />
           <Route path='/login' element={<SignInScreen />} />
           <Route path='*' element={<NotFoundScreen />} />
-          <Route path='/dashbord' element={<Sidebar/>} />
+          <Route path='/dashboard' element={<Sidebar/>} />
         </Routes>
       </Layout>
     </Router>
