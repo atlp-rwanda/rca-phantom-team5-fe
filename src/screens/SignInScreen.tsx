@@ -1,22 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Field, Form, Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/api/authApi';
 import { Oval } from 'react-loader-spinner';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
-export default function SignInScreen (){
-  const [errortext, setErrortext] = useState<string>("");
+export default function SignInScreen() {
+  const [errortext, setErrortext] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch: any = useDispatch();
   const navigate = useNavigate();
- 
+
   return (
     <div className='flex h-screen flex-col items-center justify-center bg-primary '>
       <div className='rounded bg-white px-16 py-16 '>
         <h1 className='text-2xl font-bold'>Sign In</h1>
-        <p className='py-1 text-base border-gray-300'>Login your account</p>
+        <p className='border-gray-300 py-1 text-base'>Login your account</p>
         <Formik
           initialValues={{ email: '', password: '' }}
           validationSchema={Yup.object({
@@ -24,16 +25,18 @@ export default function SignInScreen (){
             password: Yup.string().min(6, 'Too Short!').max(50, 'Too Long!').required('Required'),
           })}
           onSubmit={(values, { setSubmitting }) => {
-            setTimeout( async() => {
+            setTimeout(async () => {
               setLoading(true);
-              const resultAction = await dispatch(login({ email: values.email, password: values.password, device_id: window.location.hostname }));
+              const resultAction = await dispatch(
+                login({ email: values.email, password: values.password, device_id: window.location.hostname }),
+              );
               if (login.fulfilled.match(resultAction)) {
-                setErrortext("");
+                setErrortext('');
                 setLoading(false);
                 setSubmitting(false);
                 navigate('/dashboard');
               } else {
-                if(resultAction.payload){
+                if (resultAction.payload) {
                   setErrortext(resultAction.payload.message);
                 }
                 setErrortext(resultAction.payload.message);
@@ -53,7 +56,7 @@ export default function SignInScreen (){
               className='focus:shadow-outline w-full  appearance-none rounded border border-gray-300 py-4 px-6 leading-tight text-gray-700 focus:outline-none'
               placeholder='Please Enter Your Email'
             />
-            <ErrorMessage name='email'>{(msg) => <div className='my-1 text-red-500 text-xs'>{msg}</div>}</ErrorMessage>
+            <ErrorMessage name='email'>{(msg) => <div className='my-1 text-xs text-red-500'>{msg}</div>}</ErrorMessage>
 
             <label htmlFor='password' className='mb-2 mt-6 font-semibold'>
               Password
@@ -64,29 +67,35 @@ export default function SignInScreen (){
               className='focus:shadow-outline w-full appearance-none rounded border border-gray-300 py-4 px-6 leading-tight text-gray-700 focus:outline-none'
               placeholder='Please Enter Your Password'
             />
-            <ErrorMessage name='password'>{(msg) => <div className='my-1 text-red-500 text-xs'>{msg}</div>}</ErrorMessage>
-            <div>{
-              (errortext && <div className='my-1 text-red-500 text-xs'>{errortext}</div>)
-              }</div>
+            <ErrorMessage name='password'>
+              {(msg) => <div className='my-1 text-xs text-red-500'>{msg}</div>}
+            </ErrorMessage>
+            <div>{errortext && <div className='my-1 text-xs text-red-500'>{errortext}</div>}</div>
+            <div className='flex justify-end py-2'>
+              <Link to='/forgot-password' className='text-xs font-bold text-primary'>
+                Forgot Password?
+              </Link>
+            </div>
             <button
               type='submit'
-              className='bg-primary flex items-center justify-center focus:shadow-outline mt-4 rounded py-4 px-4 font-bold text-white focus:outline-none'
+              className='focus:shadow-outline mt-4 flex items-center justify-center rounded bg-primary py-4 px-4 font-bold text-white focus:outline-none'
             >
-              {
-                (loading?  <Oval
+              {loading ? (
+                <Oval
                   height={20}
                   width={20}
-                  color="#fff"
+                  color='#fff'
                   wrapperStyle={{}}
-                  wrapperClass=""
+                  wrapperClass=''
                   visible={true}
                   ariaLabel='oval-loading'
-                  secondaryColor="#ccc"
+                  secondaryColor='#ccc'
                   strokeWidth={2}
                   strokeWidthSecondary={2}
-                
-                />: "Sign In")
-              }
+                />
+              ) : (
+                'Sign In'
+              )}
             </button>
           </Form>
         </Formik>
