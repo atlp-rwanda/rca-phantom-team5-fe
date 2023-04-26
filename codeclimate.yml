@@ -1,0 +1,12 @@
+version: '2'
+plugins:
+  node:
+    enabled: true
+  code-coverage:
+    enabled: true
+    debug: true
+    require-tests: true
+    reporter: lcov
+    output-format: json
+    input:
+      - ./coverage/lcov.info
