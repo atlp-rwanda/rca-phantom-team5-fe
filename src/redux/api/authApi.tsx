@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 import baseUrl from 'utils/url';
 
 export const RegisterUser = createAsyncThunk(
@@ -49,3 +50,31 @@ export const login = createAsyncThunk(
     }
   },
 );
+
+export const useFetchData = () => {
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('userToken');
+        const { data: response } = await axios.get(`${baseUrl}/users/get-profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  return {
+    data,
+    loading,
+  };
+};
