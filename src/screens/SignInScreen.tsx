@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Oval } from 'react-loader-spinner';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -14,7 +15,7 @@ export default function SignInScreen() {
   const navigate = useNavigate();
 
   return (
-    <div className='bg-primary flex h-screen flex-col items-center justify-center '>
+    <div className='flex h-screen flex-col items-center justify-center bg-primary '>
       <div className='rounded bg-white p-16'>
         <h1 className='text-2xl font-bold'>Sign In</h1>
         <p className='border-gray-300 py-1 text-base'>Login your account</p>
@@ -71,9 +72,14 @@ export default function SignInScreen() {
               {(msg) => <div className='my-1 text-xs text-red-500'>{msg}</div>}
             </ErrorMessage>
             <div>{errortext && <div className='my-1 text-xs text-red-500'>{errortext}</div>}</div>
+            <div className='flex justify-end py-2'>
+              <Link to='/request-password-reset' className='text-xs font-bold text-primary'>
+                Forgot Password?
+              </Link>
+            </div>
             <button
               type='submit'
-              className='focus:shadow-outline bg-primary mt-4 flex items-center justify-center rounded p-4 font-bold text-white focus:outline-none'
+              className='focus:shadow-outline mt-4 flex items-center justify-center rounded bg-primary p-4 font-bold text-white focus:outline-none'
             >
               {loading ? (
                 <Oval

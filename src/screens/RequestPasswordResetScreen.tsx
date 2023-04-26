@@ -8,6 +8,8 @@ import { sendEmail } from '../redux/api/passwordResetEmailApi';
 
 export default function RequestPasswordReset() {
   const [errorText, setErrorText] = useState<string>('');
+  const [success, setSuccess] = useState<string>('');
+  const [emailSent, setEmailSent] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch: any = useDispatch();
   return (
@@ -29,6 +31,8 @@ export default function RequestPasswordReset() {
                   const resultAction = await dispatch(sendEmail({ email: values.email }));
                   if (sendEmail.fulfilled.match(resultAction)) {
                     setErrorText('');
+                    setSuccess(resultAction.payload.message);
+                    setEmailSent(true);
                     setLoading(false);
                     setSubmitting(false);
                   } else {
@@ -61,33 +65,63 @@ export default function RequestPasswordReset() {
                     <ErrorMessage name='email'>
                       {(msg) => <div className='my-1 text-xs text-red-500'>{msg}</div>}
                     </ErrorMessage>
+                    <div>{errorText && <div className='my-1 text-xs text-red-500'>{errorText}</div>}</div>
                   </div>
                 </div>
 
                 <div>
-                  <button
-                    type='submit'
-                    className='flex w-full justify-center rounded-md border border-transparent
+                  {emailSent ? (
+                    <div>
+                      {success && <div className='pb-3 text-xs text-green-700'>{success}!</div>}
+                      <button
+                        type='submit'
+                        className='flex w-full justify-center rounded-md border border-transparent
                    bg-primary py-2 px-4 text-sm font-medium text-white
                     shadow-sm hover:bg-primary'
-                  >
-                    {loading ? (
-                      <Oval
-                        height={20}
-                        width={20}
-                        color='#fff'
-                        wrapperStyle={{}}
-                        wrapperClass=''
-                        visible
-                        ariaLabel='oval-loading'
-                        secondaryColor='#ccc'
-                        strokeWidth={2}
-                        strokeWidthSecondary={2}
-                      />
-                    ) : (
-                      'Request'
-                    )}
-                  </button>
+                      >
+                        {loading ? (
+                          <Oval
+                            height={20}
+                            width={20}
+                            color='#fff'
+                            wrapperStyle={{}}
+                            wrapperClass=''
+                            visible
+                            ariaLabel='oval-loading'
+                            secondaryColor='#ccc'
+                            strokeWidth={2}
+                            strokeWidthSecondary={2}
+                          />
+                        ) : (
+                          'Resend'
+                        )}
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      type='submit'
+                      className='flex w-full justify-center rounded-md border border-transparent
+                   bg-primary py-2 px-4 text-sm font-medium text-white
+                    shadow-sm hover:bg-primary'
+                    >
+                      {loading ? (
+                        <Oval
+                          height={20}
+                          width={20}
+                          color='#fff'
+                          wrapperStyle={{}}
+                          wrapperClass=''
+                          visible
+                          ariaLabel='oval-loading'
+                          secondaryColor='#ccc'
+                          strokeWidth={2}
+                          strokeWidthSecondary={2}
+                        />
+                      ) : (
+                        'Request'
+                      )}
+                    </button>
+                  )}
                 </div>
               </Form>
             </Formik>
