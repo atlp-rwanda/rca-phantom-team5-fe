@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { Oval } from 'react-loader-spinner';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import * as Yup from 'yup';
 
-import { getError } from '../utils/error';
+import { resetPassword } from '../redux/api/resetPasswordApi';
 
 export default function PasswordReset() {
   const navigate = useNavigate();
-  const params = new URLSearchParams(window.location.search);
+  const [errorText, setErrorText] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const dispatch: any = useDispatch();
+  /**  const params = new URLSearchParams(window.location.search);
   const token = params.get('token');
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
@@ -28,6 +34,7 @@ export default function PasswordReset() {
       console.log(getError(error));
     }
   };
+  */
   return (
     <div className='bg-primary'>
       <div className='flex min-h-screen flex-col justify-center  py-12 sm:px-6 lg:px-8 '>
@@ -42,58 +49,111 @@ export default function PasswordReset() {
                 </a>
               </p>
             </div>
-            <form className='space-y-6' onSubmit={submitHandler}>
-              <div>
-                <label htmlFor='password' className='block text-sm font-medium text-gray-700'>
-                  New password
-                </label>
-                <div className='mt-1'>
-                  <input
-                    id='password'
-                    name='password'
-                    type='password'
-                    autoComplete='current-password'
-                    required
-                    className='focus:primar focus:border-primary block w-full appearance-none rounded-md border border-gray-300 px-3
-                            py-2 shadow-sm placeholder:text-gray-400 focus:outline-none
+            <Formik
+              initialValues={{ password: '', confirm_password: '' }}
+              validationSchema={Yup.object({
+                password: Yup.string()
+                  .min(6, 'Password must be at least 6 characters!')
+                  .max(50, 'Too Long!')
+                  .required('Required'),
+                confirm_password: Yup.string()
+                  .min(6, 'Password must be at least 6 characters!')
+                  .max(50, 'Too Long!')
+                  .required('Required'),
+              })}
+              onSubmit={(values: { password: ''; confirm_password: '' }, { setSubmitting }: any) => {
+                setTimeout(async () => {
+                  setLoading(true);
+                  const resultAction = await dispatch(
+                    resetPassword({ password: values.password, confirm_password: values.confirm_password }),
+                  );
+                  if (resetPassword.fulfilled.match(resultAction)) {
+                    setErrorText('');
+                    setLoading(false);
+                    setSubmitting(false);
+                    navigate('/login');
+                  }
+                  if (values.password !== values.confirm_password) {
+                    setErrorText('Passwords do not match');
+                    setLoading(false);
+                    setSubmitting(false);
+                  } else {
+                    if (resultAction.payload) {
+                      setErrorText(resultAction.payload.message);
+                    }
+                    setErrorText(resultAction.payload.message);
+                  }
+                  setLoading(false);
+                  setSubmitting(false);
+                }, 300);
+              }}
+            >
+              <Form className='space-y-6'>
+                <div>
+                  <label htmlFor='password' className='block text-sm font-medium text-gray-700'>
+                    New password
+                  </label>
+                  <div className='mt-1'>
+                    <Field
+                      id='password'
+                      name='password'
+                      type='password'
+                      autoComplete='current-password'
+                      required
+                      className='focus:primary block w-full appearance-none rounded-md border border-gray-300 px-3 py-2
+                            shadow-sm placeholder:text-gray-400 focus:border-primary focus:outline-none
                              focus:placeholder:text-gray-500 sm:text-sm'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
+                    />
+                  </div>
                 </div>
-              </div>
-
-              <div>
-                <label htmlFor='confirm_password' className='block text-sm font-medium text-gray-700'>
-                  Confirm new password
-                </label>
-                <div className='mt-1'>
-                  <input
-                    id='confirm_password'
-                    name='confirm_password'
-                    type='password'
-                    autoComplete='current-password'
-                    required
-                    className='focus:primar focus:border-primary block w-full appearance-none rounded-md border border-gray-300 px-3
-                                          py-2 shadow-sm placeholder:text-gray-400 focus:outline-none
+                <div>
+                  <label htmlFor='confirm_password' className='block text-sm font-medium text-gray-700'>
+                    Confirm new password
+                  </label>
+                  <div className='mt-1'>
+                    <Field
+                      id='confirm_password'
+                      name='confirm_password'
+                      type='password'
+                      autoComplete='current-password'
+                      required
+                      className='focus:primar block w-full appearance-none rounded-md border border-gray-300 px-3 py-2
+                                          shadow-sm placeholder:text-gray-400 focus:border-primary focus:outline-none
                                           focus:placeholder:text-gray-500 sm:text-sm'
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
+                    />
+                  </div>
                 </div>
-              </div>
-
-              <div>
-                <button
-                  type='submit'
-                  className='bg-primary hover:bg-primary flex w-full justify-center rounded-md
-                                                         border border-transparent py-2 px-4 text-sm font-medium
-                                                         text-white shadow-sm'
-                >
-                  Reset password
-                </button>
-              </div>
-            </form>
+                <ErrorMessage name='password'>
+                  {(msg) => <div className='my-1 text-xs text-red-500'>{msg}</div>}
+                </ErrorMessage>
+                <div>{errorText && <div className='my-1 text-xs text-red-500'>{errorText}</div>}</div>
+                <div>
+                  <button
+                    type='submit'
+                    className='flex w-full justify-center rounded-md border border-transparent
+                                                         bg-primary py-2 px-4 text-sm font-medium text-white
+                                                         shadow-sm hover:bg-primary'
+                  >
+                    {loading ? (
+                      <Oval
+                        height={20}
+                        width={20}
+                        color='#fff'
+                        wrapperStyle={{}}
+                        wrapperClass=''
+                        visible
+                        ariaLabel='oval-loading'
+                        secondaryColor='#ccc'
+                        strokeWidth={2}
+                        strokeWidthSecondary={2}
+                      />
+                    ) : (
+                      'Reset Password'
+                    )}
+                  </button>
+                </div>
+              </Form>
+            </Formik>
           </div>
         </div>
       </div>

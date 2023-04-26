@@ -6,7 +6,7 @@ const params = new URLSearchParams(window.location.search);
 const token = params.get('token');
 export const resetPassword = createAsyncThunk(
   `http://localhost:3000/api/auth/reset-password/${token}`,
-  async (payload: { email: string }, thunkAPI) => {
+  async (payload: { password: string; confirm_password: string }, thunkAPI) => {
     try {
       const { data } = await axios.put(`http://localhost:3000/api/auth/reset-password/${token}`, payload);
       return data;
