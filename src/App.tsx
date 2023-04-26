@@ -6,7 +6,6 @@ import SignInScreen from 'screens/SignInScreen';
 import SignUpScreen from 'screens/SignUpScreen';
 import Dashboard from 'screens/Dashboaord';
 import RegisterUserScreen from 'screens/RegisterUser';
-
 function App() {
   return (
     <Router>

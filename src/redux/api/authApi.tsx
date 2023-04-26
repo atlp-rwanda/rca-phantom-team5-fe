@@ -9,6 +9,7 @@ export const RegisterUser = createAsyncThunk(
     thunkAPI,
   ) => {
     try {
+      const token = localStorage.getItem('userToken');
       if ((payload.driver_licence = [])) {
         let requestData = {
           fname: payload.fname,
@@ -17,11 +18,19 @@ export const RegisterUser = createAsyncThunk(
           email: payload.email,
           role: payload.role,
         };
-        const { data } = await axios.post(`${baseUrl}/auth/register-user`, requestData);
+        const { data } = await axios.post(`${baseUrl}/auth/register-user`, requestData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         return data;
       }
 
-      const { data } = await axios.post(`${baseUrl}/auth/register-user`, payload);
+      const { data } = await axios.post(`${baseUrl}/auth/register-user`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -34,7 +43,6 @@ export const login = createAsyncThunk(
   async (payload: { email: string; password: string; device_id: string }, thunkAPI) => {
     try {
       const { data } = await axios.post(`${baseUrl}/auth/signin`, payload);
-      console.log(data);
       return data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);
