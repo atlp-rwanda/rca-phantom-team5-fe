@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Logout from '../screens/LogoutScreen';
+import { useLocation } from 'react-router-dom';
+
 import { Dashboard, DirectionsBus, Settings, Timeline } from '@material-ui/icons';
-// import '../../src/assets/custom.css';
 import { Link } from 'react-router-dom';
 
 const Sidebar: React.FC = () => {
+  const [activeLink, setActiveLink] = useState('/overview');
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     document.body.classList.add('overflow-hidden');
@@ -17,7 +19,6 @@ const Sidebar: React.FC = () => {
   };
   return (
     <div className='flex h-screen bg-white'>
-      {/* Sidebar toggle button */}
       <button className='fixed right-0 top-0 z-50 p-4 lg:hidden' onClick={toggleSidebar}>
         <svg
           className='h-6 w-6 text-gray-600'
@@ -42,19 +43,33 @@ const Sidebar: React.FC = () => {
           isOpen ? 'w-3/5' : 'w-0'
         } fixed top-0 bottom-0 left-0 z-50 flex flex-col justify-between overflow-y-auto bg-primary transition-all duration-300 ease-in-out lg:w-1/5`}
       >
-        <nav className='mt-6 mb-4 lg:mt-10 lg:text-2xl'>
-          <h1 className='font-poppins mx-4 mt-6 text-lg text-sm font-bold text-white lg:mt-10 lg:text-2xl'>
-            Dashboard
-          </h1>
-        </nav>
         <div>
-          <ul className='mt-3 lg:mt-2'>
-            <li className='group my-2  flex items-center py-2'>
-              <div className='h-49  mr-4 w-2 bg-primary text-primary group-hover:bg-orange group-hover:text-orange'>
-                l
+          <div className='ml-4 lg:mt-3 lg:text-2xl'>
+            <h1 className='font-poppins mx-4 my-2 mr-4 text-lg text-sm font-bold text-white lg:my-6 lg:text-2xl'>
+              Dashboard
+            </h1>
+          </div>
+
+          <ul className='mt-10'>
+            <li className='group my-2 flex items-center py-2'>
+              <div
+                className={`h-49 mr-4 w-2 ${
+                  activeLink === '/overview' ? 'bg-orange text-orange' : 'group-hover:bg-orange group-hover:text-orange'
+                }`}
+                onClick={() => setActiveLink('/overview')}
+              >
+                I
               </div>
-              <Dashboard className='h-6 w-6 text-white' />
-              <Link to='' className='ml-2 text-white group-hover:text-orange'>
+              <Dashboard
+                className={`h-6 w-6 ${
+                  activeLink === '/overview' ? 'text-orange' : 'text-white'
+                } group-hover:text-orange`}
+              />
+              <Link
+                to='/overview'
+                onClick={() => setActiveLink('/overview')}
+                className={`ml-2 ${activeLink === '/overview' ? 'text-orange' : 'text-white'} group-hover:text-orange`}
+              >
                 Overview
               </Link>
             </li>
@@ -62,7 +77,7 @@ const Sidebar: React.FC = () => {
               <div className='h-49  mr-4 w-2 bg-primary text-primary group-hover:bg-orange group-hover:text-orange'>
                 l
               </div>
-              <DirectionsBus className='h-6 w-6 text-white' />
+              <DirectionsBus className='h-6 w-6 text-white group-hover:text-orange' />
               <Link to='' className='ml-2 text-white group-hover:text-orange'>
                 Buses
               </Link>
@@ -80,6 +95,7 @@ const Sidebar: React.FC = () => {
               <div className='h-49  mr-4 w-2 bg-primary text-primary group-hover:bg-orange group-hover:text-orange'>
                 l
               </div>
+
               <Settings className='h-6 w-6 text-white group-hover:text-orange' />
               <Link to='' className='ml-2 text-white group-hover:text-orange'>
                 Settings
