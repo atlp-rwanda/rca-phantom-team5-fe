@@ -4,9 +4,13 @@ import HomeScreen from 'screens/HomeScreen';
 import NotFoundScreen from 'screens/NotFoundScreen';
 import SignInScreen from 'screens/SignInScreen';
 import SignUpScreen from 'screens/SignUpScreen';
-import Dashboard from 'screens/Dashboaord';
+import Sidebar from 'layouts/Sidebar';
 import RegisterUserScreen from 'screens/RegisterUser';
+import { userProfile } from '../src/redux/api/authApi';
+
 function App() {
+  const user = userProfile();
+
   return (
     <Router>
       <Layout>
@@ -14,9 +18,18 @@ function App() {
           <Route path='/' element={<HomeScreen />} />
           <Route path='/sign-up' element={<SignUpScreen />} />
           <Route path='/login' element={<SignInScreen />} />
-          <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/register-user' element={<RegisterUserScreen />} />
+          <Route
+            path='/register-user'
+            element={
+              user.data.role === 'admin' || user.data.role === 'super_admin' ? (
+                <RegisterUserScreen />
+              ) : (
+                <NotFoundScreen />
+              )
+            }
+          />
           <Route path='*' element={<NotFoundScreen />} />
+          <Route path='/dashboard' element={<Sidebar />} />
         </Routes>
       </Layout>
     </Router>

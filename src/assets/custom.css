@@ -1,0 +1,12 @@
+li:hover::before,
+li:focus::before {
+  content: '\2023';
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 10px;
+  background-color: #ffc700;
+  width: 9px;
+  height: 42px;
+  text-align: center;
+  line-height: 14px;
+}

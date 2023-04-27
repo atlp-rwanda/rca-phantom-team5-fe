@@ -1,7 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AnyAction, Dispatch } from 'redux';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import baseUrl from 'utils/url';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+// import { RootState } from '../store';
 
 export const RegisterUser = createAsyncThunk(
   'auth/register-user',
@@ -51,7 +54,7 @@ export const login = createAsyncThunk(
   },
 );
 
-export const useFetchData = () => {
+export const userProfile = () => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -78,3 +81,13 @@ export const useFetchData = () => {
     loading,
   };
 };
+
+export const logout = createAsyncThunk('auth/logout', async () => {
+  try {
+    const token = localStorage.getItem('userToken');
+    console.log(token);
+    const data = await axios.delete(`${baseUrl}/auth/logout`, { headers: { Authorization: `Bearer ${token}` } });
+  } catch (error: any) {
+    console.error(error);
+  }
+});

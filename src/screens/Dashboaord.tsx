@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import baseUrl from 'utils/url';
-import { useFetchData } from '../redux/api/authApi';
+import { userProfile } from '../redux/api/authApi';
 
 const Dashboard = () => {
   const { user } = useSelector((state: any) => state.auth);
 
   const [loading, setLoading] = useState(true);
 
-  const data = useFetchData();
+  const data = userProfile();
 
   return (
     <div className='flex h-screen flex-col items-center justify-center bg-primary '>
