@@ -6,6 +6,7 @@ import SignInScreen from 'screens/SignInScreen';
 import SignUpScreen from 'screens/SignUpScreen';
 import Dashboard from 'screens/Dashboaord';
 import RegisterUserScreen from 'screens/RegisterUser';
+import UpdateProfile from 'screens/UpdateProfile';
 
 function App() {
   return (
@@ -15,8 +16,9 @@ function App() {
           <Route path='/' element={<HomeScreen />} />
           <Route path='/sign-up' element={<SignUpScreen />} />
           <Route path='/login' element={<SignInScreen />} />
-          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/dashboard' element={<Dashboard children={undefined} />} />
           <Route path='/register-user' element={<RegisterUserScreen />} />
+          <Route path='/update-profile' element={<UpdateProfile />} />
           <Route path='*' element={<NotFoundScreen />} />
         </Routes>
       </Layout>
