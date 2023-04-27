@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 import baseUrl from 'utils/url';
 
 export const RegisterUser = createAsyncThunk(
@@ -35,6 +36,50 @@ export const login = createAsyncThunk(
     try {
       const { data } = await axios.post(`${baseUrl}/auth/signin`, payload);
       console.log(data);
+      return data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const userProfile = () => {
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('userToken');
+        const { data: response } = await axios.get(`${baseUrl}/users/get-profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  return {
+    data,
+    loading,
+  };
+};
+
+export const updateUser = createAsyncThunk(
+  'auth/updateUser',
+  async (payload: { fname: string; lname: string; driver_licence: string[] }, thunkAPI) => {
+    try {
+      const { data } = await axios.put(`${baseUrl}/users/update-profile`, payload, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+        },
+      });
       return data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);
