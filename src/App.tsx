@@ -22,7 +22,7 @@ function App() {
           <Route path='/register-user' element={<RegisterUserScreen />} />
           <Route path='/update-profile' element={<UpdateProfile />} />
           <Route path='*' element={<NotFoundScreen />} />
-          <Route path='/dashboard' element={<Sidebar />} />
+          {/* <Route path='/dashboard' element={<Sidebar />} /> */}
         </Routes>
       </Layout>
     </Router>

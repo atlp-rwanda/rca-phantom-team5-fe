@@ -53,7 +53,7 @@ export default function SignInScreen() {
             <Field
               name='email'
               type='email'
-              className='focus:shadow-outline w-full  appearance-none rounded border border-gray-300 py-4 px-6 leading-tight text-gray-700 focus:outline-none'
+              className='focus:shadow-outline w-full  appearance-none rounded border border-gray-300 px-6 py-4 leading-tight text-gray-700 focus:outline-none'
               placeholder='Please Enter Your Email'
             />
             <ErrorMessage name='email'>{(msg) => <div className='my-1 text-xs text-red-500'>{msg}</div>}</ErrorMessage>
@@ -63,8 +63,8 @@ export default function SignInScreen() {
             </label>
             <Field
               name='password'
-              type='passowrd'
-              className='focus:shadow-outline w-full appearance-none rounded border border-gray-300 py-4 px-6 leading-tight text-gray-700 focus:outline-none'
+              type='password'
+              className='focus:shadow-outline w-full appearance-none rounded border border-gray-300 px-6 py-4 leading-tight text-gray-700 focus:outline-none'
               placeholder='Please Enter Your Password'
             />
             <ErrorMessage name='password'>
@@ -78,7 +78,7 @@ export default function SignInScreen() {
             </div>
             <button
               type='submit'
-              className='focus:shadow-outline mt-4 flex items-center justify-center rounded bg-primary py-4 px-4 font-bold text-white focus:outline-none'
+              className='focus:shadow-outline mt-4 flex items-center justify-center rounded bg-primary px-4 py-4 font-bold text-white focus:outline-none'
             >
               {loading ? (
                 <Oval

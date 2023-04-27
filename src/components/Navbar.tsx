@@ -9,7 +9,7 @@ const Navbar = () => {
     <nav className='bg-white'>
       {loading ? (
         <div className='flex h-screen items-center justify-center'>
-          <div className='h-32 w-32 animate-spin rounded-full border-b-2 border-t-2 border-gray-900'></div>
+          <div className='h-14 w-14 animate-spin rounded-full border-b-2 border-t-2 border-gray-900'></div>
         </div>
       ) : (
         <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
@@ -45,13 +45,10 @@ const Navbar = () => {
                 {isOpen && (
                   <div className='absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
                     <Link to='/update-profile' className='block px-4 py-2 text-sm text-gray-700'>
-                      Your Profile
+                      change Profile
                     </Link>
                     <a href='#' className='block px-4 py-2 text-sm text-gray-700' role='menuitem' id='user-menu-item-1'>
                       Settings
-                    </a>
-                    <a href='#' className='block px-4 py-2 text-sm text-gray-700' role='menuitem' id='user-menu-item-2'>
-                      Sign out
                     </a>
                   </div>
                 )}
