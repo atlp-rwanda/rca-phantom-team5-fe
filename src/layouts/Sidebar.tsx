@@ -76,6 +76,28 @@ const Sidebar: React.FC = () => {
                 Overview
               </Link>
             </li>
+
+            {user.data.role === 'admin' || user.data.role === 'super_admin' ? (
+              <li className='group my-2  flex items-center py-2'>
+                <div className='h-49  mr-4 w-2 bg-primary text-primary group-hover:bg-orange group-hover:text-orange'>
+                  l
+                </div>
+                <People className='h-6 w-6 text-white group-hover:text-orange' />
+                <Link to='/register-user' className='ml-2 text-white group-hover:text-orange'>
+                  Register
+                </Link>
+              </li>
+            ) : null}
+            <li className='group my-2  flex items-center py-2'>
+              <div className='h-49  mr-4 w-2 bg-primary text-primary group-hover:bg-orange group-hover:text-orange'>
+                l
+              </div>
+              <Timeline className='h-6 w-6 text-white group-hover:text-orange' />
+              <Link to='' className='ml-2 text-white group-hover:text-orange'>
+                Routes
+              </Link>
+            </li>
+
             <li className='group my-2  flex items-center py-2'>
               <div className='h-49  mr-4 w-2 bg-primary text-primary group-hover:bg-orange group-hover:text-orange'>
                 l
@@ -86,27 +108,6 @@ const Sidebar: React.FC = () => {
               </Link>
             </li>
 
-            {user.data.role === 'admin' || user.data.role === 'super_admin' ? (
-              <li className='group my-2  flex items-center py-2'>
-                <div className='h-49  mr-4 w-2 bg-primary text-primary group-hover:bg-orange group-hover:text-orange'>
-                  l
-                </div>
-                <People className='h-6 w-6 text-white group-hover:text-orange' />
-                <Link to='/register-user' className='ml-2 text-white group-hover:text-orange'>
-                  Create User
-                </Link>
-              </li>
-            ) : null}
-
-            <li className='group my-2  flex items-center py-2'>
-              <div className='h-49  mr-4 w-2 bg-primary text-primary group-hover:bg-orange group-hover:text-orange'>
-                l
-              </div>
-              <Timeline className='h-6 w-6 text-white group-hover:text-orange' />
-              <Link to='' className='ml-2 text-white group-hover:text-orange'>
-                Routes
-              </Link>
-            </li>
             <li className='group my-2  flex items-center py-2'>
               <div className='h-49  mr-4 w-2 bg-primary text-primary group-hover:bg-orange group-hover:text-orange'>
                 l
