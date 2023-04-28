@@ -19,8 +19,8 @@ function App() {
           <Route path='/sign-up' element={<SignUpScreen />} />
           <Route path='/login' element={<SignInScreen />} />
           <Route path='/dashboards' element={<Dashboard />} />
-          <Route path='/reset-password' element={<PasswordReset />} />
-          <Route path='/request-password-reset' element={<RequestPasswordReset />} />
+          <Route path='/reset-password/:token' element={<PasswordReset />} />
+          <Route path='/request-reset-password' element={<RequestPasswordReset />} />
           <Route path='/register-user' element={<RegisterUserScreen />} />
           <Route path='*' element={<NotFoundScreen />} />
           <Route path='/dashboard' element={<Sidebar />} />
