@@ -1,14 +1,13 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from 'layouts/indes';
-import HomeScreen from 'screens/HomeScreen';
-import NotFoundScreen from 'screens/NotFoundScreen';
-import SignInScreen from 'screens/SignInScreen';
-import SignUpScreen from 'screens/SignUpScreen';
-
 import Sidebar from 'layouts/Sidebar';
 import Dashboard from 'screens/Dashboaord';
+import HomeScreen from 'screens/HomeScreen';
+import MapScreen from 'screens/MapScreen';
+import NotFoundScreen from 'screens/NotFoundScreen';
 import RegisterUserScreen from 'screens/RegisterUser';
-
+import SignInScreen from 'screens/SignInScreen';
+import SignUpScreen from 'screens/SignUpScreen';
 
 function App() {
   return (
@@ -21,6 +20,7 @@ function App() {
           <Route path='/register-user' element={<RegisterUserScreen />} />
           <Route path='*' element={<NotFoundScreen />} />
           <Route path='/dashboard' element={<Sidebar />} />
+          <Route path='/map' element={<MapScreen />} />
         </Routes>
       </Layout>
     </Router>

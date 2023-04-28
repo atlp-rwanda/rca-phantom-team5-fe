@@ -23,5 +23,8 @@
     "source.fixAll.format": true
   },
   "cSpell.words": ["ENDPOIN", "semibold"],
-  "vue.features.codeActions.enable": false
+  "vue.features.codeActions.enable": false,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

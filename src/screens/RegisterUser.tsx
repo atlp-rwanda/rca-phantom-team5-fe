@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Field, Form, Formik, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import * as Yup from 'yup';
+
 import { RegisterUser } from '../redux/api/authApi';
 
 export default function RegisterUserScreen() {
@@ -16,7 +17,7 @@ export default function RegisterUserScreen() {
   };
 
   return (
-    <div className='flex h-screen flex-col items-center justify-center bg-primary max-[768px]:h-full '>
+    <div className='bg-primary flex h-screen flex-col items-center justify-center max-[768px]:h-full '>
       <div className='w-9/12 rounded bg-white px-20 py-10 shadow-md '>
         <h1 className='text-center text-3xl font-bold  max-[768px]:text-2xl'>Register A User</h1>
         <p className='mt-4 text-center text-red-600'>{errortext}</p>
@@ -160,13 +161,13 @@ export default function RegisterUserScreen() {
                   <ErrorMessage name='licence'>{(msg) => <div className='my-1 text-red-500'>{msg}</div>}</ErrorMessage>
                 </div>
               ) : (
-                <div></div>
+                <div />
               )}
             </div>
             <div className='item-center max-[768px]:justify-normal flex justify-center'>
               <button
                 type='submit'
-                className='focus:shadow-outline mt-4 w-5/12 rounded bg-primary py-4 px-4 font-bold text-white focus:outline-none max-[768px]:w-full'
+                className='focus:shadow-outline mt-4 w-5/12 rounded bg-primary p-4 font-bold text-white focus:outline-none max-[768px]:w-full'
               >
                 Create
               </button>
