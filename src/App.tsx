@@ -8,6 +8,8 @@ import RegisterUserScreen from 'screens/RegisterUser';
 import RequestPasswordReset from 'screens/RequestPasswordResetScreen';
 import SignInScreen from 'screens/SignInScreen';
 import SignUpScreen from 'screens/SignUpScreen';
+import Sidebar from 'layouts/Sidebar';
+
 
 function App() {
   return (
@@ -17,11 +19,12 @@ function App() {
           <Route path='/' element={<HomeScreen />} />
           <Route path='/sign-up' element={<SignUpScreen />} />
           <Route path='/login' element={<SignInScreen />} />
-          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/dashboards' element={<Dashboard />} />
           <Route path='/reset-password' element={<PasswordReset />} />
           <Route path='/request-password-reset' element={<RequestPasswordReset />} />
           <Route path='/register-user' element={<RegisterUserScreen />} />
           <Route path='*' element={<NotFoundScreen />} />
+          <Route path='/dashboard' element={<Sidebar/>} />
         </Routes>
       </Layout>
     </Router>
