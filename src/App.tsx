@@ -7,6 +7,7 @@ import SignUpScreen from 'screens/SignUpScreen';
 
 function App() {
   return (
+    
     <Router>
       <Layout>
         <Routes>
