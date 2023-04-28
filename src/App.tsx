@@ -8,6 +8,7 @@ import SignUpScreen from 'screens/SignUpScreen';
 import Sidebar from 'layouts/Sidebar';
 import Dashboard from 'screens/Dashboaord';
 import RegisterUserScreen from 'screens/RegisterUser';
+import ViewBusesScreen from 'screens/ViewBusesScreen';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path='/register-user' element={<RegisterUserScreen />} />
           <Route path='*' element={<NotFoundScreen />} />
           <Route path='/dashboard' element={<Sidebar/>} />
+          <Route path='/buses' element={<ViewBusesScreen />} />
         </Routes>
       </Layout>
     </Router>
