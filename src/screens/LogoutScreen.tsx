@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { IoSwapHorizontalSharp } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
