@@ -9,9 +9,5 @@ const store = configureStore({
 })
 
 export type RootState = ReturnType<typeof store.getState>
-
-    auth: authReducer,
-  },
-});
 export default store;
 
