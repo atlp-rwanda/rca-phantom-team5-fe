@@ -9,8 +9,6 @@ import Button from 'components/Button';
 const Logout = () => {
   const dispatch = useDispatch();
   // const navigate = useNavigate();
-
-
   
 
   const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
