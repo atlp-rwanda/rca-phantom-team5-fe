@@ -1,7 +1,9 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { useNavigate } from 'react-router';
 
+
 export default function HomeScreen() {
+
   const links = [
     {
       name: 'About us',

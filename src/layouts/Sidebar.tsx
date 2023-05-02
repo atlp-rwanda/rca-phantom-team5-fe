@@ -1,3 +1,4 @@
+// Sidebar.tsx
 import React, { useEffect, useState } from 'react';
 import Logout from '../screens/LogoutScreen';
 import { useLocation } from 'react-router-dom';
@@ -61,7 +62,7 @@ const Sidebar: React.FC = () => {
                 I
               </div>
               <Dashboard
-                className={`h-6 w-6 ${
+                className={`ml-6 h-6 w-6 ${
                   activeLink === '/overview' ? 'text-orange' : 'text-white'
                 } group-hover:text-orange`}
               />
@@ -77,7 +78,7 @@ const Sidebar: React.FC = () => {
               <div className='h-49  mr-4 w-2 bg-primary text-primary group-hover:bg-orange group-hover:text-orange'>
                 l
               </div>
-              <DirectionsBus className='h-6 w-6 text-white group-hover:text-orange' />
+              <DirectionsBus className=' ml-4 h-6 w-6 text-white group-hover:text-orange' />
               <Link to='' className='ml-2 text-white group-hover:text-orange'>
                 Buses
               </Link>
@@ -86,7 +87,7 @@ const Sidebar: React.FC = () => {
               <div className='h-49  mr-4 w-2 bg-primary text-primary group-hover:bg-orange group-hover:text-orange'>
                 l
               </div>
-              <Timeline className='h-6 w-6 text-white group-hover:text-orange' />
+              <Timeline className=' ml-4 h-6 w-6 text-white group-hover:text-orange' />
               <Link to='' className='ml-2 text-white group-hover:text-orange'>
                 Routes
               </Link>
@@ -96,14 +97,14 @@ const Sidebar: React.FC = () => {
                 l
               </div>
 
-              <Settings className='h-6 w-6 text-white group-hover:text-orange' />
+              <Settings className=' ml-4 h-6 w-6 text-white group-hover:text-orange' />
               <Link to='' className='ml-2 text-white group-hover:text-orange'>
                 Settings
               </Link>
             </li>
           </ul>
         </div>
-        <div className='ml-5 mb-6 lg:mb-10'>
+        <div className='mb-6 lg:mb-10'>
           <Logout />
         </div>
       </div>

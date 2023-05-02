@@ -5,6 +5,8 @@ import NotFoundScreen from 'screens/NotFoundScreen';
 import SignInScreen from 'screens/SignInScreen';
 import SignUpScreen from 'screens/SignUpScreen';
 import Sidebar from 'layouts/Sidebar';
+import RequireAuthentication from './components/RequireAuthentication';
+import PrivateRoute from './components/PrivateRoutes';
 
 function App() {
   return (
@@ -14,8 +16,15 @@ function App() {
           <Route path='/' element={<HomeScreen />} />
           <Route path='/sign-up' element={<SignUpScreen />} />
           <Route path='/login' element={<SignInScreen />} />
+          <Route
+            path='/dashboard'
+            element={
+              <PrivateRoute path='/login'>
+                <Sidebar />
+              </PrivateRoute>
+            }
+          />
           <Route path='*' element={<NotFoundScreen />} />
-          <Route path='/dashboard' element={<Sidebar/>} />
         </Routes>
       </Layout>
     </Router>

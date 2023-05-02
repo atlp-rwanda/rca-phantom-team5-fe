@@ -1,6 +1,11 @@
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 export default function NotFoundScreen() {
+  const { user } = useSelector((state: any) => state.auth);
+  console.log(user);
+
+  
   return (
     <div className='flex flex-1 flex-col items-center justify-center overflow-auto bg-primary p-4'>
       <div className='max-w-lg   text-center'>
