@@ -2,8 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import baseUrl from 'utils/url';
 
-const params = new URLSearchParams(window.location.search);
-const token = params.get('token');
+const token = window.location.pathname.split('reset-password/')[1];
 export const resetPassword = createAsyncThunk(
   `${baseUrl}/auth/reset-password/${token}`,
   async (payload: { password: string; confirm_password: string }, thunkAPI) => {
