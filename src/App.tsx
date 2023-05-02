@@ -8,7 +8,7 @@ import SignUpScreen from 'screens/SignUpScreen';
 import Sidebar from 'layouts/Sidebar';
 import Dashboard from 'screens/Dashboaord';
 import RegisterUserScreen from 'screens/RegisterUser';
-
+import AssignDriverToBusScreen from 'screens/AssignDriverToBusScreen';
 
 function App() {
   return (
@@ -20,7 +20,8 @@ function App() {
           <Route path='/login' element={<SignInScreen />} />
           <Route path='/register-user' element={<RegisterUserScreen />} />
           <Route path='*' element={<NotFoundScreen />} />
-          <Route path='/dashboard' element={<Sidebar/>} />
+          <Route path='/dashboard' element={<Sidebar />} />
+          <Route path='/assign-driver' element={<AssignDriverToBusScreen />} />
         </Routes>
       </Layout>
     </Router>
