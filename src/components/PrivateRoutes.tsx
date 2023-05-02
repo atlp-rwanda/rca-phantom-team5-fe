@@ -4,14 +4,14 @@ import { RootState } from 'redux/store';
 
 type Props = {
   children: React.ReactNode;
-  path: string;
+  redirectPath: string;
 };
 
-const PrivateRoute = ({ children, path }: Props) => {
+const PrivateRoute = ({ children, redirectPath }: Props) => {
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthonticated);
 
   if (!isAuthenticated) {
-    return <Navigate to={path} />;
+    return <Navigate to={redirectPath} />;
   }
 
   return children as React.ReactNode;

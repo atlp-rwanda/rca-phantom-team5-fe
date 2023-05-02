@@ -29,7 +29,7 @@ function App() {
           <Route
             path='/dashboard'
             element={
-              <PrivateRoute path='/login'>
+              <PrivateRoute redirectPath='/login'>
                 <Sidebar />
               </PrivateRoute>
             }
