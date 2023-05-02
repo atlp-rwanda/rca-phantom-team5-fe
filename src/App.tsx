@@ -4,6 +4,7 @@ import Sidebar from 'layouts/Sidebar';
 import Dashboard from 'screens/Dashboaord';
 import HomeScreen from 'screens/HomeScreen';
 import MapScreen from 'screens/MapScreen';
+import MapViewScreen from 'screens/MapViewScreen';
 import NotFoundScreen from 'screens/NotFoundScreen';
 import RegisterUserScreen from 'screens/RegisterUser';
 import SignInScreen from 'screens/SignInScreen';
@@ -21,6 +22,7 @@ function App() {
           <Route path='*' element={<NotFoundScreen />} />
           <Route path='/dashboard' element={<Sidebar />} />
           <Route path='/map' element={<MapScreen />} />
+          <Route path='/map-view' element={<MapViewScreen />} />
         </Routes>
       </Layout>
     </Router>
