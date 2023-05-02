@@ -12,9 +12,15 @@ module.exports = {
         12: '12',
       },
       colors: {
-        primary: '#233862',
+        primary: {
+          100: '#ECECF8',
+          DEFAULT: '#233862'
+        },
         orange: "#FFA500",
       },
+      boxShadow: {
+        buses: '0px 4px 70px rgba(193, 193, 246, 0.45)'
+      }
     },
   },
   variants: {

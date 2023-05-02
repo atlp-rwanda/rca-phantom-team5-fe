@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AuthLayout from 'layouts/AuthLayout';
 import Layout from 'layouts/index';
+import Buses from 'screens/BusesScreen';
 import Dashboard from 'screens/Dashboard';
 import HomeScreen from 'screens/Home';
 import NotFoundScreen from 'screens/NotFoundScreen';
@@ -17,8 +18,9 @@ function App() {
           <Route path='/sign-up' element={<SignUpScreen />} />
           <Route path='/login' element={<SignInScreen />} />
           <Route path='/register-user' element={<RegisterUserScreen />} />
-          <Route path='*' element={<NotFoundScreen />} />
           <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/buses' element={<Buses />} />
+          <Route path='*' element={<NotFoundScreen />} />
         </Routes>
       </Layout>
     </Router>
