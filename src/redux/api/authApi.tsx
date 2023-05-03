@@ -1,10 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { AnyAction, Dispatch } from 'redux';
-import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import baseUrl from 'utils/url';
-
-import { RootState } from '../store';
+import { useEffect, useState } from 'react';
 
 export const RegisterUser = createAsyncThunk(
   'auth/register-user',
@@ -38,6 +35,50 @@ export const login = createAsyncThunk(
   async (payload: { email: string; password: string; device_id: string }, thunkAPI) => {
     try {
       const { data } = await axios.post(`${baseUrl}/auth/signin`, payload);
+      return data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const userProfile = () => {
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('userToken');
+        const { data: response } = await axios.get(`${baseUrl}/users/get-profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  return {
+    data,
+    loading,
+  };
+};
+
+export const updateUser = createAsyncThunk(
+  'auth/updateUser',
+  async (payload: { fname?: string; lname?: string; driver_licence?: string[] }, thunkAPI) => {
+    try {
+      const { data } = await axios.put(`${baseUrl}/users/update-profile`, payload, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+        },
+      });
       console.log(data);
       return data;
     } catch (error: any) {
@@ -45,6 +86,19 @@ export const login = createAsyncThunk(
     }
   },
 );
+
+export const getProfile = createAsyncThunk('auth/get', async (_, thunkAPI) => {
+  try {
+    const { data } = await axios.get(`${baseUrl}/users/get-profile`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+      },
+    });
+    return data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
 
 export const logout = createAsyncThunk('auth/logout', async () => {
   try {
