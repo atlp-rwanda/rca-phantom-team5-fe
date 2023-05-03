@@ -24,7 +24,7 @@ const Sidebar = ({ page }: Props) => {
   };
   return (
     <div className='flex h-screen flex-row justify-end bg-white'>
-      <button className='fixed right-0 top-0 z-50 p-4 lg:hidden' onClick={toggleSidebar}>
+      <button className='fixed left-0 top-0 z-50 p-4 lg:hidden' onClick={toggleSidebar}>
         <svg
           className='h-6 w-6 text-gray-600'
           fill='none'

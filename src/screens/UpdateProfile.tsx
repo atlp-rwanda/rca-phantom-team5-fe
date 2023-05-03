@@ -39,6 +39,8 @@ const UpdateProfile = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch: any = useDispatch();
   const { data, loading } = userProfile();
+  // const [resultAction, setResultAction] = useState<any>();
+
   return (
     <Dashboard>
       <div className='bg-white '>
@@ -54,10 +56,13 @@ const UpdateProfile = () => {
               initialValues={{
                 fname: data.fname,
                 lname: data.lname,
-                driver_licence: data.driver_licence
-                  .replace(/[\{\}\"]/g, '')
-                  .split(',')
-                  .map((letter) => letter.trim()),
+                driver_licence:
+                  data.role == 'driver'
+                    ? data.driver_licence
+                        .replace(/[\{\}\"]/g, '')
+                        .split(',')
+                        .map((letter) => letter.trim())
+                    : [],
               }}
               validationSchema={Yup.object({
                 fname: Yup.string().min(3, 'Too Short!').max(15, 'Too Long!'),
@@ -66,10 +71,14 @@ const UpdateProfile = () => {
               onSubmit={(values, { setSubmitting }) => {
                 setTimeout(async () => {
                   setIsLoading(true);
-
-                  const resultAction = await dispatch(
-                    updateUser({ lname: values.lname, fname: values.fname, driver_licence: values.driver_licence }),
-                  );
+                  let resultAction;
+                  if (values.driver_licence.length == 0) {
+                    resultAction = await dispatch(updateUser({ lname: values.lname, fname: values.fname }));
+                  } else {
+                    resultAction = await dispatch(
+                      updateUser({ lname: values.lname, fname: values.fname, driver_licence: values.driver_licence }),
+                    );
+                  }
                   if (updateUser.fulfilled.match(resultAction)) {
                     setErrortext('');
                     setIsLoading(false);
@@ -155,7 +164,7 @@ const UpdateProfile = () => {
                     </div>
                   )}
                 </div>
-                <div className='item-center flex justify-center max-[768px]:justify-normal'>
+                <div className='item-center max-[768px]:justify-normal flex justify-center'>
                   <button
                     type='submit'
                     className='focus:shadow-outline mt-4 w-5/12 rounded bg-primary px-4 py-4 font-bold text-white focus:outline-none max-[768px]:w-full'

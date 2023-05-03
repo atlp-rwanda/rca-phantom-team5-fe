@@ -73,7 +73,7 @@ export const userProfile = () => {
 
 export const updateUser = createAsyncThunk(
   'auth/updateUser',
-  async (payload: { fname: string; lname: string; driver_licence: string[] }, thunkAPI) => {
+  async (payload: { fname?: string; lname?: string; driver_licence?: string[] }, thunkAPI) => {
     try {
       const { data } = await axios.put(`${baseUrl}/users/update-profile`, payload, {
         headers: {
