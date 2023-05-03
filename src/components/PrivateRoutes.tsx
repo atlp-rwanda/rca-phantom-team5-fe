@@ -7,7 +7,7 @@ type Props = {
   redirectPath: string;
 };
 
-function PrivateRoute({ children, redirectPath }: Props) {
+const PrivateRoute = ({ children, redirectPath }: Props) => {
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthonticated);
 
   if (!isAuthenticated) {
@@ -15,6 +15,6 @@ function PrivateRoute({ children, redirectPath }: Props) {
   }
 
   return children as React.ReactElement;
-}
+};
 
 export default PrivateRoute;

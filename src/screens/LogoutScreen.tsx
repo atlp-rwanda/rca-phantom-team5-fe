@@ -11,6 +11,9 @@ export default function Logout() {
   const dispatch = useDispatch();
   // const navigate = useNavigate();
 
+
+  
+
   const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     await dispatch(logout() as any);
@@ -21,13 +24,13 @@ export default function Logout() {
   return (
     <div>
       <ul className='mt-1'>
-        <div className='ml-3 mb-6 w-3/4 border-t' />
+        <div className='ml-3 mb-6 w-3/4 border-t'></div>
         <li className='group my-2  flex items-center py-2'>
-          <div className='h-49 bg-primary text-primary group-hover:bg-orange group-hover:text-orange ml-0 mr-2 w-2'>
+          <div className='h-49 ml-0 mr-2 w-2 bg-primary text-primary group-hover:bg-orange group-hover:text-orange'>
             l
           </div>
-          <SwapHorizSharp className='group-hover:text-orange ml-4 h-6  w-6 text-white' />
-          <button onClick={handleLogout} className='group-hover:text-orange ml-2 text-white'>
+          <SwapHorizSharp className='ml-4 h-6 w-6  text-white group-hover:text-orange' />
+          <button onClick={handleLogout} className='ml-2 text-white group-hover:text-orange'>
             Log out
           </button>
         </li>
