@@ -85,7 +85,6 @@ export default function ViewBusesScreen() {
     const locationStatus = useSelector((state: any) => state.locations.status);
     const [totalBuses, setTotalBuses] = useState(0);
     const [totalSeats, setTotalSeats] = useState(0);
-    
 
 
     useEffect(() => {
@@ -103,6 +102,27 @@ export default function ViewBusesScreen() {
         setTotalBuses(busesLength);
         setTotalSeats(seatsTotal);
     }, [buses]);
+
+    const onSubmit = async (values: any, { setSubmitting }: any) => {
+        try {
+            setLoading(true);
+            console.log(selected.id, selected1.id);
+            const resultAction = await dispatch<AppDispatch>(GetBuses({
+                from: selected.id,
+                to: selected1.id,
+            }));
+            if (GetBuses.fulfilled.match(resultAction)) {
+                setErrortext('');
+            } else {
+                setErrortext(resultAction.payload.message);
+            }
+        } catch (error) {
+            setErrortext(error.message);
+        } finally {
+            setLoading(false);
+            setSubmitting(false);
+        }
+    }
 
 
     return (
@@ -126,7 +146,6 @@ export default function ViewBusesScreen() {
                             Login
                         </button>
                     </div>
-                    <div></div>
                     <div className='-mt-8  flex justify-between'>
                         <div className='border-1 box1 mx-auto mr-48 ml-48 box-border h-24 w-80 bg-lightBlue'>
                             <h1 className='text-dark mt-8 ml-12 text-lg md:mb-0'>Welcome to phantom</h1>
@@ -145,14 +164,13 @@ export default function ViewBusesScreen() {
                         </div>
                     </div>
                     <div className='relative mx-auto mr-48  ml-48 shadow-md shadow-indigo-400/20'>
-                        
-                  
+                        <div>
                             {errortext ? (
                                 <h1 className='-mt-3 mb-3 text-red'>No Bus found on this route</h1>
                             ) : (
                                 <h1 className='-mt-3 mb-3'>Buses on track</h1>
                             )}
-              
+                        </div>
 
                         <table className='w-full text-left text-sm text-gray-500 dark:text-gray-400'>
                             <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
@@ -218,28 +236,7 @@ export default function ViewBusesScreen() {
                                 from: Yup.number().required('Required'),
                                 to: Yup.number().required('Required'),
                             })}
-                            onSubmit={(values, { setSubmitting }) => {
-                                setTimeout(async () => {
-                                    setLoading(true);
-                                    console.log(selected.id, selected1.id);
-                                    const resultAction = dispatch<AppDispatch>(
-                                        GetBuses({
-                                            from: selected.id,
-                                            to: selected1.id,
-                                        }),
-                                    );
-                                    if (GetBuses.fulfilled.match(resultAction)) {
-                                        setErrortext('');
-                                        setLoading(false);
-                                        setSubmitting(false);
-                                    } else {
-                                        const error = resultAction.payload ? resultAction.payload.message : 'No Bus found on this route';
-                                        setErrortext(error);
-                                    }
-                                    setLoading(false);
-                                    setSubmitting(false);
-                                }, 400);
-                            }}
+                            onSubmit={onSubmit}
                         >
                             <Form>
                                 <label htmlFor='from' className='mb-2 mt-6 ml-4 inline-block'>
