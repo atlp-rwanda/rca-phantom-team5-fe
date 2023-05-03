@@ -73,7 +73,7 @@ export default function SignInScreen() {
             </ErrorMessage>
             <div>{errortext && <div className='my-1 text-xs text-red-500'>{errortext}</div>}</div>
             <div className='flex justify-end py-2'>
-              <Link to='/forgot-password' className='text-xs font-bold text-primary'>
+              <Link to='/request-reset-password' className='text-xs font-bold text-primary'>
                 Forgot Password?
               </Link>
             </div>

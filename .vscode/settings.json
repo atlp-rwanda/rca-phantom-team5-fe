@@ -22,9 +22,6 @@
     "source.fixAll.eslint": true,
     "source.fixAll.format": true
   },
-  "cSpell.words": ["ENDPOIN", "semibold"],
-  "vue.features.codeActions.enable": false,
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  "cSpell.words": ["ENDPOIN", "formik", "semibold"],
+  "vue.features.codeActions.enable": false
 }

@@ -1,11 +1,12 @@
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { IoSwapHorizontalSharp } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 import { logout } from '../redux/api/authApi';
 
-function Logout() {
+export default function Logout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -31,5 +32,3 @@ function Logout() {
     </div>
   );
 }
-
-export default Logout;
