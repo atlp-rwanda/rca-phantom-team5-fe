@@ -11,6 +11,7 @@ import RegisterUserScreen from 'screens/RegisterUser';
 import RequestPasswordReset from 'screens/RequestPasswordResetScreen';
 import SignInScreen from 'screens/SignInScreen';
 import SignUpScreen from 'screens/SignUpScreen';
+import ViewBusesScreen from 'screens/ViewBusesScreen';
 
 function App() {
   return (
@@ -26,8 +27,6 @@ function App() {
           <Route path='/register-user' element={<RegisterUserScreen />} />
           <Route path='*' element={<NotFoundScreen />} />
           <Route path='/dashboard' element={<Sidebar />} />
-          <Route path='/map' element={<MapScreen />} />
-          <Route path='/map-view' element={<MapViewScreen />} />
         </Routes>
       </Layout>
     </Router>
