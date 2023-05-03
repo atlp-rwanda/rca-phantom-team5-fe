@@ -14,7 +14,7 @@ const PrivateRoute = ({ children, redirectPath }: Props) => {
     return <Navigate to={redirectPath} />;
   }
 
-  return children as React.ReactNode;
+  return children as React.ReactElement;
 };
 
 export default PrivateRoute;
