@@ -1,15 +1,18 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import PrivateRoute from 'components/PrivateRoutes';
 import Layout from 'layouts/indes';
 import Sidebar from 'layouts/Sidebar';
+import CreateRouteScreen from 'screens/CreateRouteScreen';
 import Dashboard from 'screens/Dashboaord';
 import HomeScreen from 'screens/HomeScreen';
 import NotFoundScreen from 'screens/NotFoundScreen';
 import PasswordReset from 'screens/PasswordResetScreen';
 import RegisterUserScreen from 'screens/RegisterUser';
 import RequestPasswordReset from 'screens/RequestPasswordResetScreen';
+import RouteDetailsScreen from 'screens/RouteDetailsScreen';
 import SignInScreen from 'screens/SignInScreen';
 import SignUpScreen from 'screens/SignUpScreen';
-import PrivateRoute from 'components/PrivateRoutes';
+import UpdateRouteScreen from 'screens/UpdateRouteScreen';
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
           <Route path='/reset-password/:token' element={<PasswordReset />} />
           <Route path='/request-reset-password' element={<RequestPasswordReset />} />
           <Route path='/register-user' element={<RegisterUserScreen />} />
+          <Route path='/create-route' element={<CreateRouteScreen />} />
+          <Route path='/update-route' element={<UpdateRouteScreen />} />
+          <Route path='/route-details' element={<RouteDetailsScreen />} />
           <Route path='*' element={<NotFoundScreen />} />
           <Route
             path='/dashboard'
