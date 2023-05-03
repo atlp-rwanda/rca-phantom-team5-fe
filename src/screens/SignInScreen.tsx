@@ -16,9 +16,7 @@ export default function SignInScreen() {
 
   return (
     <div className='flex h-screen flex-col items-center justify-center bg-primary '>
-      <div className='rounded bg-white p-16'>
-        <h1 className='text-2xl font-bold'>Sign In</h1>
-        <p className='border-gray-300 py-1 text-base'>Login your account</p>
+      <div className='rounded bg-white py-24 px-16'>
         <Formik
           initialValues={{ email: '', password: '' }}
           validationSchema={Yup.object({
@@ -48,13 +46,15 @@ export default function SignInScreen() {
           }}
         >
           <Form className='flex flex-col justify-center'>
+            <h1 className='text-2xl font-bold'>Sign In</h1>
+            <p className='border-gray-300 py-1 text-base'>Login your account</p>
             <label htmlFor='email' className='mb-2 mt-6 font-semibold'>
               Email Address
             </label>
             <Field
               name='email'
               type='email'
-              className='focus:shadow-outline w-full  appearance-none rounded border border-gray-300 py-4 px-6 leading-tight text-gray-700 focus:outline-none'
+              className='focus:shadow-outline w-full  appearance-none rounded border border-gray-300 py-3 px-6 leading-tight text-gray-700 focus:outline-none'
               placeholder='Please Enter Your Email'
             />
             <ErrorMessage name='email'>{(msg) => <div className='my-1 text-xs text-red-500'>{msg}</div>}</ErrorMessage>
@@ -65,7 +65,7 @@ export default function SignInScreen() {
             <Field
               name='password'
               type='passowrd'
-              className='focus:shadow-outline w-full appearance-none rounded border border-gray-300 py-4 px-6 leading-tight text-gray-700 focus:outline-none'
+              className='focus:shadow-outline w-full appearance-none rounded border border-gray-300 py-3 px-6 leading-tight text-gray-700 focus:outline-none'
               placeholder='Please Enter Your Password'
             />
             <ErrorMessage name='password'>
@@ -79,7 +79,7 @@ export default function SignInScreen() {
             </div>
             <button
               type='submit'
-              className='focus:shadow-outline mt-4 flex items-center justify-center rounded bg-primary p-4 font-bold text-white focus:outline-none'
+              className='focus:shadow-outline mt-4 flex items-center justify-center rounded bg-primary p-3 font-bold text-white focus:outline-none'
             >
               {loading ? (
                 <Oval
