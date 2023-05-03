@@ -17,7 +17,7 @@ export default function PasswordReset() {
       <nav className='border-gray-200 bg-primary dark:bg-gray-900'>
         <div className='mx-5 flex max-w-screen-xl flex-wrap items-center justify-between px-4'>
           <a href='/' className='flex items-center'>
-            <img src='second_logo.png' className='' alt='Logo' />
+            <img src='/second_logo.png' className='' alt='Logo' />
             <span className='self-center whitespace-nowrap text-2xl font-semibold text-white dark:text-white'>
               Phantom
             </span>

@@ -22,7 +22,7 @@ export default function HomeScreen() {
     <section className='flex flex-1 flex-col gap-10 bg-primary'>
       <nav className='flex flex-row justify-between border-gray-200 bg-primary dark:bg-gray-900'>
         <a href='/' className='flex items-center'>
-          <img src='second_logo.png' className='ml-10' alt='Logo' />
+          <img src='/second_logo.png' className='ml-10' alt='Logo' />
           <span className='self-center whitespace-nowrap text-2xl font-semibold text-white dark:text-white'>
             Phantom
           </span>
