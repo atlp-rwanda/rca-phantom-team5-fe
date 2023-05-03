@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Field, Form, Formik, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
-import { login } from '../redux/api/authApi';
 import { Oval } from 'react-loader-spinner';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import * as Yup from 'yup';
+
+import { login } from '../redux/api/authApi';
 
 export default function SignInScreen() {
   const [errortext, setErrortext] = useState<string>('');
@@ -15,7 +16,7 @@ export default function SignInScreen() {
 
   return (
     <div className='flex h-screen flex-col items-center justify-center bg-primary '>
-      <div className='rounded bg-white px-16 py-16 '>
+      <div className='rounded bg-white p-16'>
         <h1 className='text-2xl font-bold'>Sign In</h1>
         <p className='border-gray-300 py-1 text-base'>Login your account</p>
         <Formik
@@ -72,13 +73,13 @@ export default function SignInScreen() {
             </ErrorMessage>
             <div>{errortext && <div className='my-1 text-xs text-red-500'>{errortext}</div>}</div>
             <div className='flex justify-end py-2'>
-              <Link to='/forgot-password' className='text-xs font-bold text-primary'>
+              <Link to='/request-reset-password' className='text-xs font-bold text-primary'>
                 Forgot Password?
               </Link>
             </div>
             <button
               type='submit'
-              className='focus:shadow-outline mt-4 flex items-center justify-center rounded bg-primary px-4 py-4 font-bold text-white focus:outline-none'
+              className='focus:shadow-outline mt-4 flex items-center justify-center rounded bg-primary p-4 font-bold text-white focus:outline-none'
             >
               {loading ? (
                 <Oval
@@ -87,7 +88,7 @@ export default function SignInScreen() {
                   color='#fff'
                   wrapperStyle={{}}
                   wrapperClass=''
-                  visible={true}
+                  visible
                   ariaLabel='oval-loading'
                   secondaryColor='#ccc'
                   strokeWidth={2}
