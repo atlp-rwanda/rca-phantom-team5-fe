@@ -35,7 +35,6 @@ export const login = createAsyncThunk(
   async (payload: { email: string; password: string; device_id: string }, thunkAPI) => {
     try {
       const { data } = await axios.post(`${baseUrl}/auth/signin`, payload);
-      console.log(data);
       return data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -80,12 +79,27 @@ export const updateUser = createAsyncThunk(
           Authorization: `Bearer ${localStorage.getItem('userToken')}`,
         },
       });
+      console.log(data);
       return data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
   },
 );
+
+export const getProfile = createAsyncThunk('auth/get', async (_, thunkAPI) => {
+  try {
+    const { data } = await axios.get(`${baseUrl}/users/get-profile`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+      },
+    });
+    return data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
 export const logout = createAsyncThunk('auth/logout', async () => {
   try {
     const token = localStorage.getItem('userToken');
