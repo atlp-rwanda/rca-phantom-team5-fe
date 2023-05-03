@@ -13,12 +13,28 @@ export default function RequestPasswordReset() {
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch: any = useDispatch();
   return (
-    <div className='bg-primary'>
-      <div className='flex min-h-screen flex-col justify-center  py-12 sm:px-6 lg:px-8 '>
+    <div className='min-h-screen bg-primary'>
+      <nav className='border-gray-200 bg-primary dark:bg-gray-900'>
+        <div className='mx-5 flex max-w-screen-xl flex-wrap items-center justify-between px-4'>
+          <a href='/' className='flex items-center'>
+            <img src='second_logo.png' className='' alt='Logo' />
+            <span className='self-center whitespace-nowrap text-2xl font-semibold text-white dark:text-white'>
+              Phantom
+            </span>
+          </a>
+        </div>
+      </nav>
+      <div className='flex flex-col justify-center  py-12 sm:px-6 lg:px-8 '>
         <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'>
           <div className='bg-white py-8 px-4 shadow sm:rounded-xl sm:px-10'>
             <div className='pb-8'>
               <h2 className='mt-1 text-center text-lg text-black'>Reset Your Password</h2>
+              <p className='max-w mt-2 text-center text-sm text-primary'>
+                Or{' '}
+                <a href='/login' className='font-medium text-indigo-600 hover:text-indigo-500'>
+                  sign in to your account
+                </a>
+              </p>
             </div>
             <Formik
               initialValues={{ email: '' }}

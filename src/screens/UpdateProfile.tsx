@@ -76,7 +76,7 @@ const UpdateProfile = () => {
                   setErrortext('');
                   setIsLoading(false);
                   setSubmitting(false);
-                  location.reload();
+                  // location.reload();
                 } else {
                   if (resultAction.payload) {
                     setErrortext(resultAction.payload.message);
@@ -125,18 +125,19 @@ const UpdateProfile = () => {
                         License
                       </label>
                       <div className='grid grid-cols-3 gap-9'>
-                        {user.driver_licence
-                          .replace(/[\{\}\"]/g, '')
-                          .split(',')
-                          .map((letter: string) => letter.trim())
-                          .map((item: string) => (
-                            <div
-                              key={item}
-                              className='mr-2 rounded-md border-2 border-solid border-primary bg-primary px-4 py-3 text-white'
-                            >
-                              {item}
-                            </div>
-                          ))}
+                        {[
+                          user.driver_licence
+                            .replace(/[\{\}\"]/g, '')
+                            .split(',')
+                            .map((letter: string) => letter.trim()),
+                        ].map((item: string) => (
+                          <div
+                            key={item}
+                            className='mr-2 rounded-md border-2 border-solid border-primary bg-primary px-4 py-3 text-white'
+                          >
+                            {item}
+                          </div>
+                        ))}
                       </div>
                     </div>
                     <label htmlFor='driver_licence' className='mb-2 mt-6 block font-bold'>
@@ -156,7 +157,7 @@ const UpdateProfile = () => {
               <div className='item-center max-[768px]:justify-normal flex justify-center'>
                 <button
                   type='submit'
-                  className='focus:shadow-outline mt-4 w-5/12 rounded bg-primary px-4 py-4 font-bold text-white focus:outline-none max-[768px]:w-full'
+                  className='focus:shadow-outline mt-4 flex w-5/12 items-center justify-center rounded bg-primary px-4 py-4 font-bold text-white focus:outline-none max-[768px]:w-full'
                 >
                   {isLoading ? (
                     <Oval

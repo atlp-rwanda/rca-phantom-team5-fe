@@ -79,7 +79,6 @@ export const updateUser = createAsyncThunk(
           Authorization: `Bearer ${localStorage.getItem('userToken')}`,
         },
       });
-      console.log(data);
       return data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -103,7 +102,6 @@ export const getProfile = createAsyncThunk('auth/get', async (_, thunkAPI) => {
 export const logout = createAsyncThunk('auth/logout', async () => {
   try {
     const token = localStorage.getItem('userToken');
-    console.log(token);
     const data = await axios.delete(`${baseUrl}/auth/logout`, { headers: { Authorization: `Bearer ${token}` } });
   } catch (error: any) {
     console.error(error);
