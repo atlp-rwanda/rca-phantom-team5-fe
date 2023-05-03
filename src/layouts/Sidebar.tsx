@@ -20,6 +20,7 @@ const Sidebar: React.FC = () => {
   };
 
   const user = userProfile();
+  const role = user.role;
   return (
     <div className='flex h-screen bg-white'>
       <button className='fixed right-0 top-0 z-50 p-4 lg:hidden' onClick={toggleSidebar}>
@@ -44,7 +45,7 @@ const Sidebar: React.FC = () => {
       <div
         className={`${
           isOpen ? 'w-3/5' : 'w-0'
-        } fixed bottom-0 left-0 top-0 z-50 flex flex-col justify-between overflow-y-auto bg-primary transition-all duration-300 ease-in-out lg:w-1/5`}
+        } lg:w-1/5 fixed bottom-0 left-0 top-0 z-50 flex flex-col justify-between overflow-y-auto bg-primary transition-all duration-300 ease-in-out`}
       >
         <div>
           <div className='ml-4 lg:mt-3 lg:text-2xl'>
@@ -77,7 +78,7 @@ const Sidebar: React.FC = () => {
               </Link>
             </li>
 
-            {user.data.role === 'admin' || user.data.role === 'super_admin' ? (
+            {role === 'admin' || role === 'super_admin' ? (
               <li className='group my-2  flex items-center py-2'>
                 <div className='h-49  mr-4 w-2 bg-primary text-primary group-hover:bg-orange group-hover:text-orange'>
                   l

@@ -55,8 +55,10 @@ export const login = createAsyncThunk(
 );
 
 export const userProfile = () => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
+  const [role, SetRole] = useState('');
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -67,6 +69,7 @@ export const userProfile = () => {
           },
         });
         setData(response.data);
+        SetRole(response.data.role);
       } catch (error) {
         console.error(error);
       }
@@ -79,6 +82,7 @@ export const userProfile = () => {
   return {
     data,
     loading,
+    role,
   };
 };
 
