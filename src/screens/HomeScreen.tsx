@@ -3,20 +3,6 @@ import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
 export default function HomeScreen() {
-  const links = [
-    {
-      name: 'About us',
-      path: '/about',
-    },
-    {
-      name: 'Our Services',
-      path: '/our-clients',
-    },
-    {
-      name: 'Contact us',
-      path: '/contact-us',
-    },
-  ];
   const navigate = useNavigate();
   return (
     <section className='flex flex-1 flex-col gap-10 bg-primary'>
