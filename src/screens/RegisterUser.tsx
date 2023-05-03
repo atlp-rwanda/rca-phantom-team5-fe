@@ -4,6 +4,8 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { RegisterUser } from '../redux/api/authApi';
+import { Oval } from 'react-loader-spinner';
+import { Link } from 'react-router-dom';
 
 export default function RegisterUserScreen() {
   const [errortext, setErrortext] = useState<string>('');
@@ -47,6 +49,7 @@ export default function RegisterUserScreen() {
               );
               if (RegisterUser.fulfilled.match(resultAction)) {
                 setSelected('');
+                setLoading(false);
                 resetForm({ values: { fname: '', lname: '', nid: '', email: '', role: '', driver_licence: [] } });
                 setErrortext('User ' + resultAction.payload.message + ' Successfully');
               } else {
@@ -56,7 +59,6 @@ export default function RegisterUserScreen() {
                 setErrortext(resultAction.payload.message);
               }
               setLoading(false);
-              // setSubmitting(false);
             }, 400);
           }}
         >
@@ -122,7 +124,7 @@ export default function RegisterUserScreen() {
                   onChange={getInput}
                   name='role'
                   value={selected}
-                  className='focus:shadow-outline  h-12 w-11/12  rounded  border border-gray-300 py-1 px-6 leading-tight text-gray-700 focus:outline-none max-[768px]:w-full'
+                  className='focus:shadow-outline  h-12 w-11/12  rounded border border-gray-300 bg-white py-1 px-6 leading-tight text-gray-700 focus:outline-none max-[768px]:w-full'
                   placeholder='select the role'
                 >
                   <option value={selected}>{selected}</option>
@@ -173,12 +175,31 @@ export default function RegisterUserScreen() {
             ) : (
               <p className='mt-4 text-center text-red-600'>{errortext}</p>
             )}
-            <div className='item-center max-[768px]:justify-normal flex justify-center'>
+
+            <div className=' max-[768px]:justify-normal flex justify-start'>
+              <Link to='/dashboard' className='text-xm text-underline mt-16 ml-0 mr-16 pl-0 font-bold text-primary'>
+                Back to Dashbord
+              </Link>
               <button
                 type='submit'
                 className='focus:shadow-outline mt-4 w-5/12 rounded bg-primary py-4 px-4 font-bold text-white focus:outline-none max-[768px]:w-full'
               >
-                Create
+                {loading ? (
+                  <Oval
+                    height={20}
+                    width={20}
+                    color='#fff'
+                    wrapperStyle={{}}
+                    wrapperClass=''
+                    visible
+                    ariaLabel='oval-loading'
+                    secondaryColor='#ccc'
+                    strokeWidth={2}
+                    strokeWidthSecondary={2}
+                  />
+                ) : (
+                  'Create'
+                )}
               </button>
             </div>
           </Form>

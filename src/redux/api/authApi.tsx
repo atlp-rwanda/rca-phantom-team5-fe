@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AnyAction, Dispatch } from 'redux';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import baseUrl from 'utils/url';
+import { AnyAction, Dispatch } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
-// import { RootState } from '../store';
+import { RootState } from '../store';
+import baseUrl from 'utils/url';
+import { useEffect, useState } from 'react';
 
 export const RegisterUser = createAsyncThunk(
   'auth/register-user',
