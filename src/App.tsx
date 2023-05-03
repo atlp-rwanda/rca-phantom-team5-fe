@@ -27,6 +27,9 @@ function App() {
           <Route path='/register-user' element={<RegisterUserScreen />} />
           <Route path='*' element={<NotFoundScreen />} />
           <Route path='/dashboard' element={<Sidebar />} />
+          <Route path='/buses' element={<ViewBusesScreen />} />
+          <Route path='/map' element={<MapScreen />} />
+          <Route path='/map-view' element={<MapViewScreen />} />
         </Routes>
       </Layout>
     </Router>

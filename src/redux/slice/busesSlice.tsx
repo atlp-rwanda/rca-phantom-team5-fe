@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { GetBuses } from '../api/viewBusesApi';
 
+import { GetBuses } from '../api/viewBusesApi';
 
 const initialState = {
     buses: [],
@@ -23,14 +23,12 @@ const busSlice = createSlice({
             state.buses = action.payload.data;
             state.success = true;
             state.status = 'success';
-            localStorage.setItem('userToken', action.payload.data.access_token);
         });
         builder.addCase(GetBuses.rejected, (state, action) => {
             state.loading = false;
             state.status = 'failed';
         });
-
     },
 });
-export const selectAllBuses = (state: { locactions: { buses: any; }; }) => state.locactions.buses;
+export const selectAllBuses = (state: { locactions: { buses: any } }) => state.locactions.buses;
 export default busSlice.reducer;
