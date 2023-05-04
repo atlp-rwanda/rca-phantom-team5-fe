@@ -1,49 +1,20 @@
-# vite-react-ts-eslint-prettier-tailwind
-This project is a starter template for creating React apps using Vite, Tailwind, and TypeScript. It also includes ESLint and Prettier for code formatting, React-Router for easy navigation, and Husky and lint-staged for ensuring consistent code quality. Use this template as a starting point for your own projects and customize it as needed to fit your specific requirements.
+# PHANTOM FRONTEND APP
 
-# Installation
-To use this template, you'll need to have Node.js installed on your machine. Once you've installed Node.js, follow these steps:
+- This Frontend App.
 
-Clone the project
-
-```bash
-  https://github.com/saddamarbaa/vite-react-ts-eslint-prettier-tailwind
-```
-
-Go to the project directory
-
-```bash
-  cd vite-react-ts-eslint-prettier-tailwind
-```
-
-Install dependencies
-
-```bash
-  yarn install
-```
-
-# Usage
-To use this template, follow these steps:
-
-Start the development server
-```bash
- yarn dev
-```
-
-Open your browser and navigate to http://localhost:3000
-```bash
-  Open your browser and navigate to http://localhost:3000
-```
-
-You can now start customizing the template to fit your specific needs. You can modify the files in the src directory to add your own code and assets, and you can add new dependencies to the package.json file as needed.
+#### This is the Hosted link of the frontend App [Access Web Page Direct]
 
 
-# Contributing
-If you'd like to contribute to this project, feel free to submit a pull request. Before submitting a pull request, please make sure that your changes are well-documented and that they follow the existing coding style.
 
+#### This is the Github repository link of the frontend APP.
 
-# Deployment
-This project is deployed on Vercel, which provides a simple and easy-to-use platform for deploying static sites and serverless functions. To deploy your own version of this project to Vercel, check out the Vercel documentation.    https://vercel.com
+https://github.com/key-joshua/Ksdacllp-Frontend
 
-# License
-This project is licensed under the MIT License.
+## GETTING START WITH PROJECT
+
+- should clone this repository with `git clone https://github.com/key-joshua/Ksdacllp-Frontend.git`
+- should switch into this branch with `git checkout develop`
+- After diving into a branch, should run the `npm cache clean --force` &`npm install` by installing required libraries.
+- After installing the required libraries - should also set up a .env file by referring to the .env.example as required.
+- After installation successfully - should run `npm run client` or `npm run start` by starting the project.
+- After now you ready to test the application on `localhost:3000` or `http://xxx.xxx.xx.x:3000  `.
