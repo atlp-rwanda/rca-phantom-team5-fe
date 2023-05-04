@@ -85,6 +85,23 @@ export const userProfile = () => {
     role,
   };
 };
+
+export const updateUser = createAsyncThunk(
+  'auth/updateUser',
+  async (payload: { fname?: string; lname?: string; driver_licence?: string[] }, thunkAPI) => {
+    try {
+      const { data } = await axios.put(`${baseUrl}/users/update-profile`, payload, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+        },
+      });
+      return data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  },
+);
+
 export const getProfile = createAsyncThunk('auth/get', async (_, thunkAPI) => {
   try {
     const { data } = await axios.get(`${baseUrl}/users/get-profile`, {
@@ -101,26 +118,8 @@ export const getProfile = createAsyncThunk('auth/get', async (_, thunkAPI) => {
 export const logout = createAsyncThunk('auth/logout', async () => {
   try {
     const token = localStorage.getItem('userToken');
-    console.log(token);
     const data = await axios.delete(`${baseUrl}/auth/logout`, { headers: { Authorization: `Bearer ${token}` } });
   } catch (error: any) {
     console.error(error);
   }
 });
-
-export const updateUser = createAsyncThunk(
-  'auth/updateUser',
-  async (payload: { fname?: string; lname?: string; driver_licence?: string[] }, thunkAPI) => {
-    try {
-      const { data } = await axios.put(`${baseUrl}/users/update-profile`, payload, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
-        },
-      });
-      console.log(data);
-      return data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  },
-);
