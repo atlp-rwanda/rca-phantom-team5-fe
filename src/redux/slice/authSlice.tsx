@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { getProfile, login, updateUser } from '../api/authApi';
+
 const userToken = localStorage.getItem('userToken') ? localStorage.getItem('userToken') : null;
 
 const initialState = {
@@ -7,6 +9,7 @@ const initialState = {
   userToken,
   isAuthonticated: false,
   loading: false,
+  user_id: 0,
   userStatus: 'idle',
   success: false,
   state: {
@@ -29,6 +32,7 @@ const authSlice = createSlice({
     builder.addCase(login.fulfilled, (state, action) => {
       state.loading = false;
       state.userToken = action.payload.data.access_token;
+      state.user_id = action.payload.data.user_id;
       state.success = true;
       state.isAuthonticated = true;
       localStorage.setItem('userToken', action.payload.data.access_token);

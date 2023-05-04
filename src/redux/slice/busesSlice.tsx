@@ -4,6 +4,7 @@ import { GetBuses } from '../api/viewBusesApi';
 
 const initialState = {
     buses: [],
+    routes: [],
     status: 'idle',
     loading: false,
     success: false,
@@ -21,6 +22,7 @@ const busSlice = createSlice({
         builder.addCase(GetBuses.fulfilled, (state, action) => {
             state.loading = false;
             state.buses = action.payload.data;
+            state.routes = action.payload.data[0].routes;
             state.success = true;
             state.status = 'success';
         });

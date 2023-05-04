@@ -1,17 +1,20 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ButtonHTMLAttributes, useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { DirectionsRenderer, GoogleMap, MarkerF, useJsApiLoader } from '@react-google-maps/api';
+import axios from 'axios';
 import haversineDistance from 'haversine-distance';
 import Sidebar from 'layouts/Sidebar';
 import { io, Socket } from 'socket.io-client';
+import baseUrl from 'utils/url';
 
 import RightLeftBus from '../assets/yourbus.svg';
 
 import '../styles/map.css';
 
-type BusState = 'stopped' | 'moving' | 'slowed' | 'traffic';
+type BusState = 'stopped' | 'moving' | 'slowed' | 'traffic' | 'packing';
 interface Bus {
   distance: number;
   busId: string;
@@ -36,29 +39,20 @@ function MapScreen() {
     id: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDEDT-0K6NPqZeaptS0TXWxBxrv71PMFJ4&libraries=places',
     googleMapsApiKey: 'AIzaSyDEDT-0K6NPqZeaptS0TXWxBxrv71PMFJ4',
   });
-  const [route, setRout] = useState({
-    id: 2,
-    start: {
-      lat: -1.9647362028782875,
-      lng: 30.148948779461183,
-    },
-    end: {
-      lat: -1.942111,
-      lng: 30.043433,
-    },
-    busStops: [],
-  });
+  const [route, setRout] = useState<any>();
   const [map, setMap] = useState(null);
-  const [userLocation, setUserLocation] = useState<{ lng: number; lat: number }>(route.start);
+  const [userLocation, setUserLocation] = useState<{ lng: number; lat: number }>();
   const [directionsResponse, setDirectionsResponse] = useState<any>(null);
+  const user = useSelector((state: any) => state.auth.user_id);
+  const [disconnect, setDisconnected] = useState(false);
   const [currentBus, setcurrentBus] = useState<Bus>({
     velocity: 50,
     distance: 0,
     seats: 0,
     initialTime: initialDate,
     startingTime: initialDate,
-    position: route.start,
-    state: 'moving',
+    position: { lat: 0, lng: 0 },
+    state: 'packing',
     busId: '2',
   });
   const [pathDistance, setPathDistance] = useState<{ lng: number; lat: number; distance: number }[]>();
@@ -76,15 +70,15 @@ function MapScreen() {
 
     setPathDistance(pathCoordinatesWithDistance);
   };
-  async function calculateRoute() {
-    if (!route.start || !route.end) {
+  async function calculateRoute(start: any, end: any) {
+    if (!start || !end) {
       return;
     }
     const directionsService = new window.google.maps.DirectionsService();
     const results = await directionsService.route({
-      waypoints: route.busStops,
-      origin: route.start,
-      destination: route.end,
+      waypoints: [],
+      origin: start,
+      destination: end,
       travelMode: window.google.maps.TravelMode.DRIVING,
     });
     calculateDistance(results.routes[0].overview_path);
@@ -127,6 +121,9 @@ function MapScreen() {
   };
 
   const start = (key: any) => {
+    setcurrentBus((prev) => {
+      return { ...prev, state: 'moving', startingTime: new Date().getTime(), initialTime: new Date().getTime() };
+    });
     key.preventDefault();
     if (pathDistance) {
       for (let index = 0; index < pathDistance.length; index += 1) {
@@ -145,7 +142,43 @@ function MapScreen() {
       return { ...prev, state: prev.state === 'stopped' ? 'moving' : 'stopped', startingTime: new Date().getTime() };
     });
   };
-
+  const getBusInfo = async () => {
+    const bus = await axios.get(`${baseUrl}/buses/get-bus-by-driver/${1}`);
+    if (bus.data) {
+      calculateRoute(
+        {
+          lat: parseFloat(bus.data.data.routes.locations_start.latitude),
+          lng: parseFloat(bus.data.data.routes.locations_start.longitude),
+        },
+        {
+          lat: parseFloat(bus.data.data.routes.locations_end.latitude),
+          lng: parseFloat(bus.data.data.routes.locations_end.longitude),
+        },
+      );
+      setRout({
+        id: bus.data.data.routes.id,
+        start: {
+          lat: parseFloat(bus.data.data.routes.locations_start.latitude),
+          lng: parseFloat(bus.data.data.routes.locations_start.longitude),
+        },
+        end: {
+          lat: parseFloat(bus.data.data.routes.locations_end.latitude),
+          lng: parseFloat(bus.data.data.routes.locations_end.longitude),
+        },
+        busStops: [],
+      });
+      setcurrentBus((prev) => {
+        return {
+          ...prev,
+          position: {
+            lat: parseFloat(bus.data.data.routes.locations_start.latitude),
+            lng: parseFloat(bus.data.data.routes.locations_start.longitude),
+          },
+          seats: bus.data.data.available_sits,
+        };
+      });
+    }
+  };
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -156,72 +189,91 @@ function MapScreen() {
       console.log('geolocation not supported');
     }
 
-    calculateRoute();
+    getBusInfo();
     socket = io(ENDPOINT);
+    if (route) {
+      socket.emit('join', { route_id: 2, origin: 2, destination: 5 }, (error: any) => {
+        if (error) {
+          console.log(error);
+        }
+      });
+    }
 
-    socket.emit('join', { route_id: route.id, origin: 2, destination: 5 }, (error: any) => {
-      if (error) {
-        console.log(error);
-      }
+    socket.on('disconnect', (reson) => {
+      setDisconnected(true);
     });
+    return () => {
+      socket.disconnect();
+      socket.off();
+    };
   }, []);
 
   useEffect(() => {
     interval.current = currentBus;
-    socket.emit('update', {
-      route_id: route.id,
-      busId: currentBus.busId,
-      position: currentBus.position,
-      state: currentBus.state,
-      seats: currentBus.seats,
-    });
-  }, [currentBus, route.id]);
+    if (route) {
+      socket.emit('update', {
+        route_id: route.id,
+        busId: currentBus.busId,
+        position: currentBus.position,
+        state: currentBus.state,
+        seats: currentBus.seats,
+      });
+    }
+  }, [currentBus, route]);
 
   return (
     <Sidebar>
       {isLoaded ? (
         <div className='flex h-screen w-full'>
           <div className='relative w-full'>
-            <GoogleMap
-              center={route.start}
-              zoom={16}
-              mapContainerStyle={{ flex: 1, height: '100vh' }}
-              options={{
-                zoomControl: false,
-                streetViewControl: false,
-                mapTypeControl: false,
-                fullscreenControl: false,
-              }}
-              onLoad={(map) => setMap(map)}
-            >
-              <MarkerF position={{ lat: currentBus.position.lat, lng: currentBus.position.lng }} icon={RightLeftIcon} />
-              {/* <MarkerF position={route.start}  /> */}
-              {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
-            </GoogleMap>
-            <div className='absolute left-1/2 bottom-20 z-10 w-1/3  -translate-x-1/2 p-4'>
-              <div className='bg-primary relative flex items-center justify-between gap-4 rounded-lg px-4 py-3 text-white shadow-lg'>
-                <p className='truncate text-sm font-medium'>Your are Disconnected</p>
-                <button
-                  aria-label='Close'
-                  className='bg-primary/10 shrink-0 rounded-lg p-1 transition hover:bg-black/20'
-                >
-                  <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
-                    <path
-                      fillRule='evenodd'
-                      d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
-                      clipRule='evenodd'
-                    />
-                  </svg>
-                </button>
+            {route && (
+              <GoogleMap
+                center={route.start}
+                zoom={16}
+                mapContainerStyle={{ flex: 1, height: '100vh' }}
+                options={{
+                  zoomControl: false,
+                  streetViewControl: false,
+                  mapTypeControl: false,
+                  fullscreenControl: false,
+                }}
+                onLoad={(map) => setMap(map)}
+              >
+                <MarkerF
+                  position={{ lat: currentBus.position.lat, lng: currentBus.position.lng }}
+                  icon={RightLeftIcon}
+                />
+                {/* <MarkerF position={route.start}  /> */}
+                {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
+              </GoogleMap>
+            )}
+
+            {disconnect && (
+              <div className='absolute left-1/2 bottom-20 z-10 w-1/3  -translate-x-1/2 p-4'>
+                <div className='relative flex items-center justify-between gap-4 rounded-lg bg-primary px-4 py-3 text-white shadow-lg'>
+                  <p className='truncate text-sm font-medium'>Your are Disconnected</p>
+                  <button
+                    aria-label='Close'
+                    className='shrink-0 rounded-lg bg-primary/10 p-1 transition hover:bg-black/20'
+                  >
+                    <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
+                      <path
+                        fillRule='evenodd'
+                        d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
+                        clipRule='evenodd'
+                      />
+                    </svg>
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           <div className='p-2'>
             <button
               onClick={start}
               type='button'
-              className='bg-primary relative flex w-full items-center justify-center rounded-md px-5 py-2.5 font-medium capitalize   tracking-wide text-white transition  duration-300   ease-in-out hover:bg-gray-900 focus:outline-none active:scale-95'
+              className='relative flex w-full items-center justify-center rounded-md bg-primary px-5 py-2.5 font-medium capitalize   tracking-wide text-white transition  duration-300   ease-in-out hover:bg-gray-900 focus:outline-none active:scale-95'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
