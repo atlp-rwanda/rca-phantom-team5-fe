@@ -17,8 +17,6 @@ import ViewBusesScreen from 'screens/ViewBusesScreen';
 import { userProfile } from './redux/api/authApi';
 
 function App() {
-  const user = userProfile();
-
   return (
     <Router>
       <Layout>
@@ -39,7 +37,14 @@ function App() {
           <Route path='/update-profile' element={<UpdateProfile />} />
           <Route path='*' element={<NotFoundScreen />} />
           <Route path='/view-buses' element={<ViewBusesScreen />} />
-          <Route path='/map' element={<MapScreen />} />
+          <Route
+            path='/map'
+            element={
+              <PrivateRoute redirectPath='/login'>
+                <MapScreen />{' '}
+              </PrivateRoute>
+            }
+          />
           <Route path='/map-view' element={<MapViewScreen />} />
           <Route
             path='/dashboard'

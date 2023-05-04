@@ -30,7 +30,7 @@ const RightLeftIcon: google.maps.Icon = {
   url: RightLeftBus,
   scaledSize: new google.maps.Size(36, 36),
 };
-const ENDPOINT = 'http://localhost:3000/';
+const ENDPOINT = baseUrl.split('/api')[0];
 
 let socket: Socket;
 function MapScreen() {
@@ -191,13 +191,6 @@ function MapScreen() {
 
     getBusInfo();
     socket = io(ENDPOINT);
-    if (route) {
-      socket.emit('join', { route_id: 2, origin: 2, destination: 5 }, (error: any) => {
-        if (error) {
-          console.log(error);
-        }
-      });
-    }
 
     socket.on('disconnect', (reson) => {
       setDisconnected(true);
@@ -221,12 +214,22 @@ function MapScreen() {
     }
   }, [currentBus, route]);
 
+  useEffect(() => {
+    if (route) {
+      socket.emit('join', { route_id: 2, origin: 2, destination: 5 }, (error: any) => {
+        if (error) {
+          console.log(error);
+        }
+      });
+    }
+  }, [route]);
+
   return (
     <Sidebar>
       {isLoaded ? (
         <div className='flex h-screen w-full'>
           <div className='relative w-full'>
-            {route && (
+            {route ? (
               <GoogleMap
                 center={route.start}
                 zoom={16}
@@ -246,6 +249,8 @@ function MapScreen() {
                 {/* <MarkerF position={route.start}  /> */}
                 {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
               </GoogleMap>
+            ) : (
+              <span className='text-2xl text-primary'>loading map ...</span>
             )}
 
             {disconnect && (

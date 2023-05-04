@@ -185,28 +185,29 @@ function Sidebar({ children }: Props) {
                     Buses
                   </Link>
                 </li>
-
-                <li className='group my-2  flex items-center py-2'>
-                  <div
-                    className={`h-49 mr-4 w-2 ${location.pathname === '/map'
-                        ? 'bg-orange text-orange'
-                        : 'group-hover:bg-orange group-hover:text-orange'
-                      }`}
-                  >
-                    l
-                  </div>
-                  <MyLocation
-                    className={`h-6 w-6 ${location.pathname === '/map' ? 'text-orange' : 'text-white'
-                      } group-hover:text-orange`}
-                  />
-                  <Link
-                    to='/map'
-                    className={`ml-2 ${location.pathname === '/map' ? 'text-orange' : 'text-white'
-                      } group-hover:text-orange`}
-                  >
-                    Drive map
-                  </Link>
-                </li>
+                {role === 'driver' && (
+                  <li className='group my-2  flex items-center py-2'>
+                    <div
+                      className={`h-49 mr-4 w-2 ${location.pathname === '/map'
+                          ? 'bg-orange text-orange'
+                          : 'group-hover:bg-orange group-hover:text-orange'
+                        }`}
+                    >
+                      l
+                    </div>
+                    <MyLocation
+                      className={`h-6 w-6 ${location.pathname === '/map' ? 'text-orange' : 'text-white'
+                        } group-hover:text-orange`}
+                    />
+                    <Link
+                      to='/map'
+                      className={`ml-2 ${location.pathname === '/map' ? 'text-orange' : 'text-white'
+                        } group-hover:text-orange`}
+                    >
+                      Drive map
+                    </Link>
+                  </li>
+                )}
                 <li className='group my-2  flex items-center py-2'>
                   <div
                     className={`h-49 mr-4 w-2 ${location.pathname === '/update-profile'
