@@ -142,8 +142,8 @@ function MapScreen() {
       return { ...prev, state: prev.state === 'stopped' ? 'moving' : 'stopped', startingTime: new Date().getTime() };
     });
   };
-  const getBusInfo = async () => {
-    const bus = await axios.get(`${baseUrl}/buses/get-bus-by-driver/${1}`);
+  const getBusInfo = async (id: number) => {
+    const bus = await axios.get(`${baseUrl}/buses/get-bus-by-driver/${id}`);
     if (bus.data) {
       calculateRoute(
         {
@@ -170,6 +170,7 @@ function MapScreen() {
       setcurrentBus((prev) => {
         return {
           ...prev,
+          busId: bus.data.data.id,
           position: {
             lat: parseFloat(bus.data.data.routes.locations_start.latitude),
             lng: parseFloat(bus.data.data.routes.locations_start.longitude),
@@ -188,8 +189,7 @@ function MapScreen() {
       toast.info('geolocation not supported');
       console.log('geolocation not supported');
     }
-
-    getBusInfo();
+    getBusInfo(user);
     socket = io(ENDPOINT);
 
     socket.on('disconnect', (reson) => {
@@ -204,6 +204,7 @@ function MapScreen() {
   useEffect(() => {
     interval.current = currentBus;
     if (route) {
+      console.log(currentBus.busId);
       socket.emit('update', {
         route_id: route.id,
         busId: currentBus.busId,
@@ -216,7 +217,7 @@ function MapScreen() {
 
   useEffect(() => {
     if (route) {
-      socket.emit('join', { route_id: 2, origin: 2, destination: 5 }, (error: any) => {
+      socket.emit('join', { route_id: route.id, origin: 2, destination: 5 }, (error: any) => {
         if (error) {
           console.log(error);
         }
@@ -250,16 +251,16 @@ function MapScreen() {
                 {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
               </GoogleMap>
             ) : (
-              <span className='text-2xl text-primary'>loading map ...</span>
+              <span className='text-primary text-2xl'>loading map ...</span>
             )}
 
             {disconnect && (
               <div className='absolute left-1/2 bottom-20 z-10 w-1/3  -translate-x-1/2 p-4'>
-                <div className='relative flex items-center justify-between gap-4 rounded-lg bg-primary px-4 py-3 text-white shadow-lg'>
+                <div className='bg-primary relative flex items-center justify-between gap-4 rounded-lg px-4 py-3 text-white shadow-lg'>
                   <p className='truncate text-sm font-medium'>Your are Disconnected</p>
                   <button
                     aria-label='Close'
-                    className='shrink-0 rounded-lg bg-primary/10 p-1 transition hover:bg-black/20'
+                    className='bg-primary/10 shrink-0 rounded-lg p-1 transition hover:bg-black/20'
                   >
                     <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
                       <path
@@ -278,7 +279,7 @@ function MapScreen() {
             <button
               onClick={start}
               type='button'
-              className='relative flex w-full items-center justify-center rounded-md bg-primary px-5 py-2.5 font-medium capitalize   tracking-wide text-white transition  duration-300   ease-in-out hover:bg-gray-900 focus:outline-none active:scale-95'
+              className='bg-primary relative flex w-full items-center justify-center rounded-md px-5 py-2.5 font-medium capitalize   tracking-wide text-white transition  duration-300   ease-in-out hover:bg-gray-900 focus:outline-none active:scale-95'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'

@@ -30,6 +30,7 @@ const authSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(login.fulfilled, (state, action) => {
+      console.log(action.payload.data.user_id);
       state.loading = false;
       state.userToken = action.payload.data.access_token;
       state.user_id = action.payload.data.user_id;
@@ -60,8 +61,10 @@ const authSlice = createSlice({
       state.userStatus = 'loading';
     });
     builder.addCase(getProfile.fulfilled, (state, action) => {
+      console.log(action.payload.data.id);
       state.userStatus = 'success';
       state.userInfo = action.payload.data;
+      state.user_id = action.payload.data.id;
       state.success = true;
     });
     builder.addCase(getProfile.rejected, (state, action) => {
