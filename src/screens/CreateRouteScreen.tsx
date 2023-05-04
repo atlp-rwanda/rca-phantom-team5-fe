@@ -12,13 +12,15 @@ export default function CreateRouteScreen() {
   const [errorText, setErrorText] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch: any = useDispatch();
-
   return (
-    <div className='flex h-screen items-center justify-center bg-primary'>
+    <div className='bg-primary flex h-screen items-center justify-center'>
       <Formik
         initialValues={{ route_name: '', start: '', end: '', stops: [] }}
         validationSchema={Yup.object({
           route_name: Yup.string().required(),
+          confirm_password: Yup.string().required(),
+          start: Yup.string().required(),
+          end: Yup.string().required(),
         })}
         onSubmit={(values, { setSubmitting }: any) => {
           setTimeout(async () => {
@@ -58,8 +60,8 @@ export default function CreateRouteScreen() {
                 Name
               </label>
               <Field
-                className='focus:primary mb-3 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2
-                            shadow-sm placeholder:text-gray-400 focus:border-primary focus:outline-none
+                className='focus:primary focus:border-primary mb-3 block w-full appearance-none rounded-md border border-gray-300 px-3
+                            py-2 shadow-sm placeholder:text-gray-400 focus:outline-none
                              focus:placeholder:text-gray-500 sm:text-sm'
                 id='name'
                 name='name'
@@ -72,8 +74,8 @@ export default function CreateRouteScreen() {
                 Start Point
               </label>
               <Field
-                className='focus:primary mb-3 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2
-                            shadow-sm placeholder:text-gray-400 focus:border-primary focus:outline-none
+                className='focus:primary focus:border-primary mb-3 block w-full appearance-none rounded-md border border-gray-300 px-3
+                            py-2 shadow-sm placeholder:text-gray-400 focus:outline-none
                              focus:placeholder:text-gray-500 sm:text-sm'
                 id='startPoint'
                 name='startPoint'
@@ -88,8 +90,8 @@ export default function CreateRouteScreen() {
                 End point
               </label>
               <Field
-                className='focus:primary mb-3 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2
-                            shadow-sm placeholder:text-gray-400 focus:border-primary focus:outline-none
+                className='focus:primary focus:border-primary mb-3 block w-full appearance-none rounded-md border border-gray-300 px-3
+                            py-2 shadow-sm placeholder:text-gray-400 focus:outline-none
                              focus:placeholder:text-gray-500 sm:text-sm'
                 id='endPoint'
                 type='text'
@@ -102,8 +104,8 @@ export default function CreateRouteScreen() {
                 Stops
               </label>
               <Field
-                className='focus:primary mb-3 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2
-                            shadow-sm placeholder:text-gray-400 focus:border-primary focus:outline-none
+                className='focus:primary focus:border-primary mb-3 block w-full appearance-none rounded-md border border-gray-300 px-3
+                            py-2 shadow-sm placeholder:text-gray-400 focus:outline-none
                              focus:placeholder:text-gray-500 sm:text-sm'
                 id='stops'
                 type='text'
@@ -112,17 +114,15 @@ export default function CreateRouteScreen() {
               />
             </div>
           </div>
-           <ErrorMessage name='name'>
+          <ErrorMessage>
                   {(msg) => <div className='my-1 text-xs text-red-500'>{msg}</div>}
                 </ErrorMessage>
-          <div>{errorText && <div className='my-1 text-xs text-red-500'>{errorText}</div>}</div>
+         <div>{errorText && <div className='my-1 text-xs text-red-500'>{errorText}</div>}</div>
           <div />
           <div className='flex justify-center'>
             <button
+              className='flex w-[30%] justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary'
               type='submit'
-              className='flex w-[30%] justify-center rounded-md 
-              border border-transparent bg-primary py-2 px-4
-              text-sm font-medium text-white shadow-sm hover:bg-primary'
             >
               {loading ? (
                 <Oval
