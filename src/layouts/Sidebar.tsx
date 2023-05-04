@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import Logout from '../screens/LogoutScreen';
-
-import { Dashboard, DirectionsBus, Settings, Timeline } from '@material-ui/icons';
-import { Link, useLocation } from 'react-router-dom';
-import Navbar from 'components/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProfile } from '../redux/api/authApi';
+import { Link, useLocation } from 'react-router-dom';
+import { Dashboard, DirectionsBus, MyLocation, Settings, Timeline } from '@material-ui/icons';
+import Navbar from 'components/Navbar';
 import { ThunkDispatch } from 'redux-thunk';
+
+import { getProfile } from '../redux/api/authApi';
 import { RootState } from '../redux/store';
+import Logout from '../screens/LogoutScreen';
 
 type Props = {
   children: React.ReactNode;
 };
 
-const Sidebar = ({ children }: Props) => {
+function Sidebar({ children }: Props) {
   const [activeLink, setActiveLink] = useState('/overview');
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
@@ -38,7 +38,7 @@ const Sidebar = ({ children }: Props) => {
     <>
       {authStatus !== 'success' ? (
         <div className='flex h-screen items-center justify-center'>
-          <div className='h-14 w-14 animate-spin rounded-full border-b-2 border-t-2 border-gray-900'></div>
+          <div className='h-14 w-14 animate-spin rounded-full border-y-2 border-gray-900' />
         </div>
       ) : (
         <div className='flex h-screen flex-row justify-end bg-white'>
@@ -61,16 +61,14 @@ const Sidebar = ({ children }: Props) => {
             className={`${isOpen ? 'block' : 'hidden'
               } fixed left-0 top-0 z-40 h-full w-full bg-black opacity-50 lg:hidden`}
             onClick={toggleSidebar}
-          ></div>
+          />
           <div
             className={`${isOpen ? 'w-3/5' : 'w-0'
-              } fixed bottom-0 left-0 top-0 z-50 flex flex-col justify-between overflow-y-auto bg-primary transition-all duration-300 ease-in-out lg:w-1/5`}
+              } fixed inset-y-0 left-0 z-50 flex flex-col justify-between overflow-y-auto bg-primary transition-all duration-300 ease-in-out lg:w-1/5`}
           >
             <div>
               <div className='ml-4 lg:mt-3 lg:text-2xl'>
-                <h1 className='font-poppins mx-4 my-2 mr-4 text-lg font-bold text-white lg:my-6 lg:text-2xl'>
-                  Dashboard
-                </h1>
+                <h1 className='font-poppins mx-4 my-2 text-lg font-bold text-white lg:my-6 lg:text-2xl'>Dashboard</h1>
               </div>
 
               <ul className='mt-10'>
@@ -139,6 +137,27 @@ const Sidebar = ({ children }: Props) => {
                 </li>
                 <li className='group my-2  flex items-center py-2'>
                   <div
+                    className={`h-49 mr-4 w-2 ${location.pathname === '/map'
+                        ? 'bg-orange text-orange'
+                        : 'group-hover:bg-orange group-hover:text-orange'
+                      }`}
+                  >
+                    l
+                  </div>
+                  <MyLocation
+                    className={`h-6 w-6 ${location.pathname === '/map' ? 'text-orange' : 'text-white'
+                      } group-hover:text-orange`}
+                  />
+                  <Link
+                    to='/map'
+                    className={`ml-2 ${location.pathname === '/map' ? 'text-orange' : 'text-white'
+                      } group-hover:text-orange`}
+                  >
+                    Drive map
+                  </Link>
+                </li>
+                <li className='group my-2  flex items-center py-2'>
+                  <div
                     className={`h-49 mr-4 w-2 ${location.pathname === '/update-profile'
                         ? 'bg-orange text-orange'
                         : 'group-hover:bg-orange group-hover:text-orange'
@@ -173,5 +192,5 @@ const Sidebar = ({ children }: Props) => {
       )}
     </>
   );
-};
+}
 export default Sidebar;

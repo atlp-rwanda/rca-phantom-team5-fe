@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import PrivateRoute from 'components/PrivateRoutes';
 import Layout from 'layouts/indes';
 import Sidebar from 'layouts/Sidebar';
 import HomeScreen from 'screens/HomeScreen';
@@ -10,9 +11,8 @@ import RegisterUserScreen from 'screens/RegisterUser';
 import RequestPasswordReset from 'screens/RequestPasswordResetScreen';
 import SignInScreen from 'screens/SignInScreen';
 import SignUpScreen from 'screens/SignUpScreen';
-import ViewBusesScreen from 'screens/ViewBusesScreen';
-import PrivateRoute from 'components/PrivateRoutes';
 import UpdateProfile from 'screens/UpdateProfile';
+import ViewBusesScreen from 'screens/ViewBusesScreen';
 
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
           <Route path='/register-user' element={<RegisterUserScreen />} />
           <Route path='/update-profile' element={<UpdateProfile />} />
           <Route path='*' element={<NotFoundScreen />} />
-          <Route path='/buses' element={<ViewBusesScreen />} />
+          <Route path='/view-buses' element={<ViewBusesScreen />} />
           <Route path='/map' element={<MapScreen />} />
           <Route path='/map-view' element={<MapViewScreen />} />
           <Route

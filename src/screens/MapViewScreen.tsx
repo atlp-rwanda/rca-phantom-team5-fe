@@ -282,7 +282,7 @@ function MapViewScreen() {
       <div className='flex flex-col items-center justify-center border-b p-4 md:flex-row md:justify-between md:px-8'>
         <div className='flex items-center justify-center'>
           <img src={logo} className='mr-2 h-12 w-11' alt='logo' />
-          <h1 className='text-orange mb-4 text-3xl md:mb-0'>Phatom</h1>
+          <h1 className='mb-4 text-3xl text-orange md:mb-0'>Phatom</h1>
         </div>
         <div className='flex items-center gap-6'>
           {links.map((link) => (
@@ -291,7 +291,7 @@ function MapViewScreen() {
             </h3>
           ))}
         </div>
-        <button onClick={() => navigate('/login')} className='bg-orange rounded px-6 py-2 text-lg text-white'>
+        <button onClick={() => navigate('/login')} className='rounded bg-orange px-6 py-2 text-lg text-white'>
           Login
         </button>
       </div>
@@ -391,7 +391,7 @@ function MapViewScreen() {
                   </div>
                   <button
                     type='submit'
-                    className='duration-3000 bg-orange cursor-pointer rounded-lg py-3 px-5 font-semibold text-white transition hover:shadow-lg'
+                    className='duration-3000 cursor-pointer rounded-lg bg-orange py-3 px-5 font-semibold text-white transition hover:shadow-lg'
                   >
                     {loading ? (
                       <Oval
@@ -466,17 +466,17 @@ function MapViewScreen() {
                   return <MarkerF key={bus.busId} position={{ lat: bus.position.lat, lng: bus.position.lng }} />;
                 })}
                 {/* <MarkerF position={route.start}  /> */}
-                {directionsResponse && <DirectionsRenderer  directions={directionsResponse} />}
+                {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
               </GoogleMap>
             )}
 
             {disconnected && (
               <div className='absolute left-1/2 bottom-12 z-10 w-1/3  -translate-x-1/2 p-4'>
-                <div className='relative flex items-center justify-between gap-4 rounded-lg bg-zinc-900 px-4 py-3 text-white shadow-lg'>
+                <div className='bg-primary relative flex items-center justify-between gap-4 rounded-lg px-4 py-3 text-white shadow-lg'>
                   <p className='text-sm font-medium'>Your are Disconnected</p>
                   <button
                     aria-label='Close'
-                    className='shrink-0 rounded-lg bg-black/10 p-1 transition hover:bg-black/20'
+                    className='bg-primary/10 hover:bg-primary/20 shrink-0 rounded-lg p-1 transition'
                   >
                     <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
                       <path
