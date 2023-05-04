@@ -1,4 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { AnyAction, Dispatch } from 'redux';
+import axios from 'axios';
+import baseUrl from 'utils/url';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+// import { RootState } from '../store';
+
+import { logout } from '../api/authApi';
 import { getProfile, login, updateUser } from '../api/authApi';
 const userToken = localStorage.getItem('userToken') ? localStorage.getItem('userToken') : null;
 

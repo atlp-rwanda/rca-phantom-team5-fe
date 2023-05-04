@@ -9,9 +9,12 @@ import RequestPasswordReset from 'screens/RequestPasswordResetScreen';
 import SignInScreen from 'screens/SignInScreen';
 import SignUpScreen from 'screens/SignUpScreen';
 import PrivateRoute from 'components/PrivateRoutes';
+import { userProfile } from './redux/api/authApi';
 import UpdateProfile from 'screens/UpdateProfile';
 
 function App() {
+  const user = userProfile();
+
   return (
     <Router>
       <Layout>
@@ -21,7 +24,14 @@ function App() {
           <Route path='/login' element={<SignInScreen />} />
           <Route path='/reset-password/:token' element={<PasswordReset />} />
           <Route path='/request-reset-password' element={<RequestPasswordReset />} />
-          <Route path='/register-user' element={<RegisterUserScreen />} />
+          <Route
+            path='/register-user'
+            element={
+              <PrivateRoute redirectPath='/login'>
+                <RegisterUserScreen />
+              </PrivateRoute>
+            }
+          />
           <Route path='/update-profile' element={<UpdateProfile />} />
           <Route path='*' element={<NotFoundScreen />} />
           <Route
