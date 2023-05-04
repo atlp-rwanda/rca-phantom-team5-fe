@@ -3,7 +3,10 @@ import React from 'react';
 export default function UpdateRouteScreen() {
   return (
     <div className='flex h-screen items-center justify-center bg-primary'>
-      <form className='rounded-lg bg-white p-8'>
+      <form className='rounded-lg bg-white p-4'>
+        <button className='top-0 right-0 float-right mt-0 h-[30px] w-[25px] justify-center bg-red-600 text-3xl text-white'>
+          &times;
+        </button>
         <div className='pb-12'>
           <h2 className='mt-1 text-center text-xl text-black'>Update Route</h2>
         </div>

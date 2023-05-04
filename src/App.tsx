@@ -3,7 +3,7 @@ import PrivateRoute from 'components/PrivateRoutes';
 import Layout from 'layouts/indes';
 import Sidebar from 'layouts/Sidebar';
 import CreateRouteScreen from 'screens/CreateRouteScreen';
-//import Dashboard from 'screens/Dashboaord';
+// import Dashboard from 'screens/Dashboaord';
 import HomeScreen from 'screens/HomeScreen';
 import NotFoundScreen from 'screens/NotFoundScreen';
 import PasswordReset from 'screens/PasswordResetScreen';
@@ -14,6 +14,7 @@ import SignInScreen from 'screens/SignInScreen';
 import SignUpScreen from 'screens/SignUpScreen';
 import UpdateProfile from 'screens/UpdateProfile';
 import UpdateRouteScreen from 'screens/UpdateRouteScreen';
+import ViewRoutesScreen from 'screens/ViewRoutesScreen';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path='/create-route' element={<CreateRouteScreen />} />
           <Route path='/update-route' element={<UpdateRouteScreen />} />
           <Route path='/route-details' element={<RouteDetailsScreen />} />
+          <Route path='/routes' element={<ViewRoutesScreen />} />
           <Route path='/reset-password/:token' element={<PasswordReset />} />
           <Route path='/request-reset-password' element={<RequestPasswordReset />} />
           <Route path='/register-user' element={<RegisterUserScreen />} />
