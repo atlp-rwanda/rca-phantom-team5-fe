@@ -155,8 +155,9 @@ export default function ViewBusesScreen() {
                     <div className='flex h-full w-full justify-center'>
                         <div className='flex w-full max-w-7xl flex-col items-center'>
                             <div className='flex w-full justify-between'>
-                                <div className='border-1 box1 bg-lightBlue mx-auto box-border h-24 w-80'>
+                                <div className='border-1 box1 bg-lightBlue mx-auto mb-12 box-border h-24 w-80'>
                                     <h1 className='text-dark mt-8 ml-6 text-lg md:mb-0'>Welcome to phantom</h1>
+                                    <p className='ml-6'>{buses.length > 1 ? buses[0].routes.route_name : null}</p>
                                 </div>
 
                                 <div className='flex flex-1 justify-end '>

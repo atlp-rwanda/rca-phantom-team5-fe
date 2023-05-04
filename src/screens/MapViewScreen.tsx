@@ -77,16 +77,16 @@ function MapViewScreen() {
     googleMapsApiKey: 'AIzaSyDEDT-0K6NPqZeaptS0TXWxBxrv71PMFJ4',
   });
   const [route, setRout] = useState({
-    id: 1,
-    start: {
-      lat: -1.9790269705524988,
-      lng: 30.22334585735245,
-    },
-    end: {
-      lat: -1.9584938721240128,
-      lng: 30.118844082083093,
-    },
-    busStops: [],
+    // id: 1,
+    // start: {
+    //   lat: -1.9790269705524988,
+    //   lng: 30.22334585735245,
+    // },
+    // end: {
+    //   lat: -1.9584938721240128,
+    //   lng: 30.118844082083093,
+    // },
+    // busStops: [],
   });
 
   const navigate = useNavigate();
@@ -96,7 +96,7 @@ function MapViewScreen() {
   const [errortext, setErrortext] = useState<string>('');
   const busesFromRoute = useSelector((state: any) => state.buses.buses);
   const [map, setMap] = useState<google.maps.Map>();
-  const [userLocation, setUserLocation] = useState<{ lng: number; lat: number }>(route.start);
+  const [userLocation, setUserLocation] = useState<{ lng: number; lat: number }>();
   const [directionsResponse, setDirectionsResponse] = useState<any>(null);
   const [buses, setBuses] = useState<Bus[]>([]);
   const [routeData, setRouteData] = useState<any>();
@@ -118,15 +118,17 @@ function MapViewScreen() {
     longitude: '',
     id: 0,
   });
-  async function calculateRoute() {
-    if (!route.start || !route.end) {
+  async function calculateRoute(select?: LocationType, select1?: LocationType) {
+    if ((!route.start || !route.end) && (select == 0 || select1 == 0)) {
       return;
     }
+    const start = route.start || { lat: parseFloat(select.latitude), lng: parseFloat(select.longitude) };
+    const end = route.end || { lat: parseFloat(select1.latitude), lng: parseFloat(select1.longitude) };
     const directionsService = new window.google.maps.DirectionsService();
     const results = await directionsService.route({
-      waypoints: route.busStops,
-      origin: route.start,
-      destination: route.end,
+      waypoints: route.busStops || [],
+      origin: start,
+      destination: end,
       travelMode: window.google.maps.TravelMode.DRIVING,
     });
     setDirectionsResponse(results);
@@ -150,16 +152,17 @@ function MapViewScreen() {
       toast.info('geolocation not supported');
     }
     if (route.start && route.start) {
-      calculateRoute();
+      calculateRoute(selected, selected1);
     }
     socket = io(ENDPOINT, { autoConnect: false });
     socket.connect();
-
-    socket.emit('join', { route_id: route.id, origin: selected.id, destination: selected1.id }, (error: any) => {
-      if (error) {
-        console.log(error);
-      }
-    });
+    if (selected.id !== 0 && selected1.id !== 0) {
+      socket.emit('join', { route_id: route.id, origin: selected.id, destination: selected1.id }, (error: any) => {
+        if (error) {
+          console.log(error);
+        }
+      });
+    }
     if (busesFromRoute.length > 0) {
       const BusesInroute = busesFromRoute.map((bus: any) => {
         const { id, name, plate_number, routes } = bus;
@@ -167,8 +170,8 @@ function MapViewScreen() {
           busId: id,
           name,
           position: {
-            lat: routes.locations_start.latitude,
-            lng: routes.locations_start.longitude,
+            lat: parseFloat(routes.locations_start.latitude),
+            lng: parseFloat(routes.locations_start.longitude),
           },
           seats: 0,
           plate_number,
@@ -180,28 +183,30 @@ function MapViewScreen() {
       const busrouteData = busesFromRoute[0].routes;
       const { locations_start, locations_end, stops } = busrouteData;
       const getStops = async () => {
-        const stopsInroute = await stops.map(async (stop: any) => {
+        const stopsInroute = [];
+        await stops.map(async (stop: any) => {
           const { latitude, longitude } = await fetchbusStops(stop);
-          return { location: { lat: latitude, lng: longitude }, stopover: true };
+
+          stopsInroute.push({ location: { lat: parseFloat(latitude), lng: parseFloat(longitude) }, stopover: true });
+          return null;
         });
         setRout({
           id: busrouteData.id,
           start: {
-            lat: locations_start.latitude,
-            lng: locations_start.longitude,
+            lat: parseFloat(locations_start.latitude),
+            lng: parseFloat(locations_start.longitude),
           },
           end: {
-            lat: locations_end.latitude,
-            lng: locations_end.longitude,
+            lat: parseFloat(locations_end.latitude),
+            lng: parseFloat(locations_end.longitude),
           },
           busStops: stopsInroute,
         });
-        console.log(route);
       };
       setSelected(locations_start);
       setSelected1(locations_end);
       getStops();
-      calculateRoute();
+      calculateRoute(selected, selected1);
     }
     if (locationStatus === 'idle') {
       dispatch(GetLocations());
@@ -219,7 +224,7 @@ function MapViewScreen() {
         if (index !== -1) {
           const newbuses = prev.map((bus) => {
             if (bus.busId === busData.busId) {
-              return busData;
+              return { ...bus, ...busData };
             }
             return bus;
           });
@@ -252,12 +257,14 @@ function MapViewScreen() {
   const onSubmit = async (values: any, { setSubmitting }: any) => {
     try {
       setLoading(true);
+      calculateRoute(selected, selected1);
       const resultAction = dispatch<AppDispatch>(
         GetBuses({
           from: selected.id,
           to: selected1.id,
         }),
       );
+
       if (GetBuses.fulfilled.match(resultAction)) {
         setErrortext('');
       } else {
@@ -275,7 +282,7 @@ function MapViewScreen() {
       <div className='flex flex-col items-center justify-center border-b p-4 md:flex-row md:justify-between md:px-8'>
         <div className='flex items-center justify-center'>
           <img src={logo} className='mr-2 h-12 w-11' alt='logo' />
-          <h1 className='mb-4 text-3xl text-orange md:mb-0'>Phatom</h1>
+          <h1 className='text-orange mb-4 text-3xl md:mb-0'>Phatom</h1>
         </div>
         <div className='flex items-center gap-6'>
           {links.map((link) => (
@@ -284,7 +291,7 @@ function MapViewScreen() {
             </h3>
           ))}
         </div>
-        <button onClick={() => navigate('/login')} className='rounded bg-orange px-6 py-2 text-lg text-white'>
+        <button onClick={() => navigate('/login')} className='bg-orange rounded px-6 py-2 text-lg text-white'>
           Login
         </button>
       </div>
@@ -384,7 +391,7 @@ function MapViewScreen() {
                   </div>
                   <button
                     type='submit'
-                    className='duration-3000 cursor-pointer rounded-lg bg-orange py-3 px-5 font-semibold text-white transition hover:shadow-lg'
+                    className='duration-3000 bg-orange cursor-pointer rounded-lg py-3 px-5 font-semibold text-white transition hover:shadow-lg'
                   >
                     {loading ? (
                       <Oval
@@ -406,60 +413,63 @@ function MapViewScreen() {
                 </Form>
               </Formik>
             </div>
-            <GoogleMap
-              center={route.start}
-              zoom={16}
-              mapContainerStyle={{ flex: 1, height: '100vh' }}
-              options={{
-                zoomControl: false,
-                streetViewControl: false,
-                mapTypeControl: false,
-                fullscreenControl: false,
-              }}
-              onLoad={(mapl) => setMap(mapl)}
-            >
-              {buses.map((bus, i) => {
-                if (i === 0) {
-                  return (
-                    <MarkerF
-                      key={bus.busId}
-                      position={{ lat: bus.position.lat, lng: bus.position.lng }}
-                      icon={RightLeftIcon0}
-                    />
-                  );
-                }
-                if (i === 1) {
-                  return (
-                    <MarkerF
-                      key={bus.busId}
-                      position={{ lat: bus.position.lat, lng: bus.position.lng }}
-                      icon={RightLeftIcon1}
-                    />
-                  );
-                }
-                if (i === 2) {
-                  return (
-                    <MarkerF
-                      key={bus.busId}
-                      position={{ lat: bus.position.lat, lng: bus.position.lng }}
-                      icon={RightLeftIcon2}
-                    />
-                  );
-                }
-                if (i === 3) {
-                  return (
-                    <MarkerF
-                      key={bus.busId}
-                      position={{ lat: bus.position.lat, lng: bus.position.lng }}
-                      icon={RightLeftIcon3}
-                    />
-                  );
-                }
-                return <MarkerF key={bus.busId} position={{ lat: bus.position.lat, lng: bus.position.lng }} />;
-              })}
-              {/* <MarkerF position={route.start}  /> */}
-              {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
-            </GoogleMap>
+            {route && route.start && (
+              <GoogleMap
+                center={route.start}
+                zoom={16}
+                mapContainerStyle={{ flex: 1, height: '100vh' }}
+                options={{
+                  zoomControl: false,
+                  streetViewControl: false,
+                  mapTypeControl: false,
+                  fullscreenControl: false,
+                }}
+                onLoad={(mapl) => setMap(mapl)}
+              >
+                {buses.map((bus, i) => {
+                  if (i === 0) {
+                    return (
+                      <MarkerF
+                        key={bus.busId}
+                        position={{ lat: bus.position.lat, lng: bus.position.lng }}
+                        icon={RightLeftIcon0}
+                      />
+                    );
+                  }
+                  if (i === 1) {
+                    return (
+                      <MarkerF
+                        key={bus.busId}
+                        position={{ lat: bus.position.lat, lng: bus.position.lng }}
+                        icon={RightLeftIcon1}
+                      />
+                    );
+                  }
+                  if (i === 2) {
+                    return (
+                      <MarkerF
+                        key={bus.busId}
+                        position={{ lat: bus.position.lat, lng: bus.position.lng }}
+                        icon={RightLeftIcon2}
+                      />
+                    );
+                  }
+                  if (i === 3) {
+                    return (
+                      <MarkerF
+                        key={bus.busId}
+                        position={{ lat: bus.position.lat, lng: bus.position.lng }}
+                        icon={RightLeftIcon3}
+                      />
+                    );
+                  }
+                  return <MarkerF key={bus.busId} position={{ lat: bus.position.lat, lng: bus.position.lng }} />;
+                })}
+                {/* <MarkerF position={route.start}  /> */}
+                {directionsResponse && <DirectionsRenderer  directions={directionsResponse} />}
+              </GoogleMap>
+            )}
+
             {disconnected && (
               <div className='absolute left-1/2 bottom-12 z-10 w-1/3  -translate-x-1/2 p-4'>
                 <div className='relative flex items-center justify-between gap-4 rounded-lg bg-zinc-900 px-4 py-3 text-white shadow-lg'>
