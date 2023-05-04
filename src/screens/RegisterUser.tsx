@@ -25,7 +25,7 @@ export default function RegisterUserScreen() {
           {' '}
           <Link to='/dashboard' className='text-red-600'>
             {' '}
-            <Close className='h-10 text-red-600' />{' '}
+            <Close className='h-10 bg-red-600 text-white' />{' '}
           </Link>
         </span>
         <h1 className='text-center text-3xl font-bold  max-[768px]:text-xl'>Register User </h1>

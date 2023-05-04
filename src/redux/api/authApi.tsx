@@ -85,6 +85,18 @@ export const userProfile = () => {
     role,
   };
 };
+export const getProfile = createAsyncThunk('auth/get', async (_, thunkAPI) => {
+  try {
+    const { data } = await axios.get(`${baseUrl}/users/get-profile`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+      },
+    });
+    return data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
 
 export const logout = createAsyncThunk('auth/logout', async () => {
   try {
@@ -95,3 +107,20 @@ export const logout = createAsyncThunk('auth/logout', async () => {
     console.error(error);
   }
 });
+
+export const updateUser = createAsyncThunk(
+  'auth/updateUser',
+  async (payload: { fname?: string; lname?: string; driver_licence?: string[] }, thunkAPI) => {
+    try {
+      const { data } = await axios.put(`${baseUrl}/users/update-profile`, payload, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+        },
+      });
+      console.log(data);
+      return data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  },
+);

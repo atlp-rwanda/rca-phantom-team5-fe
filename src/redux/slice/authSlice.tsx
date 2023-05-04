@@ -5,7 +5,8 @@ import baseUrl from 'utils/url';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 // import { RootState } from '../store';
 
-import { login, logout } from '../api/authApi';
+import { logout } from '../api/authApi';
+import { getProfile, login, updateUser } from '../api/authApi';
 const userToken = localStorage.getItem('userToken') ? localStorage.getItem('userToken') : null;
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   userToken,
   isAuthonticated: false,
   loading: false,
+  userStatus: 'idle',
   success: false,
   state: {
     isFetching: false,
@@ -33,7 +35,6 @@ const authSlice = createSlice({
     });
     builder.addCase(login.fulfilled, (state, action) => {
       state.loading = false;
-      state.userInfo = action.payload.data.user_id;
       state.userToken = action.payload.data.access_token;
       state.success = true;
       state.isAuthonticated = true;
@@ -43,13 +44,31 @@ const authSlice = createSlice({
     builder.addCase(login.rejected, (state, action) => {
       state.loading = false;
     });
-    builder.addCase(logout.fulfilled, (state, action) => {
-      state.userInfo = null;
-      state.userToken = null;
+
+    // update user profile
+    builder.addCase(updateUser.pending, (state) => {
+      state.loading = true;
     });
-    builder.addCase(logout.rejected, (state, action) => {
-      console.log('loged out');
+    builder.addCase(updateUser.fulfilled, (state, action) => {
       state.loading = false;
+      state.userInfo = action.payload.data;
+      state.success = true;
+    });
+    builder.addCase(updateUser.rejected, (state, action) => {
+      state.loading = false;
+    });
+
+    // get user profile
+    builder.addCase(getProfile.pending, (state) => {
+      state.userStatus = 'loading';
+    });
+    builder.addCase(getProfile.fulfilled, (state, action) => {
+      state.userStatus = 'success';
+      state.userInfo = action.payload.data;
+      state.success = true;
+    });
+    builder.addCase(getProfile.rejected, (state, action) => {
+      state.userStatus = 'failed';
     });
   },
 });
