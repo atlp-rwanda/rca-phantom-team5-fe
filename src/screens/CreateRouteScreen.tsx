@@ -114,7 +114,7 @@ export default function CreateRouteScreen() {
               />
             </div>
           </div>
-          <ErrorMessage>
+          <ErrorMessage name='message'>
                   {(msg) => <div className='my-1 text-xs text-red-500'>{msg}</div>}
                 </ErrorMessage>
          <div>{errorText && <div className='my-1 text-xs text-red-500'>{errorText}</div>}</div>
