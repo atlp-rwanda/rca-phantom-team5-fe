@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Logout from '../screens/LogoutScreen';
 
-import { Dashboard, DirectionsBus, Settings, Timeline } from '@material-ui/icons';
+import { Dashboard, DirectionsBus, Settings, Timeline, People } from '@material-ui/icons';
 import { Link, useLocation } from 'react-router-dom';
+import { userProfile } from '../redux/api/authApi';
 import Navbar from 'components/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProfile } from '../redux/api/authApi';
@@ -34,14 +35,18 @@ const Sidebar = ({ children }: Props) => {
       dispatch(getProfile());
     }
   }, [authStatus, dispatch]);
+
+  const user = userProfile();
+  const role = user.role;
+
   return (
-    <div className='flex h-screen flex-row justify-end bg-white'>
+    <>
       {authStatus !== 'success' ? (
         <div className='flex h-screen items-center justify-center'>
           <div className='h-14 w-14 animate-spin rounded-full border-b-2 border-t-2 border-gray-900'></div>
         </div>
       ) : (
-        <>
+        <div className='flex h-screen flex-row justify-end bg-white'>
           <button className='fixed left-0 top-0 z-50 p-4 lg:hidden' onClick={toggleSidebar}>
             <svg
               className='h-6 w-6 text-gray-600'
@@ -78,10 +83,10 @@ const Sidebar = ({ children }: Props) => {
               <ul className='mt-10'>
                 <li className='group my-2 flex items-center py-2'>
                   <div
-                    className={`h-49 mr-4 w-2 ${
+                    className={`h-49 mr-4 w-2  ${
                       location.pathname === '/dashboard'
                         ? 'bg-orange text-orange'
-                        : 'group-hover:bg-orange group-hover:text-orange'
+                        : 'text-primary group-hover:bg-orange group-hover:text-orange'
                     }`}
                   >
                     I
@@ -100,30 +105,33 @@ const Sidebar = ({ children }: Props) => {
                     Overview
                   </Link>
                 </li>
-                <li className='group my-2  flex items-center py-2'>
-                  <div
-                    className={`h-49 mr-4 w-2 ${
-                      location.pathname === '/buses'
-                        ? 'bg-orange text-orange'
-                        : 'group-hover:bg-orange group-hover:text-orange'
-                    }`}
-                  >
-                    l
-                  </div>
-                  <DirectionsBus
-                    className={`h-6 w-6 ${
-                      location.pathname === '/buses' ? 'text-orange' : 'text-white'
-                    } group-hover:text-orange`}
-                  />
-                  <Link
-                    to=''
-                    className={`ml-2 ${
-                      location.pathname === '/buses' ? 'text-orange' : 'text-white'
-                    } group-hover:text-orange`}
-                  >
-                    Buses
-                  </Link>
-                </li>
+                {role === 'admin' || role === 'super_admin' ? (
+                  <li className='group my-2  flex items-center py-2'>
+                    <div
+                      className={`h-49 mr-4 w-2${
+                        location.pathname === '/buses'
+                          ? 'bg-orange text-orange'
+                          : 'group-hover:bg-orange group-hover:text-orange'
+                      }`}
+                    >
+                      l
+                    </div>
+                    <People
+                      className={`h-6 w-6 ${
+                        location.pathname === '/register-user' ? 'text-orange' : 'text-white'
+                      } group-hover:text-orange`}
+                    />
+                    <Link
+                      to='/register-user'
+                      className={`ml-2 ${
+                        location.pathname === '/routes' ? 'text-orange' : 'text-white'
+                      } group-hover:text-orange`}
+                    >
+                      Register
+                    </Link>
+                  </li>
+                ) : null}
+
                 <li className='group my-2  flex items-center py-2'>
                   <div
                     className={`h-49 mr-4 w-2 ${
@@ -148,6 +156,32 @@ const Sidebar = ({ children }: Props) => {
                     Routes
                   </Link>
                 </li>
+
+                <li className='group my-2  flex items-center py-2'>
+                  <div
+                    className={`h-49 mr-4 w-2 ${
+                      location.pathname === '/buses'
+                        ? 'bg-orange text-orange'
+                        : 'group-hover:bg-orange group-hover:text-orange'
+                    }`}
+                  >
+                    l
+                  </div>
+                  <DirectionsBus
+                    className={`h-6 w-6 ${
+                      location.pathname === '/buses' ? 'text-orange' : 'text-white'
+                    } group-hover:text-orange`}
+                  />
+                  <Link
+                    to=''
+                    className={`ml-2 ${
+                      location.pathname === '/buses' ? 'text-orange' : 'text-white'
+                    } group-hover:text-orange`}
+                  >
+                    Buses
+                  </Link>
+                </li>
+
                 <li className='group my-2  flex items-center py-2'>
                   <div
                     className={`h-49 mr-4 w-2 ${
@@ -183,9 +217,9 @@ const Sidebar = ({ children }: Props) => {
             <Navbar />
             <div className='self-end'>{children}</div>
           </div>
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 export default Sidebar;

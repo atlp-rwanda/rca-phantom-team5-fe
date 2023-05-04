@@ -11,13 +11,11 @@ export default function Logout() {
   const dispatch = useDispatch();
   // const navigate = useNavigate();
 
-
-  
-
   const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     await dispatch(logout() as any);
     window.history.replaceState(null, '', '/');
+    localStorage.removeItem('userToken');
     window.location.replace('/');
   };
 
