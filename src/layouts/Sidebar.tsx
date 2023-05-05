@@ -62,13 +62,15 @@ function Sidebar({ children }: Props) {
             </svg>
           </button>
           <div
-            className={`${isOpen ? 'block' : 'hidden'
-              } fixed left-0 top-0 z-40 h-full w-full bg-black opacity-50 lg:hidden`}
+            className={`${
+              isOpen ? 'block' : 'hidden'
+            } fixed left-0 top-0 z-40 h-full w-full bg-black opacity-50 lg:hidden`}
             onClick={toggleSidebar}
           />
           <div
-            className={`${isOpen ? 'w-3/5' : 'w-0'
-              } bg-primary fixed inset-y-0 left-0 z-50 flex flex-col justify-between overflow-y-auto transition-all duration-300 ease-in-out lg:w-1/5`}
+            className={`${
+              isOpen ? 'w-3/5' : 'w-0'
+            } fixed inset-y-0 left-0 z-50 flex flex-col justify-between overflow-y-auto bg-primary transition-all duration-300 ease-in-out lg:w-1/5`}
           >
             <div>
               <div className='ml-4 lg:mt-3 lg:text-2xl'>
@@ -78,64 +80,124 @@ function Sidebar({ children }: Props) {
               <ul className='mt-10'>
                 <li className='group my-2 flex items-center py-2'>
                   <div
-                    className={`h-49 mr-4 w-2  ${location.pathname === '/dashboard'
+                    className={`h-49 mr-4 w-2  ${
+                      location.pathname === '/dashboard'
                         ? 'bg-orange text-orange'
                         : 'text-primary group-hover:bg-orange group-hover:text-orange'
-                      }`}
+                    }`}
                   >
                     I
                   </div>
                   <Dashboard
-                    className={`h-6 w-6 ${location.pathname === '/dashboard' ? 'text-orange' : 'text-white'
-                      } group-hover:text-orange`}
+                    className={`h-6 w-6 ${
+                      location.pathname === '/dashboard' ? 'text-orange' : 'text-white'
+                    } group-hover:text-orange`}
                   />
                   <Link
                     to='/dashboard'
-                    className={`ml-2 ${location.pathname === '/dashboard' ? 'text-orange' : 'text-white'
-                      } group-hover:text-orange`}
+                    className={`ml-2 ${
+                      location.pathname === '/dashboard' ? 'text-orange' : 'text-white'
+                    } group-hover:text-orange`}
                   >
                     Overview
                   </Link>
                 </li>
+                {role === 'driver' && (
+                  <li className='group my-2  flex items-center py-2'>
+                    <div
+                      className={`h-49 mr-4 w-2 ${
+                        location.pathname === '/map'
+                          ? 'bg-orange text-orange'
+                          : 'text-primary group-hover:bg-orange group-hover:text-orange'
+                      }`}
+                    >
+                      l
+                    </div>
+                    <MyLocation
+                      className={`h-6 w-6 ${
+                        location.pathname === '/map' ? 'text-orange' : 'text-white'
+                      } group-hover:text-orange`}
+                    />
+                    <Link
+                      to='/map'
+                      className={`ml-2 ${
+                        location.pathname === '/map' ? 'text-orange' : 'text-white'
+                      } group-hover:text-orange`}
+                    >
+                      Drive
+                    </Link>
+                  </li>
+                )}
                 <li className='group my-2  flex items-center py-2'>
                   <div
-                    className={`h-49 mr-4 w-2${location.pathname === '/buses'
+                    className={`h-49 mr-4 w-2 ${
+                      location.pathname === '/buses'
                         ? 'bg-orange text-orange'
-                        : 'group-hover:bg-orange group-hover:text-orange'
-                      }`}
+                        : 'text-primary group-hover:bg-orange group-hover:text-orange'
+                    }`}
                   >
                     l
                   </div>
                   <DirectionsBus
-                    className={`h-6 w-6 ${location.pathname === '/buses' ? 'text-orange' : 'text-white'
-                      } group-hover:text-orange`}
+                    className={`h-6 w-6 ${
+                      location.pathname === '/buses' ? 'text-orange' : 'text-white'
+                    } group-hover:text-orange`}
                   />
                   <Link
                     to=''
-                    className={`ml-2 ${location.pathname === '/buses' ? 'text-orange' : 'text-white'
-                      } group-hover:text-orange`}
+                    className={`ml-2 ${
+                      location.pathname === '/buses' ? 'text-orange' : 'text-white'
+                    } group-hover:text-orange`}
                   >
                     Buses
+                  </Link>
+                </li>
+
+                <li className='group my-2  flex items-center py-2'>
+                  <div
+                    className={`h-49 mr-4 w-2 ${
+                      location.pathname === '/routes'
+                        ? 'bg-orange text-orange'
+                        : 'text-primary group-hover:bg-orange group-hover:text-orange'
+                    }`}
+                  >
+                    l
+                  </div>
+                  <Timeline
+                    className={`h-6 w-6 ${
+                      location.pathname === '/routes' ? 'text-orange' : 'text-white'
+                    } group-hover:text-orange`}
+                  />
+                  <Link
+                    to=''
+                    className={`ml-2 ${
+                      location.pathname === '/routes' ? 'text-orange' : 'text-white'
+                    } group-hover:text-orange`}
+                  >
+                    Routes
                   </Link>
                 </li>
                 {role === 'admin' || role === 'super_admin' ? (
                   <li className='group my-2  flex items-center py-2'>
                     <div
-                      className={`h-49 mr-4 w-2${location.pathname === '/buses'
+                      className={`h-49 mr-4 w-2${
+                        location.pathname === '/buses'
                           ? 'bg-orange text-orange'
-                          : 'group-hover:bg-orange group-hover:text-orange'
-                        }`}
+                          : 'text-primary group-hover:bg-orange group-hover:text-orange'
+                      }`}
                     >
                       l
                     </div>
                     <People
-                      className={`h-6 w-6 ${location.pathname === '/register-user' ? 'text-orange' : 'text-white'
-                        } group-hover:text-orange`}
+                      className={`h-6 w-6 ${
+                        location.pathname === '/register-user' ? 'text-orange' : 'text-white'
+                      } group-hover:text-orange`}
                     />
                     <Link
                       to='/register-user'
-                      className={`ml-2 ${location.pathname === '/routes' ? 'text-orange' : 'text-white'
-                        } group-hover:text-orange`}
+                      className={`ml-2 ${
+                        location.pathname === '/routes' ? 'text-orange' : 'text-white'
+                      } group-hover:text-orange`}
                     >
                       Register
                     </Link>
@@ -144,88 +206,25 @@ function Sidebar({ children }: Props) {
 
                 <li className='group my-2  flex items-center py-2'>
                   <div
-                    className={`h-49 mr-4 w-2 ${location.pathname === '/routes'
+                    className={`h-49 mr-4 w-2 ${
+                      location.pathname === '/update-profile'
                         ? 'bg-orange text-orange'
-                        : 'group-hover:bg-orange group-hover:text-orange'
-                      }`}
-                  >
-                    l
-                  </div>
-                  <Timeline
-                    className={`h-6 w-6 ${location.pathname === '/routes' ? 'text-orange' : 'text-white'
-                      } group-hover:text-orange`}
-                  />
-                  <Link
-                    to=''
-                    className={`ml-2 ${location.pathname === '/routes' ? 'text-orange' : 'text-white'
-                      } group-hover:text-orange`}
-                  >
-                    Routes
-                  </Link>
-                </li>
-
-                <li className='group my-2  flex items-center py-2'>
-                  <div
-                    className={`h-49 mr-4 w-2 ${location.pathname === '/buses'
-                        ? 'bg-orange text-orange'
-                        : 'group-hover:bg-orange group-hover:text-orange'
-                      }`}
-                  >
-                    l
-                  </div>
-                  <DirectionsBus
-                    className={`h-6 w-6 ${location.pathname === '/buses' ? 'text-orange' : 'text-white'
-                      } group-hover:text-orange`}
-                  />
-                  <Link
-                    to=''
-                    className={`ml-2 ${location.pathname === '/buses' ? 'text-orange' : 'text-white'
-                      } group-hover:text-orange`}
-                  >
-                    Buses
-                  </Link>
-                </li>
-                {role === 'driver' && (
-                  <li className='group my-2  flex items-center py-2'>
-                    <div
-                      className={`h-49 mr-4 w-2 ${location.pathname === '/map'
-                          ? 'bg-orange text-orange'
-                          : 'group-hover:bg-orange group-hover:text-orange'
-                        }`}
-                    >
-                      l
-                    </div>
-                    <MyLocation
-                      className={`h-6 w-6 ${location.pathname === '/map' ? 'text-orange' : 'text-white'
-                        } group-hover:text-orange`}
-                    />
-                    <Link
-                      to='/map'
-                      className={`ml-2 ${location.pathname === '/map' ? 'text-orange' : 'text-white'
-                        } group-hover:text-orange`}
-                    >
-                      Drive map
-                    </Link>
-                  </li>
-                )}
-                <li className='group my-2  flex items-center py-2'>
-                  <div
-                    className={`h-49 mr-4 w-2 ${location.pathname === '/update-profile'
-                        ? 'bg-orange text-orange'
-                        : 'group-hover:bg-orange group-hover:text-orange'
-                      }`}
+                        : 'text-primary group-hover:bg-orange group-hover:text-orange'
+                    }`}
                   >
                     l
                   </div>
 
                   <Settings
-                    className={`h-6 w-6 ${location.pathname === '/update-profile' ? 'text-orange' : 'text-white'
-                      } group-hover:text-orange`}
+                    className={`h-6 w-6 ${
+                      location.pathname === '/update-profile' ? 'text-orange' : 'text-white'
+                    } group-hover:text-orange`}
                   />
                   <Link
                     to='/update-profile'
-                    className={`ml-2 ${location.pathname === '/update-profile' ? 'text-orange' : 'text-white'
-                      } group-hover:text-orange`}
+                    className={`ml-2 ${
+                      location.pathname === '/update-profile' ? 'text-orange' : 'text-white'
+                    } group-hover:text-orange`}
                   >
                     Settings
                   </Link>

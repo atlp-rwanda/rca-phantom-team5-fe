@@ -5,7 +5,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Oval } from 'react-loader-spinner';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { DirectionsRenderer, GoogleMap, MarkerF, useJsApiLoader } from '@react-google-maps/api';
 import { io, Socket } from 'socket.io-client';
@@ -240,11 +240,11 @@ function MapViewScreen() {
   return (
     <>
       <div className='flex flex-col items-center justify-center border-b p-4 md:flex-row md:justify-between md:px-8'>
-        <div className='flex items-center justify-center'>
+        <Link to='/' className='flex items-center justify-center'>
           <img src={logo} className='mr-2 h-12 w-11' alt='logo' />
           <h1 className='mb-4 text-3xl text-orange md:mb-0'>Phatom</h1>
-        </div>
-        <div className='flex items-center gap-6'>
+        </Link>
+        <div className='flex  items-center gap-6'>
           {links.map((link) => (
             <h3 key={link.path} onClick={() => navigate(link.path)} className='cursor-pointer text-lg text-black'>
               {link.name}
@@ -314,6 +314,7 @@ function MapViewScreen() {
                 </button>
               </div>
             </div>
+
             {route && route.start && (
               <GoogleMap
                 center={route.start}
@@ -396,6 +397,12 @@ function MapViewScreen() {
           <div className='p-2'>
             <div className='mt-5 min-w-[300px]  bg-white '>
               <ul className='flex flex-col '>
+                <button
+                  onClick={() => navigate('/view-buses')}
+                  className=' duration-3000 mb-5 cursor-pointer rounded-lg bg-orange px-5 py-3 font-semibold text-white transition hover:shadow-lg'
+                >
+                  <span>Search New Buses</span>
+                </button>
                 {buses.map((bus, index) => {
                   return (
                     <li key={bus.busId} className='mb-2 flex flex-row border-gray-400'>
