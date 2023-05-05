@@ -69,15 +69,15 @@ export default function ViewBusesScreen() {
   });
 
   const getInput = (e: { target: { value: React.SetStateAction<number> } }) => {
-    const locationId = e.target.value.toString(); // convert to string before assigning
+    const locationId = e.target.value.toString();
     const location = locations.find((location: LocationType) => location.id === parseInt(locationId, 10));
-    setSelected({ ...selected1, latitude: location?.latitude.toString(), longitude: location?.longitude.toString() });
+    setSelected(location);
   };
 
   const getInput1 = (e: { target: { value: React.SetStateAction<number> } }) => {
-    const locationId = e.target.value.toString(); // convert to string before assigning
+    const locationId = e.target.value.toString();
     const location = locations.find((location: LocationType) => location.id === parseInt(locationId, 10));
-    setSelected1({ ...selected1, latitude: location?.latitude.toString(), longitude: location?.longitude.toString() });
+    setSelected1(location);
   };
 
   useEffect(() => {}, [selected]);
@@ -179,12 +179,18 @@ export default function ViewBusesScreen() {
                   </div>
                   <div className='border-1 relative box-border flex h-28 w-52 items-center bg-white shadow-lg shadow-indigo-400/20'>
                     <img src={map} alt='map' className='absolute left-0 top-0 h-full w-full' />
-                    <div
-                      onClick={() => navigate('/map-view')}
-                      className='border-color-gray z-10 ml-4 cursor-pointer rounded-full border bg-gray-600/30 p-4 text-white transition-all duration-300 hover:scale-105'
-                    >
-                      view the map
-                    </div>
+                    {buses.length > 0 ? (
+                      <div
+                        onClick={() => navigate('/map-view')}
+                        className='border-color-gray z-10 ml-4 cursor-pointer rounded-full border bg-yellow-600/80 p-4 text-white transition-all duration-300 hover:scale-105'
+                      >
+                        Track buses
+                      </div>
+                    ) : (
+                      <div className='border-color-gray z-10 ml-4 cursor-pointer rounded-full border bg-yellow-600/30 p-4 text-white transition-all duration-300 hover:scale-105'>
+                        Track buses
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
