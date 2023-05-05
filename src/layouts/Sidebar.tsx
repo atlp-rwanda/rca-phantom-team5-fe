@@ -128,7 +128,7 @@ function Sidebar({ children }: Props) {
                   </Link>
                 </li>
 
-                {'super_admin' ? (
+                {role === 'admin' || role === 'super_admin' ? (
                   <li className='group my-2  flex items-center py-2'>
                     <div
                       className={`h-49 mr-4 w-2${
