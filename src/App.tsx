@@ -15,6 +15,8 @@ import UpdateProfile from 'screens/UpdateProfile';
 import ViewBusesScreen from 'screens/ViewBusesScreen';
 
 import { userProfile } from './redux/api/authApi';
+import AddRoleScreen from 'screens/AddRoleScreen';
+import RoleList from 'screens/RoleListScreen';
 
 function App() {
   return (
@@ -51,6 +53,23 @@ function App() {
             element={
               <PrivateRoute redirectPath='/login'>
                 <Sidebar children={undefined} />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path='/add-role'
+            element={
+              <PrivateRoute redirectPath='/login'>
+                <AddRoleScreen />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/roles'
+            element={
+              <PrivateRoute redirectPath='/login'>
+                <RoleList />
               </PrivateRoute>
             }
           />
