@@ -21,6 +21,8 @@ import { GetLocations } from '../redux/api/locationApi';
 import { LocationType } from './ViewBusesScreen';
 
 import '../styles/map.css';
+import { ThunkDispatch } from 'redux-thunk';
+import { RootState } from '../redux/store';
 
 const ENDPOINT = baseUrl.split('/api')[0];
 
@@ -44,6 +46,7 @@ const RightLeftIcon3: google.maps.Icon = {
 };
 type BusState = 'stopped' | 'moving' | 'slowed' | 'traffic' | 'packing';
 interface Bus {
+  plate_number: any;
   busId: string;
   position: { lat: number; lng: number };
   state: BusState;
@@ -75,7 +78,8 @@ function MapViewScreen() {
   });
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
   const [loading, setLoading] = useState<boolean>(false);
   const busesFromRoute = useSelector((state: any) => state.buses.buses);
   const routes = useSelector((state: any) => state.buses.routes);
@@ -256,7 +260,7 @@ function MapViewScreen() {
           <div className='relative w-full'>
             <div className='absolute left-1/2 top-12 z-10 flex  -translate-x-1/2  items-center space-x-2 rounded-xl bg-white p-2 shadow-lg transition duration-500 hover:scale-105 hover:shadow-xl'>
               <div className='flex'>
-                <div className='flex min-w-[15rem] cursor-pointer rounded-lg py-3 px-4 font-semibold text-gray-500'>
+                <div className='flex min-w-[15rem] cursor-pointer rounded-lg px-4 py-3 font-semibold text-gray-500'>
                   <div className='flex h-full w-8 items-center justify-center'>
                     <svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6 opacity-30' viewBox='0 0 24 24'>
                       <path d='M12 20.8995L16.9497 15.9497C19.6834 13.2161 19.6834 8.78392 16.9497 6.05025C14.2161 3.31658 9.78392 3.31658 7.05025 6.05025C4.31658 8.78392 4.31658 13.2161 7.05025 15.9497L12 20.8995ZM12 23.7279L5.63604 17.364C2.12132 13.8492 2.12132 8.15076 5.63604 4.63604C9.15076 1.12132 14.8492 1.12132 18.364 4.63604C21.8787 8.15076 21.8787 13.8492 18.364 17.364L12 23.7279ZM12 13C13.1046 13 14 12.1046 14 11C14 9.89543 13.1046 9 12 9C10.8954 9 10 9.89543 10 11C10 12.1046 10.8954 13 12 13ZM12 15C9.79086 15 8 13.2091 8 11C8 8.79086 9.79086 7 12 7C14.2091 7 16 8.79086 16 11C16 13.2091 14.2091 15 12 15Z' />
@@ -271,7 +275,7 @@ function MapViewScreen() {
                     </div>
                   </div>
                 </div>
-                <div className='flex min-w-[15rem] cursor-pointer rounded-lg py-3 px-4 font-semibold text-gray-500'>
+                <div className='flex min-w-[15rem] cursor-pointer rounded-lg px-4 py-3 font-semibold text-gray-500'>
                   <div className='flex h-full w-8 items-center justify-center'>
                     <svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6 opacity-30' viewBox='0 0 24 24'>
                       <path d='M12 20.8995L16.9497 15.9497C19.6834 13.2161 19.6834 8.78392 16.9497 6.05025C14.2161 3.31658 9.78392 3.31658 7.05025 6.05025C4.31658 8.78392 4.31658 13.2161 7.05025 15.9497L12 20.8995ZM12 23.7279L5.63604 17.364C2.12132 13.8492 2.12132 8.15076 5.63604 4.63604C9.15076 1.12132 14.8492 1.12132 18.364 4.63604C21.8787 8.15076 21.8787 13.8492 18.364 17.364L12 23.7279ZM12 13C13.1046 13 14 12.1046 14 11C14 9.89543 13.1046 9 12 9C10.8954 9 10 9.89543 10 11C10 12.1046 10.8954 13 12 13ZM12 15C9.79086 15 8 13.2091 8 11C8 8.79086 9.79086 7 12 7C14.2091 7 16 8.79086 16 11C16 13.2091 14.2091 15 12 15Z' />
@@ -289,7 +293,7 @@ function MapViewScreen() {
                 </div>
                 <button
                   onClick={() => navigate('/view-buses')}
-                  className='duration-3000 cursor-pointer rounded-lg bg-orange py-3 px-5 font-semibold text-white transition hover:shadow-lg'
+                  className='duration-3000 cursor-pointer rounded-lg bg-orange px-5 py-3 font-semibold text-white transition hover:shadow-lg'
                 >
                   {loading ? (
                     <Oval
@@ -370,12 +374,12 @@ function MapViewScreen() {
             )}
 
             {disconnected && (
-              <div className='absolute left-1/2 bottom-12 z-10 w-1/3  -translate-x-1/2 p-4'>
-                <div className='bg-primary relative flex items-center justify-between gap-4 rounded-lg px-4 py-3 text-white shadow-lg'>
+              <div className='absolute bottom-12 left-1/2 z-10 w-1/3  -translate-x-1/2 p-4'>
+                <div className='relative flex items-center justify-between gap-4 rounded-lg bg-primary px-4 py-3 text-white shadow-lg'>
                   <p className='text-sm font-medium'>Your are Disconnected</p>
                   <button
                     aria-label='Close'
-                    className='bg-primary/10 hover:bg-primary/20 shrink-0 rounded-lg p-1 transition'
+                    className='shrink-0 rounded-lg bg-primary/10 p-1 transition hover:bg-primary/20'
                   >
                     <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
                       <path

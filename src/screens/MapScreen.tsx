@@ -40,7 +40,7 @@ function MapScreen() {
     googleMapsApiKey: 'AIzaSyDEDT-0K6NPqZeaptS0TXWxBxrv71PMFJ4',
   });
   const [route, setRout] = useState<any>();
-  const [map, setMap] = useState(null);
+  const [map, setMap] = useState<null | google.maps.Map>(null);
   const [userLocation, setUserLocation] = useState<{ lng: number; lat: number }>();
   const [directionsResponse, setDirectionsResponse] = useState<any>(null);
   const user = useSelector((state: any) => state.auth.user_id);
@@ -257,16 +257,16 @@ function MapScreen() {
                 {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
               </GoogleMap>
             ) : (
-              <span className='text-primary text-2xl'>loading map ...</span>
+              <span className='text-2xl text-primary'>loading map ...</span>
             )}
 
             {disconnect && (
-              <div className='absolute left-1/2 bottom-20 z-10 w-1/3  -translate-x-1/2 p-4'>
-                <div className='bg-primary relative flex items-center justify-between gap-4 rounded-lg px-4 py-3 text-white shadow-lg'>
+              <div className='absolute bottom-20 left-1/2 z-10 w-1/3  -translate-x-1/2 p-4'>
+                <div className='relative flex items-center justify-between gap-4 rounded-lg bg-primary px-4 py-3 text-white shadow-lg'>
                   <p className='truncate text-sm font-medium'>Your are Disconnected</p>
                   <button
                     aria-label='Close'
-                    className='bg-primary/10 shrink-0 rounded-lg p-1 transition hover:bg-black/20'
+                    className='shrink-0 rounded-lg bg-primary/10 p-1 transition hover:bg-black/20'
                   >
                     <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
                       <path
@@ -285,7 +285,7 @@ function MapScreen() {
             <button
               onClick={start}
               type='button'
-              className='bg-primary relative flex w-full items-center justify-center rounded-md px-5 py-2.5 font-medium capitalize   tracking-wide text-white transition  duration-300   ease-in-out hover:bg-gray-900 focus:outline-none active:scale-95'
+              className='relative flex w-full items-center justify-center rounded-md bg-primary px-5 py-2.5 font-medium capitalize   tracking-wide text-white transition  duration-300   ease-in-out hover:bg-gray-900 focus:outline-none active:scale-95'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -375,7 +375,7 @@ function MapScreen() {
                   </svg>
                   <h1 className='inline text-2xl font-semibold leading-none'>Operations</h1>
                 </div>
-                <div className='flex-none pt-2.5 pr-2.5 pl-1' />
+                <div className='flex-none pl-1 pr-2.5 pt-2.5' />
               </div>
               <div className='px-5 pb-5'>
                 {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
@@ -389,8 +389,9 @@ function MapScreen() {
                       name='checkbox'
                     />
                     <label
-                      className={` ${currentBus.state === 'slowed' ? 'active ' : ''
-                        }flex cursor-pointer flex-col rounded-md border-2 border-gray-400 p-4`}
+                      className={` ${
+                        currentBus.state === 'slowed' ? 'active ' : ''
+                      }flex cursor-pointer flex-col rounded-md border-2 border-gray-400 p-4`}
                       htmlFor='radio_1'
                     >
                       <span className='text-xs font-semibold uppercase'>bus</span>
@@ -406,8 +407,9 @@ function MapScreen() {
                       name='checkbox'
                     />
                     <label
-                      className={` ${currentBus.state === 'traffic' ? 'active ' : ''
-                        }flex cursor-pointer flex-col rounded-md border-2 border-gray-400 p-4`}
+                      className={` ${
+                        currentBus.state === 'traffic' ? 'active ' : ''
+                      }flex cursor-pointer flex-col rounded-md border-2 border-gray-400 p-4`}
                       htmlFor='radio_2'
                     >
                       <span className='text-xs font-semibold uppercase'>bus</span>
@@ -417,13 +419,15 @@ function MapScreen() {
                   <div className='rounded-md' onClick={stop}>
                     <input className='hidden' id='radio_3' type='checkbox' onChange={stop} name='checkbox' />
                     <label
-                      className={` ${currentBus.state === 'stopped' ? 'active ' : ''
-                        }flex cursor-pointer flex-col rounded-md border-2 border-gray-400 p-4`}
+                      className={` ${
+                        currentBus.state === 'stopped' ? 'active ' : ''
+                      }flex cursor-pointer flex-col rounded-md border-2 border-gray-400 p-4`}
                       htmlFor='radio_3'
                     >
                       <span className='text-xs font-semibold uppercase'>bus</span>
-                      <span className='mt-2 truncate text-xl font-bold'>{`${currentBus.state === 'stopped' ? 'Resume' : 'stopped'
-                        }`}</span>
+                      <span className='mt-2 truncate text-xl font-bold'>{`${
+                        currentBus.state === 'stopped' ? 'Resume' : 'stopped'
+                      }`}</span>
                     </label>
                   </div>
                 </form>
