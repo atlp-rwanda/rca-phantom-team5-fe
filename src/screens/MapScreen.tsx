@@ -45,6 +45,7 @@ function MapScreen() {
   const [directionsResponse, setDirectionsResponse] = useState<any>(null);
   const user = useSelector((state: any) => state.auth.user_id);
   const [disconnect, setDisconnected] = useState(false);
+  const [locationIds, setLocationIds] = useState({ start: 0, end: 0 });
   const [currentBus, setcurrentBus] = useState<Bus>({
     velocity: 50,
     distance: 0,
@@ -145,6 +146,7 @@ function MapScreen() {
   const getBusInfo = async (id: number) => {
     const bus = await axios.get(`${baseUrl}/buses/get-bus-by-driver/${id}`);
     if (bus.data) {
+      setLocationIds({ start: bus.data.data.routes.locations_start.id, end: bus.data.data.routes.locations_end.id });
       calculateRoute(
         {
           lat: parseFloat(bus.data.data.routes.locations_start.latitude),
@@ -217,11 +219,15 @@ function MapScreen() {
 
   useEffect(() => {
     if (route) {
-      socket.emit('join', { route_id: route.id, origin: 2, destination: 5 }, (error: any) => {
-        if (error) {
-          console.log(error);
-        }
-      });
+      socket.emit(
+        'join',
+        { route_id: route.id, origin: locationIds.start, destination: locationIds.end },
+        (error: any) => {
+          if (error) {
+            console.log(error);
+          }
+        },
+      );
     }
   }, [route]);
 
