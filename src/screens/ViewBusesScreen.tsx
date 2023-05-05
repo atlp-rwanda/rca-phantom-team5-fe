@@ -15,6 +15,7 @@ import { GetBuses } from '../redux/api/viewBusesApi';
 
 import { ThunkDispatch } from 'redux-thunk';
 import { RootState } from '../redux/store';
+import { Link } from 'react-router-dom';
 export interface LocationType {
   createdAt?: Date;
   updatedAt?: Date;
@@ -131,6 +132,10 @@ export default function ViewBusesScreen() {
     }
   };
 
+  //   useEffect(() => {
+  //     window.location.reload();
+  //   }, []);
+
   return (
     <section className='flex flex-1 flex-col gap-10 bg-white px-4 py-2'>
       {locationStatus !== 'success' && loading ? (
@@ -140,10 +145,10 @@ export default function ViewBusesScreen() {
       ) : (
         <>
           <div className='flex flex-col items-center justify-center border-b p-4 md:flex-row md:justify-between md:px-8'>
-            <div className='flex items-center justify-center'>
+            <Link to='/' className='flex items-center justify-center'>
               <img src={logo} className='mr-2 h-12 w-11' alt='image logo' />
               <h1 className='mb-4 text-3xl text-orange md:mb-0'>Phatom</h1>
-            </div>
+            </Link>
             <div className='flex items-center gap-6'>
               {links.map((link) => (
                 <h3 key={link.path} onClick={() => navigate(link.path)} className='cursor-pointer text-lg text-black'>
@@ -165,29 +170,29 @@ export default function ViewBusesScreen() {
 
                 <div className='flex flex-1 justify-end '>
                   <div className='border-1 float-right mr-6 box-border flex h-28 w-52 items-center rounded-md bg-white shadow-lg shadow-indigo-400/20'>
-                    <h1 className='border-color-gray ml-4 rounded-full border bg-green px-5 py-4 text-white'>
+                    <h1 className='border-color-gray ml-4 rounded-full border bg-orange px-5 py-4 text-white'>
                       {totalBuses}
                     </h1>
-                    <p className='ml-4 text-sm text-gray-500'>Buses available</p>
+                    <p className='ml-4 text-sm text-gray-500'>Available Buses</p>
                   </div>
 
                   <div className='border-1 box-border flex h-28 w-52 items-center bg-white shadow-lg shadow-indigo-400/20'>
-                    <h1 className='border-color-gray ml-4 rounded-full border bg-red px-5 py-4 text-white'>
+                    <h1 className='border-color-gray ml-4 rounded-full border bg-primary px-5 py-4 text-white'>
                       {totalSeats}
                     </h1>
-                    <p className='ml-4 text-sm text-gray-500'>Total Availabe Seats</p>
+                    <p className='ml-4 text-sm text-gray-500'>Availabe Seats</p>
                   </div>
                   <div className='border-1 relative box-border flex h-28 w-52 items-center bg-white shadow-lg shadow-indigo-400/20'>
                     <img src={map} alt='map' className='absolute left-0 top-0 h-full w-full' />
                     {buses.length > 0 ? (
                       <div
                         onClick={() => navigate('/map-view')}
-                        className='border-color-gray z-10 ml-4 cursor-pointer rounded-full border bg-yellow-600/80 p-4 text-white transition-all duration-300 hover:scale-105'
+                        className='border-color-gray z-10 ml-4 cursor-pointer rounded-full border bg-orange/80 p-4 text-white transition-all duration-300 hover:scale-105'
                       >
                         Track buses
                       </div>
                     ) : (
-                      <div className='border-color-gray z-10 ml-4 cursor-pointer rounded-full border bg-yellow-600/30 p-4 text-white transition-all duration-300 hover:scale-105'>
+                      <div className='border-color-gray z-10 ml-4 cursor-pointer rounded-full border bg-orange/30 p-4 text-white transition-all duration-300 hover:scale-105'>
                         Track buses
                       </div>
                     )}

@@ -13,6 +13,7 @@ import baseUrl from 'utils/url';
 import RightLeftBus from '../assets/yourbus.svg';
 
 import '../styles/map.css';
+import { DirectionsBus, MyLocation } from '@material-ui/icons';
 
 type BusState = 'stopped' | 'moving' | 'slowed' | 'traffic' | 'packing';
 interface Bus {
@@ -282,122 +283,109 @@ function MapScreen() {
           </div>
 
           <div className='p-2'>
-            <button
-              onClick={start}
-              type='button'
-              className='relative flex w-full items-center justify-center rounded-md bg-primary px-5 py-2.5 font-medium capitalize   tracking-wide text-white transition  duration-300   ease-in-out hover:bg-gray-900 focus:outline-none active:scale-95'
-            >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                enableBackground='new 0 0 24 24'
-                height='24px'
-                viewBox='0 0 24 24'
-                width='24px'
-                fill='#FFFFFF'
+            <div className='flex w-full justify-center'>
+              <button
+                onClick={start}
+                type='button'
+                className='relative flex h-14 w-1/2 flex-col items-center justify-center self-center rounded-md bg-primary px-5 py-2.5 font-medium capitalize   tracking-wide text-white transition  duration-300   ease-in-out hover:bg-gray-900 focus:outline-none active:scale-95'
               >
-                <g>
-                  <rect fill='none' height='24' width='24' />
-                </g>
-                <g>
-                  <g>
-                    <path d='M19,13h-6v6h-2v-6H5v-2h6V5h2v6h6V13z' />
-                  </g>
-                </g>
-              </svg>
-              <span className='mx-1 pl-2'>start journey</span>
-            </button>
+                <span className='mx-1 pl-2'>START DRIVE</span>
+              </button>
+            </div>
+
             <div className='mt-5 rounded-lg bg-white shadow'>
               <div className='flex'>
                 <div className='flex-1 overflow-hidden py-5 pl-5'>
-                  <svg
-                    className='inline align-text-top'
-                    height='24px'
-                    viewBox='0 0 24 24'
-                    width='24px'
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='#000000'
-                  >
-                    <g>
-                      <path
-                        d='m4.88889,2.07407l14.22222,0l0,20l-14.22222,0l0,-20z'
-                        fill='none'
-                        id='svg_1'
-                        stroke='null'
-                      />
-                      <path
-                        d='m7.07935,0.05664c-3.87,0 -7,3.13 -7,7c0,5.25 7,13 7,13s7,-7.75 7,-13c0,-3.87 -3.13,-7 -7,-7zm-5,7c0,-2.76 2.24,-5 5,-5s5,2.24 5,5c0,2.88 -2.88,7.19 -5,9.88c-2.08,-2.67 -5,-7.03 -5,-9.88z'
-                        id='svg_2'
-                      />
-                      <circle cx='7.04807' cy='6.97256' r='2.5' id='svg_3' />
-                    </g>
-                  </svg>
+                  <DirectionsBus className={`mb-2 mr-2 h-10 w-10 text-orange`} />
                   <h1 className='inline text-2xl font-semibold leading-none'>Buses</h1>
                 </div>
               </div>
               <div className='px-5 pb-5'>
+                <label>Remaining Bus Seats</label>
                 <input
                   placeholder='Number Seats'
                   value={currentBus.seats}
                   onChange={(e) => setcurrentBus((pre) => ({ ...pre, seats: parseInt(e.target.value, 10) }))}
-                  className='  mt-2 w-full rounded-lg border-transparent bg-gray-200 px-4   py-2.5 text-base text-black ring-gray-400 ring-offset-2 ring-offset-current transition  duration-500 ease-in-out placeholder:text-gray-600 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 '
+                  className='  mb-4 mt-2 w-full rounded-lg border-transparent bg-gray-200 px-4   py-2.5 text-base text-black ring-gray-400 ring-offset-2 ring-offset-current transition  duration-500 ease-in-out placeholder:text-gray-600 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 '
                   type='number'
                 />
-                <input
-                  type='number'
-                  value={currentBus.velocity}
-                  onChange={(e) => setcurrentBus((pre) => ({ ...pre, velocity: parseInt(e.target.value, 10) }))}
-                  placeholder='velocity'
-                  className='mt-2 w-full rounded-lg border-transparent bg-gray-200 px-4   py-2.5 text-base text-black ring-gray-400 ring-offset-2 ring-offset-current transition  duration-500 ease-in-out placeholder:text-gray-600 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 '
-                />
+                <label>Bus Velocity</label>
+                <div className='grid grid-cols-4 gap-2'>
+                  <div
+                    className={`cursor-pointer rounded-xl bg-gray-200 p-4 shadow-lg ${
+                      currentBus.velocity === 20 ? 'bg-primary text-white' : ''
+                    }`}
+                    onClick={() => setcurrentBus((pre) => ({ ...pre, velocity: 20 }))}
+                  >
+                    20
+                  </div>
+                  <div
+                    className={`cursor-pointer rounded-xl bg-gray-200 p-4 shadow-lg ${
+                      currentBus.velocity === 40 ? 'bg-primary text-white' : ''
+                    }`}
+                    onClick={() => setcurrentBus((pre) => ({ ...pre, velocity: 40 }))}
+                  >
+                    40
+                  </div>
+                  <div
+                    className={`cursor-pointer rounded-xl bg-gray-200 p-4 shadow-lg ${
+                      currentBus.velocity === 60 ? 'bg-primary text-white' : ''
+                    }`}
+                    onClick={() => setcurrentBus((pre) => ({ ...pre, velocity: 60 }))}
+                  >
+                    60
+                  </div>
+                  <div
+                    className={`cursor-pointer rounded-xl bg-gray-200 p-4 shadow-lg ${
+                      currentBus.velocity === 80 ? 'bg-primary text-white' : ''
+                    }`}
+                    onClick={() => setcurrentBus((pre) => ({ ...pre, velocity: 80 }))}
+                  >
+                    80
+                  </div>
+                  <div
+                    className={`cursor-pointer rounded-xl bg-gray-200 p-4 shadow-lg ${
+                      currentBus.velocity === 100 ? 'bg-primary text-white' : ''
+                    }`}
+                    onClick={() => setcurrentBus((pre) => ({ ...pre, velocity: 100 }))}
+                  >
+                    100
+                  </div>
+                  <div
+                    className={`cursor-pointer rounded-xl bg-gray-200 p-4 shadow-lg ${
+                      currentBus.velocity === 120 ? 'bg-primary text-white' : ''
+                    }`}
+                    onClick={() => setcurrentBus((pre) => ({ ...pre, velocity: 120 }))}
+                  >
+                    120
+                  </div>
+                  <div
+                    className={`cursor-pointer rounded-xl bg-gray-200 p-4 shadow-lg ${
+                      currentBus.velocity === 140 ? 'bg-primary text-white' : ''
+                    }`}
+                    onClick={() => setcurrentBus((pre) => ({ ...pre, velocity: 140 }))}
+                  >
+                    140
+                  </div>
+                  <div
+                    className={`cursor-pointer rounded-xl bg-gray-200 p-4 shadow-lg ${
+                      currentBus.velocity === 160 ? 'bg-primary text-white' : ''
+                    }`}
+                    onClick={() => setcurrentBus((pre) => ({ ...pre, velocity: 160 }))}
+                  >
+                    160
+                  </div>
+                </div>
               </div>
               <div className='flex'>
                 <div className='flex-1 overflow-hidden py-5 pl-5'>
-                  <svg
-                    className='inline align-text-top'
-                    width='21'
-                    height='20.5'
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='#000000'
-                  >
-                    <g>
-                      <path
-                        d='m4.88889,2.07407l14.22222,0l0,20l-14.22222,0l0,-20z'
-                        fill='none'
-                        id='svg_1'
-                        stroke='null'
-                      />
-                      <path
-                        d='m7.07935,0.05664c-3.87,0 -7,3.13 -7,7c0,5.25 7,13 7,13s7,-7.75 7,-13c0,-3.87 -3.13,-7 -7,-7zm-5,7c0,-2.76 2.24,-5 5,-5s5,2.24 5,5c0,2.88 -2.88,7.19 -5,9.88c-2.08,-2.67 -5,-7.03 -5,-9.88z'
-                        id='svg_2'
-                      />
-                      <circle cx='7.04807' cy='6.97256' r='2.5' id='svg_3' />
-                    </g>
-                  </svg>
-                  <h1 className='inline text-2xl font-semibold leading-none'>Operations</h1>
+                  <MyLocation className={`mb-3 mr-2 h-10 w-10 text-orange`} />
+                  <h1 className='inline text-2xl font-semibold leading-none'>Mode</h1>
                 </div>
                 <div className='flex-none pl-1 pr-2.5 pt-2.5' />
               </div>
               <div className='px-5 pb-5'>
-                {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
-                <form className='operations grid w-full max-w-screen-sm grid-cols-3 gap-2'>
-                  <div className='rounded-md'>
-                    <input
-                      className='hidden'
-                      id='radio_1'
-                      type='checkbox'
-                      onChange={() => setcurrentBus((prev) => ({ ...prev, state: 'slowed', velocity: 20 }))}
-                      name='checkbox'
-                    />
-                    <label
-                      className={` ${
-                        currentBus.state === 'slowed' ? 'active ' : ''
-                      }flex cursor-pointer flex-col rounded-md border-2 border-gray-400 p-4`}
-                      htmlFor='radio_1'
-                    >
-                      <span className='text-xs font-semibold uppercase'>bus</span>
-                      <span className='mt-2 truncate text-xl font-bold'>Slowed Down</span>
-                    </label>
-                  </div>
+                <form className='operations grid w-full max-w-screen-sm grid-cols-2 gap-2'>
                   <div className='rounded-md'>
                     <input
                       className='hidden'
@@ -409,11 +397,11 @@ function MapScreen() {
                     <label
                       className={` ${
                         currentBus.state === 'traffic' ? 'active ' : ''
-                      }flex cursor-pointer flex-col rounded-md border-2 border-gray-400 p-4`}
+                      }flex  cursor-pointer flex-col items-center justify-center rounded-md border-2 border-gray-400 p-4`}
                       htmlFor='radio_2'
                     >
                       <span className='text-xs font-semibold uppercase'>bus</span>
-                      <span className='mt-2 truncate text-xl font-bold '>In traffic</span>
+                      <span className='mt-2 truncate text-xl font-bold '>Traffic</span>
                     </label>
                   </div>
                   <div className='rounded-md' onClick={stop}>
@@ -421,12 +409,12 @@ function MapScreen() {
                     <label
                       className={` ${
                         currentBus.state === 'stopped' ? 'active ' : ''
-                      }flex cursor-pointer flex-col rounded-md border-2 border-gray-400 p-4`}
+                      }flex cursor-pointer flex-col items-center rounded-md border-2 border-gray-400 p-4`}
                       htmlFor='radio_3'
                     >
                       <span className='text-xs font-semibold uppercase'>bus</span>
                       <span className='mt-2 truncate text-xl font-bold'>{`${
-                        currentBus.state === 'stopped' ? 'Resume' : 'stopped'
+                        currentBus.state === 'stopped' ? 'Resume' : 'Stop'
                       }`}</span>
                     </label>
                   </div>
