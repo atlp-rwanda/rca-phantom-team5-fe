@@ -28,7 +28,7 @@ export default function SignInScreen() {
       </nav>
 
       <div className='flex flex-col items-center justify-center'>
-        <div className='rounded bg-white py-10 px-24'>
+        <div className='rounded bg-white px-24 py-10'>
           <Formik
             initialValues={{ email: '', password: '' }}
             validationSchema={Yup.object({
@@ -45,7 +45,7 @@ export default function SignInScreen() {
                   setErrortext('');
                   setLoading(false);
                   setSubmitting(false);
-                  navigate('/dashboard');
+                  navigate('/overview');
                 } else {
                   if (resultAction.payload) {
                     setErrortext(resultAction.payload.message);
@@ -66,11 +66,11 @@ export default function SignInScreen() {
               <Field
                 name='email'
                 type='email'
-                className='focus:shadow-outline w-full  appearance-none rounded border border-gray-300 py-3 px-6 leading-tight text-gray-700 focus:outline-none'
+                className='focus:shadow-outline w-full  appearance-none rounded border border-gray-300 px-6 py-3 leading-tight text-gray-700 focus:outline-none'
                 placeholder='Please Enter Your Email'
               />
               <ErrorMessage name='email'>
-                {(msg) => <div className='my-1 text-xs text-red-500'>{msg}</div>}
+                {(msg) => <div className='text-red-500 my-1 text-xs'>{msg}</div>}
               </ErrorMessage>
 
               <label htmlFor='password' className='mb-2 mt-6 font-semibold'>
@@ -79,13 +79,13 @@ export default function SignInScreen() {
               <Field
                 name='password'
                 type='password'
-                className='focus:shadow-outline w-full appearance-none rounded border border-gray-300 py-3 px-6 leading-tight text-gray-700 focus:outline-none'
+                className='focus:shadow-outline w-full appearance-none rounded border border-gray-300 px-6 py-3 leading-tight text-gray-700 focus:outline-none'
                 placeholder='Please Enter Your Password'
               />
               <ErrorMessage name='password'>
-                {(msg) => <div className='my-1 text-xs text-red-500'>{msg}</div>}
+                {(msg) => <div className='text-red-500 my-1 text-xs'>{msg}</div>}
               </ErrorMessage>
-              <div>{errortext && <div className='my-1 text-xs text-red-500'>{errortext}</div>}</div>
+              <div>{errortext && <div className='text-red-500 my-1 text-xs'>{errortext}</div>}</div>
               <div className='flex justify-end py-2'>
                 <Link to='/request-reset-password' className='text-xs font-bold text-primary'>
                   Forgot Password?

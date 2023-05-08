@@ -81,7 +81,7 @@ function Sidebar({ children }: Props) {
                 <li className='group my-2 flex items-center py-2'>
                   <div
                     className={`h-49 mr-4 w-2  ${
-                      location.pathname === '/dashboard'
+                      location.pathname === '/overview'
                         ? 'bg-orange text-orange'
                         : 'text-primary group-hover:bg-orange group-hover:text-orange'
                     }`}
@@ -90,13 +90,13 @@ function Sidebar({ children }: Props) {
                   </div>
                   <Dashboard
                     className={`h-6 w-6 ${
-                      location.pathname === '/dashboard' ? 'text-orange' : 'text-white'
+                      location.pathname === '/overview' ? 'text-orange' : 'text-white'
                     } group-hover:text-orange`}
                   />
                   <Link
-                    to='/dashboard'
+                    to='/overview'
                     className={`ml-2 ${
-                      location.pathname === '/dashboard' ? 'text-orange' : 'text-white'
+                      location.pathname === '/overview' ? 'text-orange' : 'text-white'
                     } group-hover:text-orange`}
                   >
                     Overview
