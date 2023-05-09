@@ -1,7 +1,16 @@
 import Sidebar from 'layouts/Sidebar';
 import PersonIcon from '@material-ui/icons/Person';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-import { useCallback, useEffect, useState } from 'react';
+import {
+  JSXElementConstructor,
+  Key,
+  ReactElement,
+  ReactFragment,
+  ReactPortal,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
@@ -89,6 +98,7 @@ export default function OverviewScreen() {
                     <p>Users</p>
                   </div>
                 </div>
+
 
                 <div className='mb-5 flex w-full flex-row justify-between p-8 shadow-md shadow-gray-300/90'>
                   <div className='mr-5 flex h-11 w-11 items-center justify-center rounded-full bg-primary'>
