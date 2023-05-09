@@ -39,7 +39,7 @@ const busSlice = createSlice({
     });
     builder.addCase(getAllBuses.fulfilled, (state, action) => {
       state.loading = false;
-      state.AllBuses = action.payload.data;
+      state.AllBuses = action.payload.data.rows;
       state.success = true;
       state.status = 'success';
     });
