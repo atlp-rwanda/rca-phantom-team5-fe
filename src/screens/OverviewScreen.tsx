@@ -1,7 +1,7 @@
 import Sidebar from 'layouts/Sidebar';
 import PersonIcon from '@material-ui/icons/Person';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
@@ -38,24 +38,27 @@ export default function OverviewScreen() {
   const userStatus = useSelector((state: any) => state.users.allUserStatus);
 
   useEffect(() => {
-    if (userStatus === 'idle') {
-      dispatch(GetLocations());
-      dispatch(getAllBuses());
-      dispatch(getRoutes());
-      dispatch(getAllUsers());
-      console.log('here I am ');
-      if (users.length > 0) {
-        console.log('here I am ');
-        users.forEach((user: UserDetails) => {
-          const monthIndex = new Date(user.created_at!).getMonth();
+    if (users.length > 0) {
+      users.forEach((user: UserDetails) => {
+        const monthIndex = user.created_at && new Date(user.created_at).getMonth();
+        if (monthIndex !== undefined) {
           console.log(monthIndex);
           setData((prevState) => {
             const newData = [...prevState.datasets[0].data];
             newData[monthIndex]++;
             return { ...prevState, datasets: [{ ...prevState.datasets[0], data: newData }] };
           });
-        });
-      }
+        }
+      });
+    }
+  }, [users]);
+
+  useEffect(() => {
+    if (userStatus === 'idle') {
+      dispatch(GetLocations());
+      dispatch(getAllBuses());
+      dispatch(getRoutes());
+      dispatch(getAllUsers());
     }
   }, [userStatus, data, dispatch]);
 
