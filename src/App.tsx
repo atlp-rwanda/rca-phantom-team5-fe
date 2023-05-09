@@ -33,8 +33,8 @@ function App() {
           <Route path='/request-reset-password' element={<RequestPasswordReset />} />
           <Route path='/register-user' element={<RegisterUserScreen />} />
           <Route path='/create-route' element={<CreateRouteScreen />} />
-          <Route path='/update-route' element={<UpdateRouteScreen />} />
-          <Route path='/route-details' element={<RouteDetailsScreen />} />
+          <Route path='/update-route/:id' element={<UpdateRouteScreen />} />
+          <Route path='/route-details/:id' element={<RouteDetailsScreen />} />
           <Route path='/routes' element={<ViewRoutesScreen />} />
           <Route path='/reset-password/:token' element={<PasswordReset />} />
           <Route path='/request-reset-password' element={<RequestPasswordReset />} />
