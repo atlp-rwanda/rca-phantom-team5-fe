@@ -8,6 +8,7 @@ import HomeScreen from 'screens/HomeScreen';
 import MapScreen from 'screens/MapScreen';
 import MapViewScreen from 'screens/MapViewScreen';
 import NotFoundScreen from 'screens/NotFoundScreen';
+import OverviewScreen from 'screens/OverviewScreen';
 import PasswordReset from 'screens/PasswordResetScreen';
 import RegisterUserScreen from 'screens/RegisterUser';
 import RequestPasswordReset from 'screens/RequestPasswordResetScreen';
@@ -16,11 +17,10 @@ import SignInScreen from 'screens/SignInScreen';
 import SignUpScreen from 'screens/SignUpScreen';
 import UpdateProfile from 'screens/UpdateProfile';
 import UpdateRouteScreen from 'screens/UpdateRouteScreen';
-import ViewRoutesScreen from 'screens/ViewRoutesScreen';
 import ViewBusesScreen from 'screens/ViewBusesScreen';
+import ViewRoutesScreen from 'screens/ViewRoutesScreen';
 
 import { userProfile } from './redux/api/authApi';
-import OverviewScreen from 'screens/OverviewScreen';
 
 function App() {
   return (
