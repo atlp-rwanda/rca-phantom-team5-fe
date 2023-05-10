@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Field, Form, Formik, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import { Oval } from 'react-loader-spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { RegisterUser } from '../redux/api/authApi';
-import { Oval } from 'react-loader-spinner';
 import { Link } from 'react-router-dom';
 import { Close } from '@material-ui/icons';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import * as Yup from 'yup';
+
+import { RegisterUser } from '../redux/api/authApi';
 
 export default function RegisterUserScreen() {
   const [errortext, setErrortext] = useState<string>('');
@@ -59,7 +60,7 @@ export default function RegisterUserScreen() {
                 setSelected('');
                 setLoading(false);
                 resetForm({ values: { fname: '', lname: '', nid: '', email: '', role: '', driver_licence: [] } });
-                setErrortext('User ' + resultAction.payload.message + ' Successfully');
+                setErrortext(`User ${resultAction.payload.message} Successfully`);
               } else {
                 if (resultAction.payload) {
                   setErrortext(resultAction.payload.message);
@@ -79,7 +80,7 @@ export default function RegisterUserScreen() {
                 <Field
                   name='fname'
                   type='text'
-                  className='focus:shadow-outline h-12 w-11/12 appearance-none rounded border border-gray-300 px-4 py-4 leading-tight text-gray-700 focus:outline-none max-[768px]:w-full'
+                  className='focus:shadow-outline h-12 w-11/12 appearance-none rounded border border-gray-300 p-4 leading-tight text-gray-700 focus:outline-none max-[768px]:w-full'
                   placeholder='Please Enter Your First Name'
                 />
                 <ErrorMessage name='fname'>{(msg) => <div className=' text-red-500'>{msg}</div>}</ErrorMessage>
@@ -91,7 +92,7 @@ export default function RegisterUserScreen() {
                 <Field
                   name='lname'
                   type='text'
-                  className='focus:shadow-outline h-12 w-11/12  appearance-none rounded border border-gray-300 px-4 py-4 leading-tight text-gray-700 focus:outline-none max-[768px]:w-full'
+                  className='focus:shadow-outline h-12 w-11/12  appearance-none rounded border border-gray-300 p-4 leading-tight text-gray-700 focus:outline-none max-[768px]:w-full'
                   placeholder='Please Enter Your Last Name'
                 />
                 <ErrorMessage name='lname'>{(msg) => <div className='text-red-500'>{msg}</div>}</ErrorMessage>
@@ -104,7 +105,7 @@ export default function RegisterUserScreen() {
                 <Field
                   name='nid'
                   type='text'
-                  className='focus:shadow-outline h-12 w-11/12  appearance-none  rounded border border-gray-300 px-4 py-4 leading-tight text-gray-700 focus:outline-none max-[768px]:w-full'
+                  className='focus:shadow-outline h-12 w-11/12  appearance-none  rounded border border-gray-300 p-4 leading-tight text-gray-700 focus:outline-none max-[768px]:w-full'
                   placeholder='Please Enter Your National ID'
                 />
                 <ErrorMessage name='nid'>{(msg) => <div className='text-red-500'>{msg}</div>}</ErrorMessage>
@@ -174,7 +175,7 @@ export default function RegisterUserScreen() {
                   <ErrorMessage name='licence'>{(msg) => <div className='text-red-500'>{msg}</div>}</ErrorMessage>
                 </div>
               ) : (
-                <div></div>
+                <div />
               )}
             </div>
 
@@ -184,10 +185,10 @@ export default function RegisterUserScreen() {
               <p className='mt-4 text-center text-red-600'>{errortext}</p>
             )}
 
-            <div className=' flex justify-center max-[768px]:justify-normal'>
+            <div className=' max-[768px]:justify-normal flex justify-center'>
               <button
                 type='submit'
-                className='focus:shadow-outline mt-4 w-5/12 rounded bg-primary px-4 py-4 font-bold text-white focus:outline-none max-[768px]:w-full'
+                className='focus:shadow-outline bg-primary mt-4 w-5/12 rounded p-4 font-bold text-white focus:outline-none max-[768px]:w-full'
               >
                 {loading ? (
                   <Oval

@@ -13,7 +13,10 @@ module.exports = {
       },
       colors: {
         primary: '#233862',
-        orange: '#FFA500',
+        orange: "#FFA500",
+        lightBlue: "#ECECF8",
+        green: "#00810D",
+        red: "#FF0202"
       },
     },
   },
