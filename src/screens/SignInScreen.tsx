@@ -69,9 +69,7 @@ export default function SignInScreen() {
                 className='focus:shadow-outline w-full  appearance-none rounded border border-gray-300 px-6 py-3 leading-tight text-gray-700 focus:outline-none'
                 placeholder='Please Enter Your Email'
               />
-              <ErrorMessage name='email'>
-                {(msg) => <div className='text-red-500 my-1 text-xs'>{msg}</div>}
-              </ErrorMessage>
+              <ErrorMessage name='email'>{(msg) => <div className='my-1 text-xs text-red'>{msg}</div>}</ErrorMessage>
 
               <label htmlFor='password' className='mb-2 mt-6 font-semibold'>
                 Password
@@ -82,10 +80,8 @@ export default function SignInScreen() {
                 className='focus:shadow-outline w-full appearance-none rounded border border-gray-300 px-6 py-3 leading-tight text-gray-700 focus:outline-none'
                 placeholder='Please Enter Your Password'
               />
-              <ErrorMessage name='password'>
-                {(msg) => <div className='text-red-500 my-1 text-xs'>{msg}</div>}
-              </ErrorMessage>
-              <div>{errortext && <div className='text-red-500 my-1 text-xs'>{errortext}</div>}</div>
+              <ErrorMessage name='password'>{(msg) => <div className='my-1 text-xs text-red'>{msg}</div>}</ErrorMessage>
+              <div>{errortext && <div className='my-1 text-xs text-red'>{errortext}</div>}</div>
               <div className='flex justify-end py-2'>
                 <Link to='/request-reset-password' className='text-xs font-bold text-primary'>
                   Forgot Password?

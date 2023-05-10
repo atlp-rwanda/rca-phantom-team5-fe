@@ -8,6 +8,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { RegisterUser } from '../redux/api/authApi';
+import Sidebar from 'layouts/Sidebar';
 
 export default function RegisterUserScreen() {
   const [errortext, setErrortext] = useState<string>('');
@@ -20,13 +21,13 @@ export default function RegisterUserScreen() {
   };
 
   return (
-    <div className='flex h-screen flex-col items-center justify-center bg-primary max-[768px]:h-full '>
-      <div className='w-7/12 rounded bg-white px-20 py-9 shadow-md max-[768px]:w-11/12 '>
+    <Sidebar>
+      <div className='w-full rounded bg-white px-20 py-9 max-[768px]:w-11/12 '>
         <span className='flex items-end justify-end'>
           {' '}
           <Link to='/dashboard' className='text-red-600'>
             {' '}
-            <Close className='h-10 bg-red-600 text-white' />{' '}
+            <Close className='bg-red-600 h-10 text-white' />{' '}
           </Link>
         </span>
         <h1 className='text-center text-3xl font-bold  max-[768px]:text-xl'>Register User </h1>
@@ -180,15 +181,15 @@ export default function RegisterUserScreen() {
             </div>
 
             {errortext === 'User Created Successfully' ? (
-              <p className='mt-4 text-center text-green-600'>{errortext}</p>
+              <p className='text-green-600 mt-4 text-center'>{errortext}</p>
             ) : (
-              <p className='mt-4 text-center text-red-600'>{errortext}</p>
+              <p className='text-red-600 mt-4 text-center'>{errortext}</p>
             )}
 
-            <div className=' max-[768px]:justify-normal flex justify-center'>
+            <div className=' flex justify-center max-[768px]:justify-normal'>
               <button
                 type='submit'
-                className='focus:shadow-outline bg-primary mt-4 w-5/12 rounded p-4 font-bold text-white focus:outline-none max-[768px]:w-full'
+                className='focus:shadow-outline mt-4 w-5/12 rounded bg-primary p-4 font-bold text-white focus:outline-none max-[768px]:w-full'
               >
                 {loading ? (
                   <Oval
@@ -211,6 +212,6 @@ export default function RegisterUserScreen() {
           </Form>
         </Formik>
       </div>
-    </div>
+    </Sidebar>
   );
 }

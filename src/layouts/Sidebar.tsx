@@ -180,8 +180,8 @@ function Sidebar({ children }: Props) {
                 {role === 'admin' || role === 'super_admin' ? (
                   <li className='group my-2  flex items-center py-2'>
                     <div
-                      className={`h-49 mr-4 w-2${
-                        location.pathname === '/buses'
+                      className={`h-49 mr-4 w-2 ${
+                        location.pathname === '/register-user'
                           ? 'bg-orange text-orange'
                           : 'text-primary group-hover:bg-orange group-hover:text-orange'
                       }`}
@@ -196,7 +196,7 @@ function Sidebar({ children }: Props) {
                     <Link
                       to='/register-user'
                       className={`ml-2 ${
-                        location.pathname === '/routes' ? 'text-orange' : 'text-white'
+                        location.pathname === '/register-user' ? 'text-orange' : 'text-white'
                       } group-hover:text-orange`}
                     >
                       Register
