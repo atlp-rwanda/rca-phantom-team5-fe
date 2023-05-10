@@ -1,12 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { logout } from '../redux/api/authApi';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { SwapHorizSharp } from '@material-ui/icons';
 import Button from 'components/Button';
 
-const Logout = () => {
+import { logout } from '../redux/api/authApi';
+
+export default function Logout() {
   const dispatch = useDispatch();
   // const navigate = useNavigate();
 
@@ -34,6 +35,4 @@ const Logout = () => {
       </ul>
     </div>
   );
-};
-
-export default Logout;
+}

@@ -144,7 +144,7 @@ function Sidebar({ children }: Props) {
                     } group-hover:text-orange`}
                   />
                   <Link
-                    to=''
+                    to='/routes'
                     className={`ml-2 ${
                       location.pathname === '/buses' ? 'text-orange' : 'text-white'
                     } group-hover:text-orange`}

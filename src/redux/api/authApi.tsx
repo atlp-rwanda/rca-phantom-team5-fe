@@ -1,10 +1,10 @@
+import { useEffect, useState } from 'react';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { AnyAction, Dispatch } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { RootState } from '../store';
 import baseUrl from 'utils/url';
-import { useEffect, useState } from 'react';
 
 export const RegisterUser = createAsyncThunk(
   'auth/register-user',
@@ -15,7 +15,7 @@ export const RegisterUser = createAsyncThunk(
     try {
       const token = localStorage.getItem('userToken');
       if ((payload.driver_licence = [])) {
-        let requestData = {
+        const requestData = {
           fname: payload.fname,
           lname: payload.lname,
           nid: payload.nid,
