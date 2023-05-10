@@ -5,6 +5,8 @@ import Sidebar from 'layouts/Sidebar';
 import CreateRouteScreen from 'screens/CreateRouteScreen';
 // import Dashboard from 'screens/Dashboaord';
 import HomeScreen from 'screens/HomeScreen';
+import MapScreen from 'screens/MapScreen';
+import MapViewScreen from 'screens/MapViewScreen';
 import NotFoundScreen from 'screens/NotFoundScreen';
 import PasswordReset from 'screens/PasswordResetScreen';
 import RegisterUserScreen from 'screens/RegisterUser';
@@ -15,12 +17,11 @@ import SignUpScreen from 'screens/SignUpScreen';
 import UpdateProfile from 'screens/UpdateProfile';
 import UpdateRouteScreen from 'screens/UpdateRouteScreen';
 import ViewRoutesScreen from 'screens/ViewRoutesScreen';
+import ViewBusesScreen from 'screens/ViewBusesScreen';
 
 import { userProfile } from './redux/api/authApi';
 
 function App() {
-  const user = userProfile();
-
   return (
     <Router>
       <Layout>
@@ -48,6 +49,16 @@ function App() {
           />
           <Route path='/update-profile' element={<UpdateProfile />} />
           <Route path='*' element={<NotFoundScreen />} />
+          <Route path='/view-buses' element={<ViewBusesScreen />} />
+          <Route
+            path='/map'
+            element={
+              <PrivateRoute redirectPath='/login'>
+                <MapScreen />{' '}
+              </PrivateRoute>
+            }
+          />
+          <Route path='/map-view' element={<MapViewScreen />} />
           <Route
             path='/dashboard'
             element={
