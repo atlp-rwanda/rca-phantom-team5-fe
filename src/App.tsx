@@ -16,6 +16,7 @@ import ViewBusesScreen from 'screens/ViewBusesScreen';
 
 import { userProfile } from './redux/api/authApi';
 import OverviewScreen from 'screens/OverviewScreen';
+import RolesList from 'screens/RolesScreen';
 
 function App() {
   return (
@@ -53,6 +54,15 @@ function App() {
             element={
               <PrivateRoute redirectPath='/login'>
                 <OverviewScreen />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path='/roles'
+            element={
+              <PrivateRoute redirectPath='/login'>
+                <RolesList />
               </PrivateRoute>
             }
           />

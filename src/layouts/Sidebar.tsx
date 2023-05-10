@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { Dashboard, DirectionsBus, MyLocation, People, Settings, Timeline } from '@material-ui/icons';
+import { Dashboard, DirectionsBus, MyLocation, People, Settings, Timeline, Lock } from '@material-ui/icons';
 import Navbar from 'components/Navbar';
 import { ThunkDispatch } from 'redux-thunk';
 
@@ -102,6 +102,33 @@ function Sidebar({ children }: Props) {
                     Overview
                   </Link>
                 </li>
+
+                {role === 'admin' || role === 'super_admin' ? (
+                  <li className='group my-2  flex items-center py-2'>
+                    <div
+                      className={`h-49 mr-4 w-2${
+                        location.pathname === '/buses'
+                          ? 'bg-orange text-orange'
+                          : 'group-hover:bg-orange group-hover:text-orange'
+                      }`}
+                    >
+                      l
+                    </div>
+                    <Lock
+                      className={`h-6 w-6 ${
+                        location.pathname === '/roles' ? 'text-orange' : 'text-white'
+                      } group-hover:text-orange`}
+                    />
+                    <Link
+                      to='/roles'
+                      className={`ml-2 ${
+                        location.pathname === '/roles' ? 'text-orange' : 'text-white'
+                      } group-hover:text-orange`}
+                    >
+                      Roles
+                    </Link>
+                  </li>
+                ) : null}
                 {role === 'driver' && (
                   <li className='group my-2  flex items-center py-2'>
                     <div
