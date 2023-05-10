@@ -26,7 +26,7 @@ export default function RequestPasswordReset() {
       </nav>
       <div className='flex flex-col justify-center  py-12 sm:px-6 lg:px-8 '>
         <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'>
-          <div className='bg-white py-8 px-4 shadow sm:rounded-xl sm:px-10'>
+          <div className='bg-white px-4 py-8 shadow sm:rounded-xl sm:px-10'>
             <div className='pb-8'>
               <h2 className='mt-1 text-center text-lg text-black'>Reset Your Password</h2>
               <p className='max-w mt-2 text-center text-sm text-primary'>
@@ -79,20 +79,20 @@ export default function RequestPasswordReset() {
                    focus:placeholder:text-gray-500 sm:text-sm'
                     />
                     <ErrorMessage name='email'>
-                      {(msg) => <div className='my-1 text-xs text-red-500'>{msg}</div>}
+                      {(msg) => <div className='my-1 text-xs text-red'>{msg}</div>}
                     </ErrorMessage>
-                    <div>{errorText && <div className='my-1 text-xs text-red-500'>{errorText}</div>}</div>
+                    <div>{errorText && <div className='my-1 text-xs text-red'>{errorText}</div>}</div>
                   </div>
                 </div>
 
                 <div>
                   {emailSent ? (
                     <div>
-                      {success && <div className='pb-3 text-xs text-green-700'>{success}!</div>}
+                      {success && <div className='text-green-700 pb-3 text-xs'>{success}!</div>}
                       <button
                         type='submit'
                         className='flex w-full justify-center rounded-md border border-transparent
-                   bg-primary py-2 px-4 text-sm font-medium text-white
+                   bg-primary px-4 py-2 text-sm font-medium text-white
                     shadow-sm hover:bg-primary'
                       >
                         {loading ? (
@@ -117,7 +117,7 @@ export default function RequestPasswordReset() {
                     <button
                       type='submit'
                       className='flex w-full justify-center rounded-md border border-transparent
-                   bg-primary py-2 px-4 text-sm font-medium text-white
+                   bg-primary px-4 py-2 text-sm font-medium text-white
                     shadow-sm hover:bg-primary'
                     >
                       {loading ? (
