@@ -139,7 +139,7 @@ export default function OverviewScreen() {
             </div>
 
             <div className='mt-10 flex flex-col justify-between md:flex-row'>
-              <div className={`${user.role !== 'driver' ? 'grid grid-cols-2' : null} gap-2 `}>
+              <div className={`grid grid-cols-2 gap-2 `}>
                 {user.role === 'admin' || user.role === 'super_admin' || user.role === 'operator' ? (
                   <div className='mb-5 flex w-full flex-row justify-between p-8 shadow-md shadow-gray-300/90'>
                     <div className='mr-5 flex h-11 w-11 items-center justify-center rounded-full bg-primary'>
@@ -156,7 +156,7 @@ export default function OverviewScreen() {
                 {user.role === 'admin' ||
                 user.role === 'super_admin' ||
                 user.role === 'operator' ||
-                user.role === 'drive' ? (
+                user.role === 'driver' ? (
                   <div className='mb-5 flex w-full flex-row justify-between p-8 shadow-md shadow-gray-300/90'>
                     <div className='mr-5 flex h-11 w-11 items-center justify-center rounded-full bg-primary'>
                       <div className='flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-primary'>
