@@ -15,6 +15,7 @@ import UpdateProfile from 'screens/UpdateProfile';
 import ViewBusesScreen from 'screens/ViewBusesScreen';
 
 import { userProfile } from './redux/api/authApi';
+import OverviewScreen from 'screens/OverviewScreen';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             }
           />
           <Route path='/update-profile' element={<UpdateProfile />} />
+          {/* <Route path='/overview' element={<OverviewScreen />} /> */}
           <Route path='*' element={<NotFoundScreen />} />
           <Route path='/view-buses' element={<ViewBusesScreen />} />
           <Route
@@ -47,10 +49,10 @@ function App() {
           />
           <Route path='/map-view' element={<MapViewScreen />} />
           <Route
-            path='/dashboard'
+            path='/overview'
             element={
               <PrivateRoute redirectPath='/login'>
-                <Sidebar children={undefined} />
+                <OverviewScreen />
               </PrivateRoute>
             }
           />

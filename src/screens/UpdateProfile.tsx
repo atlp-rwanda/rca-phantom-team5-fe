@@ -59,7 +59,7 @@ const UpdateProfile = () => {
           <div className='bg-white '>
             <div className='rounded bg-white px-20 py-10'>
               <h1 className='text-center text-3xl font-bold  max-[768px]:text-2xl'>Update Profile</h1>
-              <p className='text-red-600 mt-4 text-center'>{errortext}</p>
+              <p className='mt-4 text-center text-red'>{errortext}</p>
               <Formik
                 initialValues={{
                   fname: user.fname,
