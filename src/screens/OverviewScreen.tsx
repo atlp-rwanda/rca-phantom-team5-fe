@@ -12,6 +12,7 @@ import { getAllUsers } from '../redux/api/usersApi';
 import { getRoutes } from '../redux/api/routeApi';
 import { UserDetails } from 'utils/types';
 import { getProfile } from '../redux/api/authApi';
+import { DirectionsBus, Timeline, MyLocationSharp } from '@material-ui/icons';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -159,7 +160,7 @@ export default function OverviewScreen() {
                   <div className='mb-5 flex w-full flex-row justify-between p-8 shadow-md shadow-gray-300/90'>
                     <div className='mr-5 flex h-11 w-11 items-center justify-center rounded-full bg-primary'>
                       <div className='flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-primary'>
-                        <PersonIcon className='text-white' />
+                        <Timeline className='text-white' />
                       </div>
                     </div>
                     <div className='mt-1 text-sm'>
@@ -176,7 +177,7 @@ export default function OverviewScreen() {
                   <div className='mb-5 flex w-full flex-row justify-between p-8 shadow-md shadow-gray-300/90'>
                     <div className='mr-5 flex h-11 w-11 items-center justify-center rounded-full bg-primary'>
                       <div className='flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-primary'>
-                        <PersonIcon className='text-white' />
+                        <DirectionsBus className='text-white' />
                       </div>
                     </div>
                     <div className='mt-1 text-sm'>
@@ -190,7 +191,7 @@ export default function OverviewScreen() {
                   <div className='mb-5 flex w-full flex-row justify-between p-8 shadow-md shadow-gray-300/90'>
                     <div className='mr-5 flex h-11 w-11 items-center justify-center rounded-full bg-primary'>
                       <div className='flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-primary'>
-                        <PersonIcon className='text-white' />
+                        <MyLocationSharp className='text-white' />
                       </div>
                     </div>
                     <div className='mt-1 text-sm'>
