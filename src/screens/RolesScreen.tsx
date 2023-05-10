@@ -87,7 +87,7 @@ export default function OverviewScreen() {
         <div className='mt-5'>
           <h2 className='mb-5'>All users in system </h2>
 
-          <table className='text-left text-sm text-gray-500 dark:text-gray-400'>
+          <table className='justify-center text-sm text-gray-500 dark:text-gray-400'>
             <thead className='h-full w-full bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
                 <th scope='col' className='p-4'>
@@ -188,91 +188,92 @@ export default function OverviewScreen() {
                     <td className='p-4'>{user.role}</td>
 
                     <td>
-                      <Link to={''} className='h-[100px] w-10 text-blue-600'>
+                      <Link to={''} className='h-[100px] w-10 p-4 text-blue-600'>
                         <Edit />
                       </Link>
                       {''}
 
                       <Link to={`#delete-${user.id}`} className='text-red-600'>
-                        <Delete />
+                        <Delete className='text-red' />
                       </Link>
                     </td>
                   </tr>
                 ),
               )}
             </tbody>
-            <nav className='flex items-center justify-center pt-4' aria-label='Table navigation'>
-              <ul className='mb-4 inline-flex items-center gap-4'>
-                <li>
-                  <a
-                    href='#'
-                    className='ml-0 block rounded-l-lg bg-white px-3 py-2 leading-tight  text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
-                  >
-                    <span className='sr-only'>Previous</span>
-                    <svg
-                      className='h-5 w-5'
-                      aria-hidden='true'
-                      fill='currentColor'
-                      viewBox='0 0 20 20'
-                      xmlns='http://www.w3.org/2000/svg'
-                    >
-                      <path
-                        fill-rule='evenodd'
-                        d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
-                        clip-rule='evenodd'
-                      ></path>
-                    </svg>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href='#'
-                    className='border-color-gray rounded-full border bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
-                  >
-                    1
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href='#'
-                    className='border-color-gray rounded-full border bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
-                  >
-                    2
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href='#'
-                    className='border-color-gray rounded-full border bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
-                  >
-                    3
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href='#'
-                    className='block rounded-r-lg bg-white px-3 py-2 leading-tight  text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
-                  >
-                    <span className='sr-only'>Next</span>
-                    <svg
-                      className='h-5 w-5'
-                      aria-hidden='true'
-                      fill='currentColor'
-                      viewBox='0 0 20 20'
-                      xmlns='http://www.w3.org/2000/svg'
-                    >
-                      <path
-                        fill-rule='evenodd'
-                        d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z'
-                        clip-rule='evenodd'
-                      ></path>
-                    </svg>
-                  </a>
-                </li>
-              </ul>
-            </nav>
           </table>
+
+          <nav className='ml-80 items-center pt-4' aria-label='Table navigation'>
+            <ul className='mb-4 inline-flex items-center justify-center gap-4'>
+              <li>
+                <a
+                  href='#'
+                  className='ml-0 block rounded-l-lg bg-white px-3 py-2 leading-tight  text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+                >
+                  <span className='sr-only'>Previous</span>
+                  <svg
+                    className='h-5 w-5'
+                    aria-hidden='true'
+                    fill='currentColor'
+                    viewBox='0 0 20 20'
+                    xmlns='http://www.w3.org/2000/svg'
+                  >
+                    <path
+                      fill-rule='evenodd'
+                      d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
+                      clip-rule='evenodd'
+                    ></path>
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a
+                  href='#'
+                  className='border-color-gray rounded-full border bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+                >
+                  1
+                </a>
+              </li>
+              <li>
+                <a
+                  href='#'
+                  className='border-color-gray rounded-full border bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+                >
+                  2
+                </a>
+              </li>
+              <li>
+                <a
+                  href='#'
+                  className='border-color-gray rounded-full border bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+                >
+                  3
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href='#'
+                  className='block rounded-r-lg bg-white px-3 py-2 leading-tight  text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+                >
+                  <span className='sr-only'>Next</span>
+                  <svg
+                    className='h-5 w-5'
+                    aria-hidden='true'
+                    fill='currentColor'
+                    viewBox='0 0 20 20'
+                    xmlns='http://www.w3.org/2000/svg'
+                  >
+                    <path
+                      fill-rule='evenodd'
+                      d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z'
+                      clip-rule='evenodd'
+                    ></path>
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </section>
     </Sidebar>
